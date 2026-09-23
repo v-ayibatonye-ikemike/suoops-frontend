@@ -224,6 +224,9 @@ export interface BusinessSnapshotTaxCompliance {
   vat_registered: boolean;
   has_generated_tax_report: boolean;
   business_size: string | null;
+  tin_verified: boolean;
+  cac_verified: boolean;
+  cac_registered_name: string | null;
 }
 
 export interface BusinessSnapshotActivityMix {

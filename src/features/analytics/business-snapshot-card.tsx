@@ -127,6 +127,22 @@ export function BusinessSnapshotCard() {
         </div>
       </div>
 
+      {/* Independently verified identity — a stronger signal than self-declared fields */}
+      {(data.tax_compliance.tin_verified || data.tax_compliance.cac_verified) && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {data.tax_compliance.tin_verified && (
+            <span className="rounded-full bg-green-100 px-2.5 py-1 text-[11px] font-medium text-green-700">
+              ✅ TIN verified
+            </span>
+          )}
+          {data.tax_compliance.cac_verified && (
+            <span className="rounded-full bg-green-100 px-2.5 py-1 text-[11px] font-medium text-green-700">
+              ✅ CAC verified{data.tax_compliance.cac_registered_name ? `: ${data.tax_compliance.cac_registered_name}` : ""}
+            </span>
+          )}
+        </div>
+      )}
+
       {/* Disclaimer — always visible, never hidden */}
       <p className="mt-4 rounded-md bg-slate-50 p-3 text-[11px] leading-snug text-slate-500">
         ℹ️ {data.disclaimer}

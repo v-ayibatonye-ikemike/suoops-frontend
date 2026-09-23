@@ -13,6 +13,7 @@ interface TaxProfileData {
   is_small_business: boolean;
   registration: {
     tin: string | null;
+    tin_verified?: boolean;
     vat_registered: boolean;
     vat_number: string | null;
     firs_registered: boolean;
@@ -20,6 +21,9 @@ interface TaxProfileData {
     business_type: string;
     vat_apply_to: string;
     withholding_vat_applies: boolean;
+    rc_number?: string | null;
+    cac_verified?: boolean;
+    cac_registered_name?: string | null;
   };
   tax_rates: Record<string, number>;
   classification: {
@@ -28,6 +32,14 @@ interface TaxProfileData {
     meets_small_criteria: boolean;
   };
   tax_benefits: Record<string, string>;
+}
+
+interface VerificationResult {
+  verified: boolean;
+  verification_status: string;
+  charged_kobo: number;
+  registered_name?: string | null;
+  message: string;
 }
 
 interface TaxProfileUpdatePayload {
@@ -50,6 +62,7 @@ export default function TaxProfileSettings() {
   const [businessType, setBusinessType] = useState<"goods" | "services" | "mixed">("mixed");
   const [vatApplyTo, setVatApplyTo] = useState<"all" | "selected">("all");
   const [withholdingVat, setWithholdingVat] = useState(false);
+  const [rcNumber, setRcNumber] = useState("");
 
   const { data: profile, isLoading } = useQuery<TaxProfileData>({
     queryKey: ["taxProfile"],
@@ -70,6 +83,7 @@ export default function TaxProfileSettings() {
       setBusinessType((reg.business_type as "goods" | "services" | "mixed") || "mixed");
       setVatApplyTo((reg.vat_apply_to as "all" | "selected") || "all");
       setWithholdingVat(reg.withholding_vat_applies || false);
+      setRcNumber(reg.rc_number || "");
     }
   }, [profile]);
 
@@ -85,6 +99,39 @@ export default function TaxProfileSettings() {
     },
     onError: (err: Error & { response?: { data?: { detail?: string } } }) => {
       toast.error(err.response?.data?.detail || "Failed to update profile");
+    },
+  });
+
+  const verifyTinMutation = useMutation({
+    mutationFn: async () => (await apiClient.post<VerificationResult>("/tax/profile/verify-tin")).data,
+    onSuccess: (result) => {
+      if (result.verified) {
+        toast.success(`${result.message} (₦${(result.charged_kobo / 100).toFixed(2)} charged)`);
+      } else {
+        toast.error(result.message);
+      }
+      queryClient.invalidateQueries({ queryKey: ["taxProfile"] });
+      queryClient.invalidateQueries({ queryKey: ["business-snapshot"] });
+    },
+    onError: (err: Error & { response?: { data?: { error?: { message?: string }; detail?: string } } }) => {
+      toast.error(err.response?.data?.error?.message || err.response?.data?.detail || "TIN verification failed");
+    },
+  });
+
+  const verifyCacMutation = useMutation({
+    mutationFn: async () =>
+      (await apiClient.post<VerificationResult>("/tax/profile/verify-cac", { rc_number: rcNumber })).data,
+    onSuccess: (result) => {
+      if (result.verified) {
+        toast.success(`${result.message} (₦${(result.charged_kobo / 100).toFixed(2)} charged)`);
+      } else {
+        toast.error(result.message);
+      }
+      queryClient.invalidateQueries({ queryKey: ["taxProfile"] });
+      queryClient.invalidateQueries({ queryKey: ["business-snapshot"] });
+    },
+    onError: (err: Error & { response?: { data?: { error?: { message?: string }; detail?: string } } }) => {
+      toast.error(err.response?.data?.error?.message || err.response?.data?.detail || "CAC verification failed");
     },
   });
 
@@ -337,6 +384,89 @@ export default function TaxProfileSettings() {
                   />
                 </div>
               )}
+            </div>
+          </div>
+
+          {/* ── 5. Independent Verification (Mono) ── */}
+          <div>
+            <h3 className="mb-1 text-sm font-semibold text-brand-text">
+              5. Independent Verification{" "}
+              <span className="font-normal text-brand-textMuted">(optional, small fee)</span>
+            </h3>
+            <p className="mb-3 text-xs text-brand-textMuted">
+              Confirm your TIN/CAC against the official registry via Mono — this is a stronger,
+              independently-verified signal than the self-declared fields above, and strengthens
+              your Business Snapshot if you share it with a bank or lender.
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {/* TIN verification */}
+              <div className="rounded-lg border border-brand-border p-3">
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="text-xs font-medium text-brand-textMuted">TIN</span>
+                  {profile?.registration.tin_verified ? (
+                    <span className="rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-medium text-green-700">
+                      ✅ Verified
+                    </span>
+                  ) : (
+                    <span className="text-[11px] text-brand-textMuted">₦50 to verify</span>
+                  )}
+                </div>
+                <Button
+                  onClick={() => verifyTinMutation.mutate()}
+                  disabled={
+                    !profile?.registration.tin ||
+                    profile.registration.tin_verified ||
+                    verifyTinMutation.isPending
+                  }
+                  variant="secondary"
+                  className="w-full text-xs"
+                >
+                  {!profile?.registration.tin
+                    ? "Save a TIN first"
+                    : profile.registration.tin_verified
+                      ? "Verified"
+                      : verifyTinMutation.isPending
+                        ? "Verifying…"
+                        : "Verify TIN"}
+                </Button>
+              </div>
+
+              {/* CAC/RC verification */}
+              <div className="rounded-lg border border-brand-border p-3">
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="text-xs font-medium text-brand-textMuted">CAC / RC Number</span>
+                  {profile?.registration.cac_verified ? (
+                    <span className="rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-medium text-green-700">
+                      ✅ Verified
+                    </span>
+                  ) : (
+                    <span className="text-[11px] text-brand-textMuted">₦10 to verify</span>
+                  )}
+                </div>
+                {profile?.registration.cac_verified ? (
+                  <p className="text-xs text-brand-text">
+                    {profile.registration.cac_registered_name}
+                  </p>
+                ) : (
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="e.g. RC1234567"
+                      value={rcNumber}
+                      onChange={(e) => setRcNumber(e.target.value.toUpperCase())}
+                      className="min-w-0 flex-1 rounded-lg border border-brand-border bg-white px-2 py-1.5 text-xs text-brand-text placeholder:text-brand-textMuted/40 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20"
+                    />
+                    <Button
+                      onClick={() => verifyCacMutation.mutate()}
+                      disabled={!rcNumber || verifyCacMutation.isPending}
+                      variant="secondary"
+                      className="shrink-0 text-xs"
+                    >
+                      {verifyCacMutation.isPending ? "Verifying…" : "Verify"}
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
