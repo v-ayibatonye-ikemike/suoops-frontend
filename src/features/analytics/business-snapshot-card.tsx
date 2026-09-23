@@ -9,6 +9,7 @@ const COMPONENT_LABELS: Record<string, string> = {
   professionalism: "Professionalism",
   tax_compliance: "Tax / VAT tracking",
   activity_depth: "Activity depth",
+  fulfillment_reliability: "Delivery & fulfillment",
 };
 
 function formatAmount(amount: number): string {
@@ -125,6 +126,19 @@ export function BusinessSnapshotCard() {
             {formatAmount(data.data_provenance.self_reported_amount)} self-reported
           </p>
         </div>
+        {data.fulfillment_reliability.total_storefront_orders > 0 && (
+          <div className="sm:col-span-2">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-muted">
+              Storefront delivery & fulfillment
+            </p>
+            <p className="mt-1 text-xs text-brand-dark">
+              {data.fulfillment_reliability.delivered_and_released_count} delivered &amp; confirmed ·{" "}
+              {data.fulfillment_reliability.disputed_count} disputed ·{" "}
+              {data.fulfillment_reliability.refunded_count} refunded (out of{" "}
+              {data.fulfillment_reliability.total_storefront_orders} escrow-protected orders)
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Independently verified identity — a stronger signal than self-declared fields */}

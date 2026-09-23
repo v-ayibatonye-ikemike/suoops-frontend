@@ -236,6 +236,13 @@ export interface BusinessSnapshotActivityMix {
   walk_in_sale_amount: number;
 }
 
+export interface BusinessSnapshotFulfillmentReliability {
+  total_storefront_orders: number;
+  delivered_and_released_count: number;
+  disputed_count: number;
+  refunded_count: number;
+}
+
 export interface BusinessSnapshotDataProvenance {
   gateway_confirmed_amount: number;
   self_reported_amount: number;
@@ -253,6 +260,7 @@ export interface BusinessSnapshot {
   professionalism_score: number;
   tax_compliance: BusinessSnapshotTaxCompliance;
   activity_mix: BusinessSnapshotActivityMix;
+  fulfillment_reliability: BusinessSnapshotFulfillmentReliability;
   data_provenance: BusinessSnapshotDataProvenance;
   disclaimer: string;
 }
