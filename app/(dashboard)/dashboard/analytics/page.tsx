@@ -11,6 +11,7 @@ import { MonthlyTrendsChart } from "@/features/analytics/monthly-trends-chart";
 import { TopCustomersCard } from "@/features/analytics/top-customers-card";
 import { ConversionFunnelCard } from "@/features/analytics/conversion-funnel-card";
 import { StorefrontInsightsCard } from "@/features/analytics/storefront-insights-card";
+import { BusinessSnapshotCard } from "@/features/analytics/business-snapshot-card";
 import { useCurrencyStore } from "@/stores/currency-store";
 import { useCurrency } from "@/hooks/use-currency";
 
@@ -118,6 +119,15 @@ export default function AnalyticsPage() {
         {/* Analytics Content */}
         {analytics && (
           <div className="space-y-8">
+            {/* Business Snapshot — for sharing with a financial institution */}
+            <section className="space-y-4">
+              <SectionHeading
+                title="Business Snapshot"
+                subtitle="A shareable activity summary — for financial institution conversations"
+              />
+              <BusinessSnapshotCard />
+            </section>
+
             {/* Revenue */}
             <section className="space-y-4">
               <SectionHeading

@@ -194,6 +194,73 @@ export async function getCustomerInsights(
   return response.data;
 }
 
+// ── Business Snapshot ──────────────────────────────────────────────
+// A composite SME activity signal assembled from data SuoOps already has
+// (payment reliability, revenue consistency, professionalism, tax/VAT
+// compliance, activity depth) — see the backend docstring. NOT a credit
+// score; intended for sharing with a financial institution alongside its
+// own underwriting and cross-bank data.
+
+export interface BusinessSnapshotAging {
+  current: number;
+  days_31_60: number;
+  days_61_90: number;
+  over_90_days: number;
+  total_outstanding: number;
+}
+
+export interface BusinessSnapshotPaymentReliability {
+  paid_ratio: number;
+  overdue_ratio: number;
+  aging: BusinessSnapshotAging;
+}
+
+export interface BusinessSnapshotRevenueConsistency {
+  months_with_revenue: number;
+  months_checked: number;
+}
+
+export interface BusinessSnapshotTaxCompliance {
+  vat_registered: boolean;
+  has_generated_tax_report: boolean;
+  business_size: string | null;
+}
+
+export interface BusinessSnapshotActivityMix {
+  billed_invoice_count: number;
+  billed_invoice_amount: number;
+  walk_in_sale_count: number;
+  walk_in_sale_amount: number;
+}
+
+export interface BusinessSnapshotDataProvenance {
+  gateway_confirmed_amount: number;
+  self_reported_amount: number;
+}
+
+export interface BusinessSnapshot {
+  generated_at: string;
+  period_months: number;
+  composite_score: number;
+  level: string;
+  components: Record<string, number>;
+  component_weights: Record<string, number>;
+  payment_reliability: BusinessSnapshotPaymentReliability;
+  revenue_consistency: BusinessSnapshotRevenueConsistency;
+  professionalism_score: number;
+  tax_compliance: BusinessSnapshotTaxCompliance;
+  activity_mix: BusinessSnapshotActivityMix;
+  data_provenance: BusinessSnapshotDataProvenance;
+  disclaimer: string;
+}
+
+export async function getBusinessSnapshot(): Promise<BusinessSnapshot> {
+  const response = await apiClient.get<BusinessSnapshot>(
+    "/analytics/business-snapshot"
+  );
+  return response.data;
+}
+
 // ── Storefront Insights ───────────────────────────────────────────
 
 export interface StorefrontTopProduct {
