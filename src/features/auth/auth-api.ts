@@ -15,6 +15,15 @@ export type TokenPayload = {
 
 export type MessagePayload = { detail: string };
 
+export type OTPChannel = "email" | "whatsapp";
+
+export function getOTPChannel(message: MessagePayload, fallback: OTPChannel): OTPChannel {
+  const detail = message.detail.toLowerCase();
+  if (detail.includes("email")) return "email";
+  if (detail.includes("whatsapp")) return "whatsapp";
+  return fallback;
+}
+
 export type SignupStartPayload = {
   phone: string;
   email?: string | null;

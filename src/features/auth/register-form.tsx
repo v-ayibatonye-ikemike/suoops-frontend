@@ -9,8 +9,10 @@ import {
   verifySignupOTP,
   resendOTP,
   getOTPDeliveryStatus,
+  getOTPChannel,
   type SignupStartPayload,
   type OTPDeliveryStatus,
+  type OTPChannel,
 } from "./auth-api";
 import { useAuthStore } from "./auth-store";
 import { OTPInput } from "./otp-input";
@@ -52,6 +54,7 @@ export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
   const [resendTimer, setResendTimer] = useState(0);
   const [deliveryFailure, setDeliveryFailure] = useState<OTPDeliveryStatus | null>(null);
+  const [otpChannel, setOtpChannel] = useState<OTPChannel>("email");
 
   // Bank details state
   const [bankName, setBankName] = useState("");
@@ -226,7 +229,8 @@ export function RegisterForm() {
         } catch {
           /* fingerprinting is best-effort — ignore failures */
         }
-        await requestSignupOTP(payload);
+        const response = await requestSignupOTP(payload);
+        setOtpChannel(getOTPChannel(response, "email"));
         setFormValues(payload);
         setDeliveryFailure(null);
         setStep("otp");
@@ -276,14 +280,14 @@ export function RegisterForm() {
         return;
       }
       if (otp.length !== 6) {
-        setError("Enter the 6-digit code sent to your email.");
+        setError(`Enter the 6-digit code sent to your ${otpChannel === "email" ? "email" : "WhatsApp"}.`);
         return;
       }
       // OTP looks valid — move to bank details step
       setError(null);
       setStep("bank");
     },
-    [formValues, otp]
+    [formValues, otp, otpChannel]
   );
 
   const handleCompleteSignup = useCallback(
@@ -353,7 +357,8 @@ export function RegisterForm() {
       setLoading(true);
       setError(null);
       setDeliveryFailure(null);
-      await resendOTP({ phone: formValues.phone, purpose: "signup" });
+      const response = await resendOTP({ phone: formValues.phone, purpose: "signup" });
+      setOtpChannel(getOTPChannel(response, otpChannel));
       setOtp("");
       startResendCountdown();
     } catch (resendError: unknown) {
@@ -366,7 +371,7 @@ export function RegisterForm() {
     } finally {
       setLoading(false);
     }
-  }, [canResend, formValues, startResendCountdown]);
+  }, [canResend, formValues, otpChannel, startResendCountdown]);
 
   // Poll the backend for asynchronous WhatsApp delivery-status updates so
   // that if Meta later reports the OTP message as undeliverable (e.g. the
@@ -374,7 +379,7 @@ export function RegisterForm() {
   // the business account has a payment issue) we can surface that to the
   // user instead of leaving them stuck on the OTP screen.
   useEffect(() => {
-    if (step !== "otp" || !formValues?.phone) {
+    if (step !== "otp" || otpChannel !== "whatsapp" || !formValues?.phone) {
       return;
     }
     let cancelled = false;
@@ -406,15 +411,21 @@ export function RegisterForm() {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [step, formValues?.phone]);
+  }, [step, otpChannel, formValues?.phone]);
 
   if (step === "otp") {
     return (
       <form className="flex w-full max-w-md flex-col gap-6 rounded-2xl bg-white p-10 shadow-xl" onSubmit={handleVerifyOTP}>
         <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-semibold text-slate-900">Verify your email</h1>
+          <h1 className="text-2xl font-semibold text-slate-900">
+            Verify your {otpChannel === "email" ? "email" : "WhatsApp number"}
+          </h1>
           <p className="text-sm text-slate-500">
-            Enter the verification code sent to <span className="font-semibold text-slate-700">{formValues?.email}</span>. You&apos;ll verify your WhatsApp number next.
+            Enter the verification code sent to{" "}
+            <span className="font-semibold text-slate-700">
+              {otpChannel === "email" ? formValues?.email : formValues?.phone}
+            </span>
+            {otpChannel === "email" ? ". You'll verify your WhatsApp number next." : "."}
           </p>
         </div>
         {error ? (
@@ -464,7 +475,7 @@ export function RegisterForm() {
             }}
             className="text-sm text-slate-500 hover:text-slate-700"
           >
-            Use a different number
+            Change signup details
           </button>
         </div>
       </form>
@@ -582,7 +593,7 @@ export function RegisterForm() {
           className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-base font-normal text-slate-900 outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-600/20"
         />
         <span className="text-xs font-normal text-slate-400">
-          We&apos;ll send your OTP here and connect you to the invoice bot
+          We&apos;ll use this number for the invoice bot and as a backup if email delivery fails
         </span>
       </label>
       <label className="flex flex-col gap-2 text-left text-sm font-semibold text-slate-700">
@@ -603,7 +614,7 @@ export function RegisterForm() {
           placeholder="you@example.com"
           className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-base font-normal text-slate-900 outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-600/20"
         />
-        <span className="text-xs font-normal text-slate-400">We send your login verification codes here.</span>
+        <span className="text-xs font-normal text-slate-400">We&apos;ll send your signup and login verification codes here.</span>
       </label>
       
       {/* Referral Code Input */}
@@ -676,7 +687,7 @@ export function RegisterForm() {
         disabled={loading || !acceptTerms}
         className="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {loading ? "Sending code..." : "Send WhatsApp verification code"}
+        {loading ? "Sending code..." : "Send verification code"}
       </button>
       <p className="text-center text-sm text-slate-600">
         Already have an account?{" "}
