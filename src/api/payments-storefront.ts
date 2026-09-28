@@ -31,6 +31,7 @@ export interface StorefrontStatus {
   online_payments?: boolean;
   listable_product_count?: number;
   suggestions?: string[];
+  social_promotion_opt_in?: boolean;
 }
 
 export interface StorefrontUpdate {
@@ -41,6 +42,7 @@ export interface StorefrontUpdate {
   state?: string;
   hours?: StorefrontHours | null;
   announcement?: string;
+  social_promotion_opt_in?: boolean;
 }
 
 export interface StorefrontQr {

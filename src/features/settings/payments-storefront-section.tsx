@@ -116,6 +116,19 @@ export function PaymentsStorefrontSection() {
     onError: (error) => toast.error(errorMessage(error, "Could not hide your storefront.")),
   });
 
+  const toggleSocialPromotion = useMutation({
+    mutationFn: (opt_in: boolean) => updateStorefront({ social_promotion_opt_in: opt_in }),
+    onSuccess: (data) => {
+      toast.success(
+        data.social_promotion_opt_in
+          ? "Your products may now be featured on SuoOps's Facebook & Instagram."
+          : "Turned off — your products won't be featured on SuoOps's social media.",
+      );
+      queryClient.invalidateQueries({ queryKey: ["storefrontStatus"] });
+    },
+    onError: (error) => toast.error(errorMessage(error, "Could not update this setting.")),
+  });
+
   const [desc, setDesc] = useState("");
   useEffect(() => {
     if (storefront.data?.description != null) setDesc(storefront.data.description);
@@ -554,6 +567,40 @@ export function PaymentsStorefrontSection() {
                   {saveStore.isPending ? "Saving…" : "Save"}
                 </button>
               </div>
+            </div>
+
+            {/* Social media auto-promotion opt-in — a curated daily batch,
+                not every product, on SuoOps's own Facebook/Instagram. */}
+            <div className="flex items-start justify-between gap-3 rounded-lg border border-brand-border p-3">
+              <div>
+                <p className="text-xs font-semibold text-brand-text">
+                  Feature my products on SuoOps&apos;s social media
+                </p>
+                <p className="mt-1 text-[11px] text-brand-textMuted">
+                  A few of your products may be picked for a free feature post on
+                  SuoOps&apos;s official Facebook &amp; Instagram — extra free exposure,
+                  not guaranteed for every item. You can exclude specific products
+                  in Inventory, or turn this off any time.
+                </p>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={Boolean(storefront.data?.social_promotion_opt_in)}
+                onClick={() =>
+                  toggleSocialPromotion.mutate(!storefront.data?.social_promotion_opt_in)
+                }
+                disabled={toggleSocialPromotion.isPending}
+                className={`relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:opacity-60 ${
+                  storefront.data?.social_promotion_opt_in ? "bg-brand-jade" : "bg-brand-border"
+                }`}
+              >
+                <span
+                  className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+                    storefront.data?.social_promotion_opt_in ? "translate-x-5" : "translate-x-0.5"
+                  }`}
+                />
+              </button>
             </div>
 
             <button
