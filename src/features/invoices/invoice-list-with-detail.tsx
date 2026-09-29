@@ -6,6 +6,9 @@ import { useSearchParams } from "next/navigation";
 import { InvoiceDetailPanel } from "./invoice-detail";
 import { invoiceStatusLabels } from "./status-map";
 import { type Invoice, useInvoices } from "./use-invoices";
+import { useNewInvoiceDrawer } from "@/features/dashboard/new-invoice-provider";
+import { WhatsAppQuickCreate } from "@/features/dashboard/whatsapp-quick-create";
+import { MessageCircle, Plus } from "lucide-react";
 
 /** Format an amount using the invoice's own currency (no conversion). */
 function formatInvoiceAmount(amount: number, currency: string): string {
@@ -16,6 +19,7 @@ function formatInvoiceAmount(amount: number, currency: string): string {
 }
 
 export function InvoiceListWithDetail() {
+  const newInvoice = useNewInvoiceDrawer();
   const searchParams = useSearchParams();
   const invoiceIdFromUrl = searchParams.get("invoice");
 
@@ -52,6 +56,8 @@ export function InvoiceListWithDetail() {
 
   const hasInvoices = invoices.length > 0;
   const hasFilteredInvoices = filteredInvoices.length > 0;
+  const hasAnyInvoices =
+    (data?.status_counts?.all ?? data?.total ?? invoices.length) > 0;
 
   // Status counts come from the server (accurate across ALL pages), falling
   // back to the loaded set if the field isn't present.
@@ -234,7 +240,8 @@ export function InvoiceListWithDetail() {
                 </div>
               );
             })
-          ) : statusFilter !== "all" || debouncedSearch.trim() ? (
+          ) : hasAnyInvoices &&
+            (statusFilter !== "all" || debouncedSearch.trim()) ? (
             <div className="rounded-lg border border-dashed border-brand-border bg-brand-background p-6 text-center">
               <p className="text-sm text-brand-textMuted">
                 No invoices match your filters.
@@ -257,9 +264,44 @@ export function InvoiceListWithDetail() {
                 </svg>
               </div>
               <p className="font-semibold text-brand-text">No invoices yet</p>
-              <p className="mt-1 text-xs text-brand-textMuted">Use the form on the left, or text our WhatsApp bot:</p>
-              <div className="mt-2 inline-block rounded-lg bg-emerald-50 border border-emerald-100 px-3 py-1.5">
-                <p className="text-xs text-emerald-800 font-mono">&quot;Invoice John 50k for design&quot;</p>
+              <p className="mt-1 text-xs text-brand-textMuted">
+                Create and send your first professional invoice.
+              </p>
+              <div className="mt-4 flex flex-wrap justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={newInvoice.open}
+                  className="inline-flex items-center gap-2 rounded-lg bg-brand-jade px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-jadeHover"
+                >
+                  <Plus className="h-4 w-4" />
+                  Create invoice
+                </button>
+                <WhatsAppQuickCreate>
+                  {({ onClick, href, target, rel }) => {
+                    const className =
+                      "inline-flex items-center gap-2 rounded-lg border border-emerald-200 bg-white px-4 py-2.5 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50";
+                    const content = (
+                      <>
+                        <MessageCircle className="h-4 w-4" />
+                        Use WhatsApp
+                      </>
+                    );
+                    return href ? (
+                      <a
+                        href={href}
+                        target={target}
+                        rel={rel}
+                        className={className}
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      <button type="button" onClick={onClick} className={className}>
+                        {content}
+                      </button>
+                    );
+                  }}
+                </WhatsAppQuickCreate>
               </div>
             </div>
           )}

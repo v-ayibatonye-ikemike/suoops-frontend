@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuthStore } from "@/features/auth/auth-store";
 import { exchangeOAuthCode, OAuthExchangeError } from "@/features/auth/oauth-client";
+import { getSafeRedirectPath } from "@/features/auth/safe-redirect";
 import { telemetry } from "@/lib/telemetry";
 
 function CallbackContent() {
@@ -39,7 +40,7 @@ function CallbackContent() {
         setTokens({ accessToken: data.access_token, accessExpiresAt });
         setProcessing(false);
         telemetry.oauthCallbackSuccess();
-        router.replace("/dashboard");
+        router.replace(getSafeRedirectPath(searchParams?.get("next")));
       } catch (err) {
         let message = "We couldn't complete your sign in. Please try again.";
         if (err instanceof OAuthExchangeError) {

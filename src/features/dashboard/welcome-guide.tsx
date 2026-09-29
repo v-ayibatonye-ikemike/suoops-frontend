@@ -156,7 +156,7 @@ export function WelcomeGuide() {
       label: "Set up your storefront",
       description: "A shareable page of your products",
       done: hasStorefront,
-      href: "/dashboard/settings#online-payments",
+      href: "/dashboard/settings#storefront",
       icon: <Store className="h-4 w-4" />,
     },
   ];

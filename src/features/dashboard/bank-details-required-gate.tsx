@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Building2, CreditCard, ArrowRight } from "lucide-react";
 import { apiClient } from "@/api/client";
@@ -23,6 +23,7 @@ interface UserData {
  * Returns a full-screen form if bank_name or account_number is missing.
  */
 export function BankDetailsRequiredGate({ children }: { children: React.ReactNode }) {
+  const [deferred, setDeferred] = useState(false);
   const [bankName, setBankName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [accountName, setAccountName] = useState("");
@@ -32,6 +33,10 @@ export function BankDetailsRequiredGate({ children }: { children: React.ReactNod
   const [otpChallenge, setOtpChallenge] = useState(false);
   const [otpCode, setOtpCode] = useState("");
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    setDeferred(sessionStorage.getItem("bank-details-gate-deferred") === "true");
+  }, []);
 
   const { data: user, isLoading } = useQuery<UserData>({
     queryKey: ["currentUser"],
@@ -45,7 +50,7 @@ export function BankDetailsRequiredGate({ children }: { children: React.ReactNod
   if (isLoading) return <>{children}</>;
 
   // Bank details present — let through
-  if (user?.bank_name && user?.account_number) return <>{children}</>;
+  if ((user?.bank_name && user?.account_number) || deferred) return <>{children}</>;
 
   const firstName = user?.name?.split(" ")[0] || "there";
 
@@ -201,8 +206,20 @@ export function BankDetailsRequiredGate({ children }: { children: React.ReactNod
           {!loading && <ArrowRight className="h-4 w-4" />}
         </button>
 
-        <p className="mt-4 text-center text-xs text-slate-400">
-          You can update this anytime in Settings
+        <button
+          type="button"
+          onClick={() => {
+            sessionStorage.setItem("bank-details-gate-deferred", "true");
+            setDeferred(true);
+          }}
+          className="mt-3 w-full rounded-lg px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+        >
+          I&apos;ll do this later
+        </button>
+
+        <p className="mt-3 text-center text-xs text-slate-500">
+          You can explore the dashboard now, but bank details are required before
+          you can collect payouts. Add them anytime in Settings.
         </p>
       </form>
     </div>

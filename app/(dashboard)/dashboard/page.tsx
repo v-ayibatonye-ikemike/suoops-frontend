@@ -10,13 +10,13 @@ import { InvoiceListWithDetail } from "@/features/invoices/invoice-list-with-det
 import { InvoiceStatusCard } from "@/features/invoices/invoice-status-card";
 import { CashPositionCard } from "@/features/dashboard/cash-position-card";
 import { ProfessionalismScoreCard } from "@/features/dashboard/professionalism-score-card";
-import { WelcomeGuide } from "@/features/dashboard/welcome-guide";
 import { ProWelcomeModal } from "@/features/dashboard/pro-welcome-modal";
 import { BankDetailsRequiredGate } from "@/features/dashboard/bank-details-required-gate";
 import { NewUserOnboarding } from "@/features/dashboard/new-user-onboarding";
 import { DashboardNudges } from "@/features/dashboard/dashboard-nudges";
 import { useNewInvoiceDrawer } from "@/features/dashboard/new-invoice-provider";
 import { WhatsAppQuickCreate } from "@/features/dashboard/whatsapp-quick-create";
+import { ActivationJourney } from "@/features/dashboard/activation-journey";
 
 type CurrentUser = components["schemas"]["UserOut"];
 
@@ -103,13 +103,12 @@ export default function DashboardPage() {
             <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
               <DashboardHero />
 
-              {/* Welcome Guide for first-time users */}
-              <WelcomeGuide />
+              <ActivationJourney />
 
               {/* One-time Pro feature tour for new Pro users */}
               <ProWelcomeModal />
 
-              {/* Single contextual nudge — replaces stacked banners */}
+              {/* Operational nudges only; activation is coordinated above. */}
               <DashboardNudges />
 
               <div className="space-y-4 sm:space-y-6">
@@ -132,7 +131,7 @@ export default function DashboardPage() {
                     </div>
                   </div>
 
-                  <div className="lg:col-span-8">
+                  <div id="invoices" className="scroll-mt-20 lg:col-span-8">
                     <InvoiceListWrapper />
                   </div>
                 </div>

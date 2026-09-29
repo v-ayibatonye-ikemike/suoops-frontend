@@ -3,10 +3,14 @@ import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import OAuthCallbackPage from "../../../../app/(auth)/callback/page";
 
+const { mockRouterReplace } = vi.hoisted(() => ({
+  mockRouterReplace: vi.fn(),
+}));
+
 // Mock next/navigation hooks
 vi.mock("next/navigation", () => {
   return {
-    useRouter: () => ({ replace: vi.fn(), push: vi.fn() }),
+    useRouter: () => ({ replace: mockRouterReplace, push: vi.fn() }),
     useSearchParams: () => new URLSearchParams(globalThis.__TEST_PARAMS__ || ""),
   };
 });
@@ -49,6 +53,7 @@ declare global { var __TEST_PARAMS__: string | undefined; }
 describe("OAuthCallbackPage", () => {
   beforeEach(() => {
     global.__TEST_PARAMS__ = undefined;
+    mockRouterReplace.mockReset();
   });
 
   it("shows loading spinner initially", async () => {
@@ -75,11 +80,19 @@ describe("OAuthCallbackPage", () => {
     });
   });
 
-  it("successful flow redirects (mock) and no error displayed", async () => {
-    global.__TEST_PARAMS__ = "code=abc&state=xyz";
+  it("successful flow redirects to a safe next route", async () => {
+    global.__TEST_PARAMS__ = "code=abc&state=xyz&next=%2Finvoices%2Fnew";
     render(<OAuthCallbackPage />);
     await waitFor(() => {
-      expect(screen.queryByRole("alert")).toBeNull();
+      expect(mockRouterReplace).toHaveBeenCalledWith("/invoices/new");
+    });
+  });
+
+  it("successful flow rejects an external next route", async () => {
+    global.__TEST_PARAMS__ = "code=abc&state=xyz&next=%2F%2Fevil.example";
+    render(<OAuthCallbackPage />);
+    await waitFor(() => {
+      expect(mockRouterReplace).toHaveBeenCalledWith("/dashboard");
     });
   });
 });

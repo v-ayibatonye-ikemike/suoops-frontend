@@ -63,7 +63,7 @@ export function StorefrontInsightsCard({
           ratings right here.
         </p>
         <a
-          href="/dashboard/settings#business"
+          href="/dashboard/settings#storefront"
           className="mt-3 inline-block rounded-lg bg-brand-primary px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
         >
           Set up storefront

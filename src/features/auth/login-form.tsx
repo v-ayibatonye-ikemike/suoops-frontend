@@ -7,6 +7,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { requestLoginOTP, verifyLoginOTP, resendOTP, getOTPDeliveryStatus, type OTPDeliveryStatus } from "./auth-api";
 import { useAuthStore } from "./auth-store";
 import { OTPInput } from "./otp-input";
+import { getSafeRedirectPath } from "./safe-redirect";
 import { MessageCircle } from "lucide-react";
 
 type Step = "identifier" | "otp";
@@ -60,8 +61,7 @@ export function LoginForm() {
   }, []);
 
   const rawNext = searchParams?.get("next") ?? "/dashboard";
-  // Prevent open redirect: only allow relative paths starting with /
-  const nextRoute = /^\/[^/]/.test(rawNext) ? rawNext : "/dashboard";
+  const nextRoute = getSafeRedirectPath(rawNext);
 
   const handleRequestOTP = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
