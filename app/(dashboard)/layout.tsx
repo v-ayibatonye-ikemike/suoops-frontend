@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <RequireAuth>
       <NewInvoiceProvider>
-        <div className="min-h-screen bg-brand-evergreen">
+        <div className="min-h-screen bg-brand-background">
           <DashboardNav />
           {/* WhatsApp number must be verified before ANY dashboard page opens. */}
           <PhoneRequiredGate>{children}</PhoneRequiredGate>
