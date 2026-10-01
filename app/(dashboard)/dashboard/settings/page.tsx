@@ -2,10 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { AlertTriangle, Mail, MessageCircle, User, Image as ImageIcon, Building2, CreditCard, Users } from "lucide-react";
+import {
+  AlertTriangle,
+  Building2,
+  CheckCircle2,
+  ChevronRight,
+  CreditCard,
+  Image as ImageIcon,
+  Mail,
+  MessageCircle,
+  Store,
+  User,
+  Users,
+} from "lucide-react";
 
 import { apiClient } from "@/api/client";
 import { getBankDetails } from "@/api/bank-details";
+import { getStorefront } from "@/api/payments-storefront";
 import type { components } from "@/api/types";
 import { BankDetailsForm } from "@/features/settings/bank-details-form";
 import { SubscriptionSection } from "@/features/settings/subscription-section";
@@ -14,7 +27,6 @@ import { LogoUpload, StorefrontCoverUpload } from "@/features/settings/logo-uplo
 import { PhoneNumberSection } from "@/features/settings/phone-number-section";
 import { PaymentsStorefrontSection } from "@/features/settings/payments-storefront-section";
 import { ProfileSection } from "@/features/settings/profile-section";
-import { SetupProgress } from "@/features/settings/setup-progress";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 type CurrentUser = components["schemas"]["UserOut"];
@@ -23,7 +35,7 @@ type TabKey = "profile" | "business" | "billing" | "team" | "advanced";
 
 const TABS: { key: TabKey; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
   { key: "profile", label: "Profile", icon: User },
-  { key: "business", label: "Business", icon: Building2 },
+  { key: "business", label: "Business setup", icon: Building2 },
   { key: "billing", label: "Billing & Plan", icon: CreditCard },
   { key: "team", label: "Team", icon: Users },
   { key: "advanced", label: "Advanced", icon: AlertTriangle },
@@ -71,6 +83,12 @@ export default function SettingsPage() {
     retry: false,
     staleTime: 60000,
   });
+  const { data: storefront } = useQuery({
+    queryKey: ["storefrontStatus"],
+    queryFn: getStorefront,
+    retry: false,
+    staleTime: 60000,
+  });
 
   const hasPhone = Boolean(user?.phone);
   const phoneVerified = Boolean(user?.phone_verified);
@@ -90,18 +108,6 @@ export default function SettingsPage() {
           <p className="mt-1 text-sm text-brand-textMuted">
             Manage your account, billing, and business profile
           </p>
-        </div>
-
-        {/* Setup Progress */}
-        <div className="mb-6 sm:mb-8">
-          <SetupProgress
-            userName={user?.name}
-            phoneVerified={phoneVerified}
-            hasPhone={hasPhone}
-            hasLogo={Boolean(user?.logo_url)}
-            hasBankDetails={hasBankDetails}
-            hasOnlinePayments={hasOnlinePayments}
-          />
         </div>
 
         {/* Tabs */}
@@ -209,6 +215,63 @@ export default function SettingsPage() {
         {/* ─── Business Tab ─── */}
         {activeTab === "business" && (
           <div className="space-y-6">
+            <section className="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4 sm:p-5">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-brand-jadeText">
+                  Business setup
+                </p>
+                <h2 className="mt-1 text-lg font-bold text-brand-text">
+                  Choose what you want to finish
+                </h2>
+                <p className="mt-1 text-sm text-brand-textMuted">
+                  Brand your business, choose where payouts go, then publish your store.
+                </p>
+              </div>
+              <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                {[
+                  {
+                    href: "#logo",
+                    label: "Brand images",
+                    detail: "Logo and storefront cover",
+                    done: Boolean(user?.logo_url),
+                    Icon: ImageIcon,
+                  },
+                  {
+                    href: "#bank-details",
+                    label: "Payout account",
+                    detail: "Verified settlement bank",
+                    done: hasBankDetails,
+                    Icon: Building2,
+                  },
+                  {
+                    href: "#storefront",
+                    label: "Storefront & payments",
+                    detail: "Products and online checkout",
+                    done: Boolean(storefront?.enabled && hasOnlinePayments),
+                    Icon: Store,
+                  },
+                ].map(({ href, label, detail, done, Icon }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    className="flex items-center gap-3 rounded-xl border border-white bg-white p-3 shadow-sm transition hover:border-emerald-300 hover:shadow"
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-center gap-1 text-sm font-semibold text-brand-text">
+                        {label}
+                        {done ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> : null}
+                      </span>
+                      <span className="block text-xs text-brand-textMuted">{detail}</span>
+                    </span>
+                    <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+                  </a>
+                ))}
+              </div>
+            </section>
+
             <Card id="logo" className="scroll-mt-20">
               <CardHeader className="border-b border-brand-border/60 px-4 sm:px-6">
                 <div className="flex items-center gap-3">
@@ -256,26 +319,7 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
 
-            <Card id="online-payments" className="scroll-mt-20">
-              <CardHeader className="border-b border-brand-border/60 px-4 sm:px-6">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-jade/10 text-brand-jade">
-                    <CreditCard className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h2 className="text-lg sm:text-[22px] font-semibold text-brand-text">
-                      Online Payments &amp; Storefront
-                    </h2>
-                    <p className="text-xs text-brand-textMuted">
-                      Get paid online (auto-confirmed) and share a public catalog of your products
-                    </p>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="pt-4 sm:pt-6 px-4 sm:px-6">
-                <PaymentsStorefrontSection />
-              </CardContent>
-            </Card>
+            <PaymentsStorefrontSection />
           </div>
         )}
 

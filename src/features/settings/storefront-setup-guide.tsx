@@ -88,7 +88,7 @@ export function StorefrontSetupGuide({
   const ready = nextIndex === -1;
 
   const actionFor = (index: number) => {
-    if (index !== nextIndex) return null;
+    if (completion[index]) return null;
 
     if (index === 0) {
       return (
@@ -122,7 +122,7 @@ export function StorefrontSetupGuide({
 
     if (index === 3) {
       return (
-        <Link href="/dashboard/inventory" className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-brand-jadeText hover:text-brand-jadeHover">
+        <Link href="/dashboard/inventory?create=1" className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-brand-jadeText hover:text-brand-jadeHover">
           Add a product or service <ArrowRight className="h-3 w-3" />
         </Link>
       );
@@ -132,6 +132,14 @@ export function StorefrontSetupGuide({
       return (
         <a href="#bank-details" className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-brand-jadeText hover:text-brand-jadeHover">
           Add bank details <ArrowRight className="h-3 w-3" />
+        </a>
+      );
+    }
+
+    if (!hasBankDetails) {
+      return (
+        <a href="#bank-details" className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-brand-jadeText hover:text-brand-jadeHover">
+          Add bank details first <ArrowRight className="h-3 w-3" />
         </a>
       );
     }
@@ -157,7 +165,7 @@ export function StorefrontSetupGuide({
             Finish your storefront
           </p>
           <p className="mt-0.5 text-xs text-brand-textMuted">
-            Follow these steps in order. Your progress is saved automatically.
+            Complete these in any order. Every unfinished step links to where you can finish it.
           </p>
         </div>
         <span className="shrink-0 text-xs font-semibold text-brand-jadeText">
@@ -179,7 +187,7 @@ export function StorefrontSetupGuide({
           return (
             <li
               key={step.id}
-              className={`flex gap-3 px-2 py-2.5 ${current ? "border-l-2 border-brand-jade bg-emerald-50/60" : "border-l-2 border-transparent"}`}
+              className={`flex gap-3 rounded-r-lg px-2 py-2.5 ${current ? "border-l-2 border-brand-jade bg-emerald-50/60" : "border-l-2 border-transparent"}`}
             >
               {done ? (
                 <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />

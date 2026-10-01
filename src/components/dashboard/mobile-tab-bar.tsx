@@ -32,21 +32,65 @@ interface TabItem {
   label: string;
   Icon: typeof FileText;
   gate: "CASH_DASHBOARD" | "INVENTORY" | "TAX_REPORTS" | "INFLUENCER" | null;
+  description?: string;
+  section?: "sell" | "understand" | "account";
 }
 
 const PRIMARY_TABS: TabItem[] = [
   { href: "/dashboard/invoices", label: "Invoices", Icon: FileText, gate: null },
   { href: "/dashboard/inventory", label: "Inventory", Icon: Package, gate: "INVENTORY" },
   { href: "/dashboard/expenses", label: "Expenses", Icon: Receipt, gate: null },
-  { href: "/dashboard/settings#business", label: "Business", Icon: Store, gate: null },
 ];
 
 const MORE_TABS: TabItem[] = [
-  { href: "/dashboard/analytics", label: "Insights", Icon: BarChart3, gate: "CASH_DASHBOARD" },
-  { href: "/dashboard/tax", label: "Tax", Icon: Landmark, gate: "TAX_REPORTS" },
-  { href: "/dashboard/earnings", label: "Earnings", Icon: TrendingUp, gate: "INFLUENCER" },
-  { href: "/dashboard/billing/purchase", label: "Bills & Payments", Icon: Wallet, gate: null },
-  { href: "/dashboard/settings", label: "Settings", Icon: SettingsIcon, gate: null },
+  {
+    href: "/dashboard/settings#storefront",
+    label: "Storefront",
+    description: "Set up your shop and online checkout",
+    Icon: Store,
+    gate: null,
+    section: "sell",
+  },
+  {
+    href: "/dashboard/billing/purchase",
+    label: "Wallet & billing",
+    description: "Top up and view your SuoOps billing",
+    Icon: Wallet,
+    gate: null,
+    section: "sell",
+  },
+  {
+    href: "/dashboard/analytics",
+    label: "Insights",
+    description: "Understand sales and business performance",
+    Icon: BarChart3,
+    gate: "CASH_DASHBOARD",
+    section: "understand",
+  },
+  {
+    href: "/dashboard/tax",
+    label: "Tax",
+    description: "Review reports and tax readiness",
+    Icon: Landmark,
+    gate: "TAX_REPORTS",
+    section: "understand",
+  },
+  {
+    href: "/dashboard/earnings",
+    label: "Earnings",
+    description: "Track referral and influencer earnings",
+    Icon: TrendingUp,
+    gate: "INFLUENCER",
+    section: "understand",
+  },
+  {
+    href: "/dashboard/settings",
+    label: "Account settings",
+    description: "Profile, team, billing plan and security",
+    Icon: SettingsIcon,
+    gate: null,
+    section: "account",
+  },
 ];
 
 /**
@@ -54,7 +98,7 @@ const MORE_TABS: TabItem[] = [
  *
  * Phones are the dominant device for our SMB users, so we mirror the
  * top-down navigation pattern they already use in WhatsApp / banking apps:
- * a fixed bar pinned to the bottom with the four most-used destinations,
+ * a fixed bar pinned to the bottom with the most-used destinations,
  * a centered "+" action, and a "More" sheet that catches the long tail.
  */
 export function MobileTabBar() {
@@ -79,6 +123,11 @@ export function MobileTabBar() {
   const moreTabsToShow = MORE_TABS.filter(
     (t) => t.gate !== "INFLUENCER" || Boolean(user?.is_influencer),
   );
+  const moreSections = [
+    { id: "sell", label: "Sell & get paid" },
+    { id: "understand", label: "Understand your business" },
+    { id: "account", label: "Account" },
+  ] as const;
 
   const isActive = (href: string) => {
     const base = href.split("#")[0];
@@ -127,7 +176,7 @@ export function MobileTabBar() {
             </button>
           </li>
 
-          {tabsToShow.slice(2, 4).map(({ href, label, Icon }) => {
+          {tabsToShow.slice(2).map(({ href, label, Icon }) => {
             const active = isActive(href);
             return (
               <li key={href}>
@@ -145,32 +194,17 @@ export function MobileTabBar() {
             );
           })}
 
-          {/* Replace the 5th slot only when we have a Tax/Insights overflow */}
-          {tabsToShow.length < 4 && (
-            <li>
-              <button
-                type="button"
-                onClick={() => setMoreOpen(true)}
-                className="flex w-full flex-col items-center gap-0.5 px-1 py-2 text-[10px] font-medium text-slate-500"
-              >
-                <MenuIcon className="h-5 w-5" />
-                <span>More</span>
-              </button>
-            </li>
-          )}
+          <li>
+            <button
+              type="button"
+              onClick={() => setMoreOpen(true)}
+              className="flex w-full flex-col items-center gap-0.5 px-1 py-2 text-[10px] font-medium text-slate-500"
+            >
+              <MenuIcon className="h-5 w-5" />
+              <span>More</span>
+            </button>
+          </li>
         </ul>
-
-        {/* Always-available "More" launcher in the corner of the bar */}
-        {tabsToShow.length >= 4 && (
-          <button
-            type="button"
-            onClick={() => setMoreOpen(true)}
-            aria-label="More"
-            className="absolute right-3 top-2 inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[10px] font-semibold text-slate-600 shadow-sm"
-          >
-            <MenuIcon className="h-3.5 w-3.5" /> More
-          </button>
-        )}
       </nav>
 
       {/* "More" sheet */}
@@ -182,7 +216,7 @@ export function MobileTabBar() {
             onClick={() => setMoreOpen(false)}
             className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
           />
-          <div className="absolute inset-x-0 bottom-0 rounded-t-2xl bg-white p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] shadow-2xl">
+          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] shadow-2xl">
             <div className="mb-3 flex items-center justify-between">
               <p className="text-sm font-semibold text-slate-900">More</p>
               <button
@@ -194,20 +228,45 @@ export function MobileTabBar() {
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <ul className="grid grid-cols-3 gap-3">
-              {moreTabsToShow.map(({ href, label, Icon }) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    onClick={() => setMoreOpen(false)}
-                    className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-3 text-xs font-semibold text-slate-700 transition active:bg-slate-50"
-                  >
-                    <Icon className="h-5 w-5 text-brand-jade" />
-                    <span>{label}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className="space-y-4">
+              {moreSections.map((section) => {
+                const items = moreTabsToShow.filter((item) => item.section === section.id);
+                if (!items.length) return null;
+                return (
+                  <section key={section.id} aria-labelledby={`more-${section.id}`}>
+                    <p
+                      id={`more-${section.id}`}
+                      className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-slate-400"
+                    >
+                      {section.label}
+                    </p>
+                    <ul className="grid gap-2 sm:grid-cols-2">
+                      {items.map(({ href, label, description, Icon }) => (
+                        <li key={href}>
+                          <Link
+                            href={href}
+                            onClick={() => setMoreOpen(false)}
+                            className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 transition active:bg-slate-50"
+                          >
+                            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-brand-jade">
+                              <Icon className="h-5 w-5" />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block text-sm font-semibold text-slate-800">
+                                {label}
+                              </span>
+                              <span className="block text-xs leading-snug text-slate-500">
+                                {description}
+                              </span>
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
@@ -304,4 +363,3 @@ export function MobileTabBar() {
     </>
   );
 }
-

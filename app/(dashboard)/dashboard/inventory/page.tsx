@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Package } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -21,6 +21,15 @@ export default function InventoryPage() {
   const [showProductForm, setShowProductForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [adjustingProduct, setAdjustingProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("create") !== "1") return;
+    setEditingProduct(null);
+    setShowProductForm(true);
+    url.searchParams.delete("create");
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+  }, []);
 
   // Fetch current user to check plan
   const { isLoading } = useQuery<CurrentUser>({
