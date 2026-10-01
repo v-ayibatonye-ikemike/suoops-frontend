@@ -1,17 +1,14 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "SuoOps — The commerce operating system for African business";
 
-// Best-effort: embed the logo as a data URI so the card never fails to render
-// if the asset fetch hiccups (a failed <img> can produce an empty image).
 async function logoDataUri(): Promise<string | null> {
   try {
-    const res = await fetch("https://suoops.com/icon.png");
-    if (!res.ok) return null;
-    const buf = Buffer.from(await res.arrayBuffer());
-    return `data:${res.headers.get("content-type") || "image/png"};base64,${buf.toString("base64")}`;
+    const logo = await readFile(new URL("./icon.png", import.meta.url));
+    return `data:image/png;base64,${logo.toString("base64")}`;
   } catch {
     return null;
   }
