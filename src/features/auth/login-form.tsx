@@ -29,6 +29,10 @@ function isPhoneInput(value: string): boolean {
   return /^[+\d][\d\s\-()]{6,}$/.test(trimmed) && !trimmed.includes("@");
 }
 
+function isEmailInput(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -36,8 +40,6 @@ export function LoginForm() {
   const [step, setStep] = useState<Step>("identifier");
   const [identifier, setIdentifier] = useState("");
   const [identifierType, setIdentifierType] = useState<"phone" | "email">("phone");
-  // Where the OTP was actually delivered (a phone login is emailed the code when
-  // the account has an email on file, to avoid paid WhatsApp messages).
   const [otpChannel, setOtpChannel] = useState<"whatsapp" | "email">("whatsapp");
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
@@ -74,6 +76,11 @@ export function LoginForm() {
       setError(null);
 
       const isPhone = isPhoneInput(identifier);
+      if (!isPhone && !isEmailInput(identifier)) {
+        setError("Enter a valid WhatsApp number or email address.");
+        setLoading(false);
+        return;
+      }
       setIdentifierType(isPhone ? "phone" : "email");
 
       try {
@@ -162,7 +169,8 @@ export function LoginForm() {
     setDeliveryFailure(null);
     try {
       const payload = identifierType === "phone" ? { phone: identifier, purpose: "login" as const } : { email: identifier, purpose: "login" as const };
-      await resendOTP(payload);
+      const res = await resendOTP(payload);
+      setOtpChannel(res.detail.toLowerCase().includes("email") ? "email" : "whatsapp");
       setOtp("");
       startCountdown();
     } catch (resendError: unknown) {
