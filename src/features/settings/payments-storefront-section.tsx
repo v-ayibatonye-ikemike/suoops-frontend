@@ -252,7 +252,10 @@ export function PaymentsStorefrontSection() {
   return (
     <div className="space-y-6">
       {/* ── Online Payments ── */}
-      <div id="online-payments" className="scroll-mt-20 rounded-xl border border-brand-border p-4">
+      <div
+        id="online-payments"
+        className="scroll-mt-20 rounded-xl border border-brand-border bg-white p-4 shadow-sm"
+      >
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-2">
             <CreditCard className="h-4 w-4 text-brand-jade" />
@@ -314,7 +317,10 @@ export function PaymentsStorefrontSection() {
       </div>
 
       {/* ── Public Storefront ── */}
-      <div id="storefront" className="scroll-mt-20 rounded-xl border border-brand-border p-4">
+      <div
+        id="storefront"
+        className="scroll-mt-20 rounded-xl border border-brand-border bg-white p-4 shadow-sm"
+      >
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-2">
             <Store className="h-4 w-4 text-brand-jade" />
