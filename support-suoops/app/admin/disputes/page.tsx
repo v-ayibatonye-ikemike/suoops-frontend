@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { AlertCircle, Scale, RefreshCw, Undo2, CheckCircle2 } from "lucide-react";
+import { AlertCircle, Scale, RefreshCw, Undo2, CheckCircle2, Sparkles } from "lucide-react";
 import { useAdminAuth } from "../layout";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "https://api.suoops.com";
@@ -48,6 +48,31 @@ interface DisputeListResponse {
   skip: number;
   limit: number;
   has_more: boolean;
+}
+
+interface DisputeAnalysis {
+  escrow_id: number;
+  invoice_id: string | null;
+  status: string;
+  amount_naira: number;
+  neutral_summary: string;
+  timeline: Array<{
+    occurred_at: string;
+    event: string;
+    detail: string;
+    source: string;
+  }>;
+  evidence: Array<{
+    label: string;
+    detail: string;
+    source: string;
+  }>;
+  missing_evidence: string[];
+  review_flags: string[];
+  reviewer_questions: string[];
+  ai_generated: boolean;
+  generation_notice: string | null;
+  decision_notice: string;
 }
 
 interface BusinessGroup {
@@ -128,6 +153,8 @@ export default function DisputesPage() {
   const [groups, setGroups] = useState<BusinessGroup[]>([]);
   const [groupsLoading, setGroupsLoading] = useState(false);
   const [groupsError, setGroupsError] = useState("");
+  const [analysisById, setAnalysisById] = useState<Record<number, DisputeAnalysis>>({});
+  const [analysisBusy, setAnalysisBusy] = useState<number | null>(null);
 
   // Debounce the search box so we don't hit the API on every keystroke.
   useEffect(() => {
@@ -369,6 +396,31 @@ export default function DisputesPage() {
       alert(err instanceof Error ? err.message : "Action failed");
     } finally {
       setBusyId(null);
+    }
+  }
+
+  async function analyseEvidence(escrowId: number) {
+    if (analysisById[escrowId]) {
+      setAnalysisById((current) => {
+        const next = { ...current };
+        delete next[escrowId];
+        return next;
+      });
+      return;
+    }
+    setAnalysisBusy(escrowId);
+    try {
+      const response = await authFetch(`${API}/admin/disputes/${escrowId}/assistant`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body.detail || "Could not analyse dispute evidence");
+      setAnalysisById((current) => ({ ...current, [escrowId]: body as DisputeAnalysis }));
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Could not analyse dispute evidence");
+    } finally {
+      setAnalysisBusy(null);
     }
   }
 
@@ -733,6 +785,27 @@ export default function DisputesPage() {
                 </div>
               </div>
 
+              {(d.status === "disputed" || d.held_for_review) && (
+                <div className="mt-3 border-t border-slate-100 pt-3">
+                  <button
+                    type="button"
+                    onClick={() => analyseEvidence(d.escrow_id)}
+                    disabled={analysisBusy === d.escrow_id}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-sm font-semibold text-indigo-700 hover:bg-indigo-100 disabled:opacity-60"
+                  >
+                    <Sparkles className="h-4 w-4" />
+                    {analysisBusy === d.escrow_id
+                      ? "Organising evidence…"
+                      : analysisById[d.escrow_id]
+                        ? "Hide evidence assistant"
+                        : "Review with evidence assistant"}
+                  </button>
+                  {analysisById[d.escrow_id] && (
+                    <DisputeEvidencePanel analysis={analysisById[d.escrow_id]} />
+                  )}
+                </div>
+              )}
+
               {d.payout_state !== "none" && (
                 <div className="mt-2 flex flex-wrap gap-2">
                   <button
@@ -799,5 +872,86 @@ export default function DisputesPage() {
         </>
       )}
     </div>
+  );
+}
+
+function DisputeEvidencePanel({ analysis }: { analysis: DisputeAnalysis }) {
+  return (
+    <section className="mt-3 space-y-4 rounded-xl border border-indigo-100 bg-indigo-50/40 p-4">
+      <div>
+        <div className="flex flex-wrap items-center gap-2">
+          <h3 className="text-sm font-bold text-slate-900">Neutral evidence review</h3>
+          <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-semibold text-indigo-700">
+            {analysis.ai_generated ? "AI-assisted" : "Deterministic fallback"}
+          </span>
+        </div>
+        <p className="mt-1 text-sm text-slate-700">{analysis.neutral_summary}</p>
+        {analysis.generation_notice && (
+          <p className="mt-1 text-xs text-amber-700">{analysis.generation_notice}</p>
+        )}
+        <p className="mt-2 rounded-lg bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-800">
+          {analysis.decision_notice}
+        </p>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div>
+          <h4 className="text-xs font-bold uppercase tracking-wide text-slate-500">Timeline</h4>
+          <ol className="mt-2 space-y-2">
+            {analysis.timeline.map((event, index) => (
+              <li key={`${event.occurred_at}-${event.event}-${index}`} className="text-xs text-slate-700">
+                <span className="font-semibold">{event.event}</span>
+                <span className="text-slate-400">
+                  {" "}
+                  · {new Date(event.occurred_at).toLocaleString("en-NG")}
+                </span>
+                <p className="text-slate-600">{event.detail}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div>
+          <h4 className="text-xs font-bold uppercase tracking-wide text-slate-500">Recorded evidence</h4>
+          <ul className="mt-2 space-y-2">
+            {analysis.evidence.map((item, index) => (
+              <li key={`${item.label}-${index}`} className="rounded-lg bg-white px-3 py-2 text-xs text-slate-700">
+                <span className="font-semibold">{item.label}</span>
+                <span className="text-slate-400"> · {item.source}</span>
+                <p className="mt-0.5">{item.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {analysis.review_flags.length > 0 && (
+        <div>
+          <h4 className="text-xs font-bold uppercase tracking-wide text-rose-600">Review flags</h4>
+          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-rose-700">
+            {analysis.review_flags.map((flag) => (
+              <li key={flag}>{flag}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {analysis.missing_evidence.length > 0 && (
+        <div>
+          <h4 className="text-xs font-bold uppercase tracking-wide text-amber-700">Missing evidence</h4>
+          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-amber-800">
+            {analysis.missing_evidence.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <div>
+        <h4 className="text-xs font-bold uppercase tracking-wide text-slate-500">Questions for the reviewer</h4>
+        <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-slate-700">
+          {analysis.reviewer_questions.map((question) => (
+            <li key={question}>{question}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }

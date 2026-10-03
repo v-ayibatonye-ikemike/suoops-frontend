@@ -27,6 +27,7 @@ import { LogoUpload, StorefrontCoverUpload } from "@/features/settings/logo-uplo
 import { PhoneNumberSection } from "@/features/settings/phone-number-section";
 import { PaymentsStorefrontSection } from "@/features/settings/payments-storefront-section";
 import { ProfileSection } from "@/features/settings/profile-section";
+import { AIPreferencesSection } from "@/features/settings/ai-preferences-section";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 type CurrentUser = components["schemas"]["UserOut"];
@@ -339,7 +340,9 @@ export default function SettingsPage() {
 
         {/* ─── Advanced Tab ─── */}
         {activeTab === "advanced" && (
-          <Card className="border border-rose-200/60">
+          <div className="space-y-6">
+            <AIPreferencesSection />
+            <Card className="border border-rose-200/60">
             <CardHeader className="border-b border-rose-200/60 px-4 sm:px-6">
               <div className="flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-rose-100 text-rose-600">
@@ -363,7 +366,8 @@ export default function SettingsPage() {
                 </a>
               </div>
             </CardContent>
-          </Card>
+            </Card>
+          </div>
         )}
       </div>
     </div>

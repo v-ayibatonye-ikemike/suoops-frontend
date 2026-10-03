@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { storefrontFee } from "@/constants/pricing";
 import { getConfig } from "@/lib/config";
+import { BuyerShoppingAssistant } from "./buyer-shopping-assistant";
 import { CurrentLocationCapture, type CapturedLocation } from "./current-location-capture";
 
 export type StoreProduct = {
@@ -11,6 +12,10 @@ export type StoreProduct = {
   name: string;
   description: string | null;
   price: number | null;
+  original_price?: number | null;
+  discount_percent?: number;
+  featured?: boolean;
+  bundle_label?: string | null;
   unit: string | null;
   image_url: string | null;
   in_stock: boolean;
@@ -111,6 +116,22 @@ export function StoreCatalog({
   const add = (id: number) => setCart((c) => ({ ...c, [id]: (c[id] ?? 0) + 1 }));
   const dec = (id: number) =>
     setCart((c) => ({ ...c, [id]: Math.max(0, (c[id] ?? 0) - 1) }));
+  const bundles = useMemo(() => {
+    const grouped = new Map<string, StoreProduct[]>();
+    products.forEach((product) => {
+      if (!product.bundle_label || !product.in_stock) return;
+      grouped.set(product.bundle_label, [...(grouped.get(product.bundle_label) ?? []), product]);
+    });
+    return Array.from(grouped.entries()).filter(([, items]) => items.length >= 2);
+  }, [products]);
+  const addBundle = (items: StoreProduct[]) =>
+    setCart((current) => {
+      const next = { ...current };
+      items.forEach((item) => {
+        next[item.id] = (next[item.id] ?? 0) + 1;
+      });
+      return next;
+    });
 
   // Deep link from a product's scan-to-pay QR: /store/{slug}?p={id}. Pre-add
   // that product and open checkout so a customer who scanned just pays.
@@ -337,6 +358,14 @@ export function StoreCatalog({
           the seller turns on secure online payments.
         </div>
       )}
+      <BuyerShoppingAssistant
+        apiBaseUrl={apiBaseUrl}
+        slug={slug}
+        products={products}
+        cartProductIds={cartEntries.map(([id]) => Number(id))}
+        canAddToCart={onlinePaymentsEnabled}
+        onAdd={add}
+      />
       {/* Search + category filter */}
       {products.length > 4 && (
         <div className="mb-4 space-y-3">
@@ -365,6 +394,34 @@ export function StoreCatalog({
               ))}
             </div>
           )}
+        </div>
+      )}
+
+      {bundles.length > 0 && activeCategory === "All" && !search.trim() && (
+        <div className="mb-5 space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Shop together
+          </p>
+          {bundles.map(([bundleLabel, items]) => (
+            <div
+              key={bundleLabel}
+              className="flex items-center justify-between gap-3 rounded-xl border border-brand-jade/20 bg-brand-jade/5 p-3"
+            >
+              <div>
+                <p className="text-sm font-semibold text-slate-900">{bundleLabel}</p>
+                <p className="text-xs text-slate-500">{items.map((item) => item.name).join(" + ")}</p>
+              </div>
+              {onlinePaymentsEnabled && (
+                <button
+                  type="button"
+                  onClick={() => addBundle(items)}
+                  className="shrink-0 rounded-lg bg-brand-jade px-3 py-2 text-xs font-semibold text-white"
+                >
+                  Add all
+                </button>
+              )}
+            </div>
+          ))}
         </div>
       )}
 
@@ -404,11 +461,18 @@ export function StoreCatalog({
                   <p className="mt-1 line-clamp-2 text-xs text-slate-500">{p.description}</p>
                 )}
                 <div className="mt-auto flex items-center justify-between pt-2">
-                  <span className="text-sm font-bold text-brand-evergreen">
-                    {formatCurrency(p.price)}
-                    {p.unit ? (
-                      <span className="text-[10px] font-normal text-slate-400">/{p.unit}</span>
-                    ) : null}
+                  <span>
+                    <span className="text-sm font-bold text-brand-evergreen">
+                      {formatCurrency(p.price)}
+                      {p.unit ? (
+                        <span className="text-[10px] font-normal text-slate-400">/{p.unit}</span>
+                      ) : null}
+                    </span>
+                    {(p.discount_percent ?? 0) > 0 && (
+                      <span className="ml-1 text-[10px] text-slate-400 line-through">
+                        {formatCurrency(p.original_price ?? null)}
+                      </span>
+                    )}
                   </span>
                   {!p.in_stock && (
                     <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-400">

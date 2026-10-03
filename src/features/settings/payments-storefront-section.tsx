@@ -19,6 +19,7 @@ import { getBankDetails } from "@/api/bank-details";
 import { CurrentLocationCapture, type CapturedLocation } from "@/features/storefront/current-location-capture";
 import { copyText, downloadDataUrl } from "@/lib/download";
 import { StorefrontSetupGuide } from "./storefront-setup-guide";
+import { StorefrontAdviser } from "./storefront-adviser";
 
 // The generated OpenAPI types don't yet include online_payments_enabled on the
 // bank-details response; extend locally until types are regenerated.
@@ -358,6 +359,8 @@ export function PaymentsStorefrontSection() {
           onEnableStore={() => enableShop.mutate()}
           onEnablePayments={() => enablePayments.mutate()}
         />
+
+        {storeEnabled && <StorefrontAdviser />}
 
         {storeEnabled && link ? (
           <div className="mt-3 space-y-2">

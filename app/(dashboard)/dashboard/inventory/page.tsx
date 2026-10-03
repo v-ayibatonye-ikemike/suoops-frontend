@@ -14,6 +14,7 @@ import {
 import type { Product } from "@/features/inventory";
 import { apiClient } from "@/api/client";
 import type { components } from "@/api/types";
+import { InventoryAdviser } from "@/features/inventory/inventory-adviser";
 
 type CurrentUser = components["schemas"]["UserOut"];
 
@@ -79,6 +80,8 @@ export default function InventoryPage() {
           </p>
         </div>
       </div>
+
+      <InventoryAdviser />
 
       {/* Summary Cards */}
       <InventorySummaryCards />

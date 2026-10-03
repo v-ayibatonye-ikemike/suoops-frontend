@@ -50,6 +50,9 @@ export interface Product {
   track_stock: boolean;
   fulfilment_type: "physical" | "service" | "digital";
   image_url?: string | null;
+  storefront_featured?: boolean;
+  storefront_discount_percent?: number;
+  storefront_bundle_label?: string | null;
   is_low_stock: boolean;
   is_out_of_stock: boolean;
   stock_value?: number | null;

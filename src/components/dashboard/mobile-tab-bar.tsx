@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   BarChart3,
   FileText,
+  HandCoins,
   Landmark,
   Menu as MenuIcon,
   MessageCircle,
@@ -43,6 +44,14 @@ const PRIMARY_TABS: TabItem[] = [
 ];
 
 const MORE_TABS: TabItem[] = [
+  {
+    href: "/dashboard/collections",
+    label: "Collections",
+    description: "Review and send respectful payment reminders",
+    Icon: HandCoins,
+    gate: null,
+    section: "sell",
+  },
   {
     href: "/dashboard/settings#storefront",
     label: "Storefront",
