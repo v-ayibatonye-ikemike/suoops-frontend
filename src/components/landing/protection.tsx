@@ -20,8 +20,8 @@ export function Protection() {
             Commerce should be trusted by default
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-brand-charcoal/70">
-            On eligible storefront orders, payment is held safely until delivery
-            or the applicable protection window ends. Buyers can choose an
+            On eligible storefront orders, payment is protected through delivery
+            or the applicable protection window. Buyers can choose an
             available courier at checkout, while sellers work from verified
             payment records instead of promises or screenshots.
           </p>
@@ -38,7 +38,7 @@ export function Protection() {
             </div>
             <ul className="mt-6 space-y-4">
               {[
-                "Your money is held safely until delivery or the applicable protection window ends.",
+                "Your payment is protected through delivery on eligible orders.",
                 "Choose from available couriers at checkout and track delivery to your door.",
                 "Pay by bank transfer, confirmed instantly. No card details stored.",
                 "Something wrong? Report it for evidence-based review before funds are released.",
@@ -61,7 +61,7 @@ export function Protection() {
             </div>
             <ul className="mt-6 space-y-4">
               {[
-                "Guaranteed funds — the buyer has already paid before you ship.",
+                "Verified funds — the buyer pays before you ship.",
                 "Mark an order sent and book the selected courier when it is ready.",
                 "Payment, dispatch, delivery, and buyer confirmation stay traceable.",
                 "Eligible cleared orders are settled to your Nigerian bank account.",

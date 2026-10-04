@@ -1,64 +1,49 @@
 import {
-  Boxes,
+  BarChart3,
   HandCoins,
-  MessageSquareText,
   ShieldCheck,
-  ShoppingBag,
+  Package,
   Sparkles,
-  Store,
 } from "lucide-react";
 
-const assistants = [
+const intelligenceOutcomes = [
   {
-    icon: Sparkles,
-    title: "Commerce Copilot",
-    text: "Start each day with verified cash, collection, inventory, and storefront priorities.",
+    icon: BarChart3,
+    title: "See the signal",
+    text: "Start each day with priorities grounded in your cash, collections, inventory, margins, and storefront performance.",
   },
   {
     icon: HandCoins,
-    title: "Collections Assistant",
-    text: "Prioritize overdue invoices and prepare reminders you review before anything is sent.",
+    title: "Take the next best step",
+    text: "Prepare reminders, reorder suggestions, listing improvements, and other useful work for you to review.",
   },
   {
-    icon: Boxes,
-    title: "Inventory Adviser",
-    text: "Understand sales velocity, stock cover, slow stock, and suggested reorder quantities.",
-  },
-  {
-    icon: Store,
-    title: "Storefront Adviser",
-    text: "Improve product listings, merchandising, bundles, and margin-safe promotions.",
-  },
-  {
-    icon: ShoppingBag,
-    title: "Buyer Shopping Assistant",
-    text: "Help shoppers find in-stock products that fit their budget and delivery needs.",
-  },
-  {
-    icon: MessageSquareText,
-    title: "Dispute Evidence Assistant",
-    text: "Give trained reviewers a neutral timeline, evidence gaps, and questions—not a verdict.",
+    icon: Package,
+    title: "Keep decisions grounded",
+    text: "Recommendations use verified SuoOps records—not guesses—and never replace the underlying commerce facts.",
   },
 ];
 
 export function CommerceAI() {
   return (
-    <section id="ai-commerce" className="bg-brand-evergreen px-4 py-20 text-white sm:px-6 lg:px-8">
+    <section id="ai-commerce" className="scroll-mt-20 bg-brand-evergreen px-4 py-20 text-white sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-brand-citrus/15 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-brand-citrus">
               <Sparkles className="h-3.5 w-3.5" />
-              Governed commerce AI
+              Commerce intelligence
             </span>
             <h2 className="mt-5 font-heading text-3xl font-bold sm:text-4xl">
-              AI grounded in how your business actually runs
+              Know what needs attention before it becomes a problem
             </h2>
+            <p className="mt-4 font-semibold text-brand-citrus">
+              Commerce intelligence grounded in your real business
+            </p>
             <p className="mt-4 text-lg leading-relaxed text-white/75">
               SuoOps uses your verified business records to explain what needs
-              attention, draft useful content, and help buyers discover products.
-              Your prices, stock, money, and customer relationships stay under
-              your control.
+              attention and recommend what to do next. Your prices, stock, money,
+              and customer relationships remain under your control.
             </p>
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
               <div className="flex items-start gap-3">
@@ -75,8 +60,8 @@ export function CommerceAI() {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            {assistants.map(({ icon: Icon, title, text }) => (
+          <div className="grid gap-4">
+            {intelligenceOutcomes.map(({ icon: Icon, title, text }) => (
               <article
                 key={title}
                 className="rounded-2xl border border-white/10 bg-white/[0.07] p-5 transition hover:-translate-y-0.5 hover:bg-white/10"

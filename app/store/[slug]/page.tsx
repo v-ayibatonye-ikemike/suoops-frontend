@@ -75,7 +75,7 @@ export async function generateMetadata({ params }: RouteProps): Promise<Metadata
     if (store.offline) return { title: `${name} — currently offline · Suoops` };
     const base =
       store.description || `Browse ${name}'s products and order online.`;
-    const description = `${base} Protected by SuoOps — your money is held safely until your order arrives.`;
+    const description = `${base} Eligible orders include SuoOps payment protection through delivery.`;
     return {
       title: `${name} — Shop safely on Suoops`,
       description,

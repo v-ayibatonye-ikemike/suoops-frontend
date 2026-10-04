@@ -92,11 +92,13 @@ export default function PlansArticle() {
 
         {/* Free callout */}
         <div className="mb-10 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 p-6">
-          <h3 className="font-bold text-slate-900 mb-1">All features, free.</h3>
+          <h3 className="font-bold text-slate-900 mb-1">
+            No subscriptions. No feature tiers.
+          </h3>
           <p className="text-sm text-slate-600">
             Custom branding, tax reports, inventory, team access, insights,
-            governed AI and your storefront are included for everyone. There are
-            no plans or subscriptions—you only pay when you transact.
+            commerce intelligence and your storefront are included for everyone.
+            You pay transaction-based fees when you invoice or receive a storefront order.
           </p>
         </div>
 
@@ -155,7 +157,7 @@ export default function PlansArticle() {
         <div className="mt-12 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 p-8 text-center">
           <h3 className="text-xl font-bold text-slate-900 mb-2">Ready to get started?</h3>
           <p className="text-slate-600 mb-4">
-            Every feature is free — you only pay 0.5% when you invoice.
+            Access the full toolkit with no monthly subscription. Pay transaction-based fees when you transact.
           </p>
           <a
             href="https://suoops.com/dashboard/settings"

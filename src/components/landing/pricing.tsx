@@ -2,20 +2,22 @@
 
 import Link from "next/link";
 import { Receipt, Store } from "lucide-react";
-import { FREE_PLAN, FEE_TAGLINE_SHORT } from "../../constants/pricing";
+import { FEE_TAGLINE_SHORT } from "../../constants/pricing";
 import { useRegisterHref } from "@/hooks/use-tracking-params";
 
 export function Pricing() {
   const registerHref = useRegisterHref();
   return (
-    <section id="pricing" className="bg-brand-mint px-4 py-20 sm:px-6 lg:px-8">
+    <section id="pricing" className="scroll-mt-20 bg-brand-mint px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-brand-evergreen sm:text-4xl">
             {FEE_TAGLINE_SHORT}.
           </h2>
           <p className="mt-4 text-lg text-brand-charcoal/70 max-w-2xl mx-auto">
-            No plans. No monthly fees. Every feature is free — Suoops takes just
+            No subscriptions. No feature tiers. Access the full SuoOps toolkit
+            with no monthly subscription. Pay transaction-based fees when you
+            invoice or receive a storefront order:
             <strong> 0.5% when you invoice</strong> (min ₦100, capped ₦400 under ₦500,000),
             and 3% only on storefront orders paid online.
           </p>
@@ -28,7 +30,7 @@ export function Pricing() {
             <h3 className="text-lg font-bold text-brand-evergreen">Storefront orders</h3>
             <p className="mt-2 text-sm text-brand-charcoal/70">
               Share your store link. Customers order, pay online, and pick a
-              courier for delivery — held under buyer protection until it arrives.
+              courier for delivery, with payment protection on eligible orders.
             </p>
             <p className="mt-4 text-3xl font-bold text-brand-evergreen">3%</p>
             <p className="text-sm text-brand-charcoal/50">
@@ -53,11 +55,14 @@ export function Pricing() {
         {/* Free callout */}
         <div className="mt-10 max-w-3xl mx-auto rounded-2xl bg-gradient-to-r from-brand-evergreen to-brand-jade p-6 text-center shadow-lg">
           <div className="text-4xl mb-2">🎉</div>
-          <h3 className="text-xl font-bold text-white">All features, free.</h3>
+          <h3 className="text-xl font-bold text-white">
+            No subscriptions. No feature tiers.
+          </h3>
           <p className="mt-2 text-brand-mint">
-            Custom branding, inventory, team, tax reports, insights, governed AI,
+            Custom branding, inventory, teams, tax reports, insights, commerce intelligence,
             storefront, courier delivery &amp; buyer protection — included for
-            everyone. You only pay when you transact.
+            everyone. Pay transaction-based fees when you use invoicing or receive
+            a storefront order.
           </p>
           <Link
             href={registerHref}
@@ -66,18 +71,6 @@ export function Pricing() {
             Start free →
           </Link>
         </div>
-
-        {/* Feature list */}
-        <ul className="mt-10 grid gap-2 sm:grid-cols-2 max-w-3xl mx-auto text-sm text-brand-charcoal/70">
-          {FREE_PLAN.features.map((feature) => (
-            <li key={feature} className="flex items-start gap-2">
-              <svg className="h-5 w-5 text-brand-jade flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
 
         {/* Closing reassurance */}
         <p className="mt-12 text-center text-lg font-semibold text-brand-charcoal/80">

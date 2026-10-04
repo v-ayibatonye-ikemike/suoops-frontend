@@ -278,7 +278,7 @@ export function WelcomeGuide() {
             </h2>
           </div>
           <p className="text-sm text-brand-textMuted">
-            Every feature is free — we only take {MANUAL_FEE_PERCENT}% when you invoice.
+            No subscription or feature tiers — pay {MANUAL_FEE_PERCENT}% when you invoice.
           </p>
         </div>
 

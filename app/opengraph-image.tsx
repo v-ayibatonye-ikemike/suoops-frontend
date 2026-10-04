@@ -88,7 +88,7 @@ export default async function OgImage() {
             lineHeight: 1.15,
           }}
         >
-          <span>Sell, get paid &amp; grow&nbsp;</span>
+          <span>Sell, get paid &amp; run everything&nbsp;</span>
           <span style={{ color: "#BFF74A" }}>— all in one place</span>
         </div>
 
@@ -103,8 +103,8 @@ export default async function OgImage() {
             lineHeight: 1.35,
           }}
         >
-          Buyer-protected commerce for African business — a storefront with
-          built-in courier delivery, held safely until the order arrives.
+          Buyer-protected commerce for African business, with storefronts and
+          built-in courier delivery.
         </div>
 
         {/* Pillar badges */}

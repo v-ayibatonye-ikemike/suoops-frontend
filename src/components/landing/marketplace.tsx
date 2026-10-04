@@ -73,8 +73,8 @@ export function Marketplace() {
           Buy from real Nigerian shops — protected
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-base text-brand-charcoal/70 sm:text-lg">
-          Find a product, order in minutes, and pay by bank transfer. Your money is
-          held safely until your order arrives.
+          Find a product, order in minutes, and pay by bank transfer. Your payment
+          is protected through delivery on eligible orders.
         </p>
 
         {/* Search → /stores */}

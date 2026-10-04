@@ -121,7 +121,7 @@ export default async function StoreOgImage({
             🛡️ Buy safely — protected by SuoOps
           </div>
           <div style={{ fontSize: "28px", color: "#E8F5EC", maxWidth: "980px" }}>
-            Your money is held safely until your order arrives.
+            Payment protection through delivery on eligible orders.
           </div>
         </div>
 

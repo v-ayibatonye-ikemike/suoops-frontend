@@ -624,7 +624,7 @@ export function StoreCatalog({
               {noDelivery ? (
                 <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-[11px] text-emerald-700">
                   ✓ No delivery needed — this is a service/digital order. Your
-                  payment is still held safely until you confirm it’s done.
+                 payment remains protected until you confirm it’s done.
                 </div>
               ) : (
               <>

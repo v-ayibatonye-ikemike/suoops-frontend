@@ -40,14 +40,14 @@ const _uncapFeeStr = Math.round(
   (MANUAL_UNCAP_THRESHOLD_NAIRA * MANUAL_FEE_PERCENT) / 100,
 ).toLocaleString();
 
-/** Short headline, e.g. "Fees from 0.5% · all features free". */
-export const FEE_HEADLINE = `Fees from ${MANUAL_FEE_PERCENT}% · all features free`;
+/** Short headline, e.g. "No subscription · fees from 0.5%". */
+export const FEE_HEADLINE = `No subscription · fees from ${MANUAL_FEE_PERCENT}%`;
 
 /** Ultra-short headline, e.g. "Fees as low as 0.5%". */
 export const FEE_TAGLINE_SHORT = `Fees as low as ${MANUAL_FEE_PERCENT}%`;
 
 /** One-line "who pays what" summary for the billing card. */
-export const FEE_SUMMARY_SHORT = `Every feature is included. Manual invoices are just ${MANUAL_FEE_PERCENT}%, and on your storefront the customer pays the ${STOREFRONT_FEE_PERCENT}% — you keep your full price.`;
+export const FEE_SUMMARY_SHORT = `No feature tiers. Manual invoices are just ${MANUAL_FEE_PERCENT}%, and on your storefront the customer pays the ${STOREFRONT_FEE_PERCENT}% — you keep your full price.`;
 
 /** Wallet card subtitle. */
 export const WALLET_FEE_TAGLINE = `Funds manual invoices (${MANUAL_FEE_PERCENT}%, min ₦${MANUAL_INVOICE_MIN_FEE}, ₦${MANUAL_INVOICE_MAX_FEE} cap under ₦${MANUAL_UNCAP_THRESHOLD_NAIRA / 1000}k, charged at creation)`;

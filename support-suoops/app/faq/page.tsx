@@ -26,7 +26,7 @@ const faqCategories: FAQCategory[] = [
       },
       {
         question: "Is Suoops free to use?",
-        answer: "Yes. Every feature is free — custom branding, tax reports, inventory, team access and your storefront. There are no plans or monthly fees. Fees are as low as 0.5%: you pay just 0.5% per manual invoice (minimum ₦100, capped at ₦400 for invoices under ₦500,000 — uncapped 0.5% above), and 3% on storefront orders paid online. New accounts also start with a small free wallet balance so you can send your first invoices at no cost."
+        answer: "SuoOps has no subscriptions or feature tiers. The full toolkit includes custom branding, tax reports, inventory, team access and your storefront. Transaction-based fees start at 0.5%: you pay 0.5% per manual invoice (minimum ₦100, capped at ₦400 for invoices under ₦500,000 — uncapped 0.5% above), and 3% on storefront orders paid online. New accounts also start with a small wallet balance so you can send your first invoices at no cost."
       },
       {
         question: "How do I set up my business profile?",
@@ -104,7 +104,7 @@ const faqCategories: FAQCategory[] = [
     faqs: [
       {
         question: "How does my online storefront work?",
-        answer: "Turn on your storefront and share your shop link (suoops.com/store/your-name) anywhere — WhatsApp, Instagram, your bio. Customers browse your products, place an order, and pay online. Every order is held under buyer protection until it's delivered, then settles to your bank."
+        answer: "Turn on your storefront and share your shop link (suoops.com/store/your-name) anywhere — WhatsApp, Instagram, your bio. Customers browse your products, place an order, and pay online. Eligible orders include payment protection through delivery, then cleared funds settle to your bank."
       },
       {
         question: "How does delivery work?",
@@ -116,7 +116,7 @@ const faqCategories: FAQCategory[] = [
       },
       {
         question: "Is my payment protected as a buyer?",
-        answer: "Eligible storefront payments are held safely until delivery or the applicable protection window ends. If something goes wrong — such as a wrong item or non-delivery — report the problem for evidence-based review before funds are released. Your bank transfer is verified and no card details are stored by SuoOps."
+        answer: "Your payment is protected through delivery on eligible storefront orders. If something goes wrong — such as a wrong item or non-delivery — report the problem for evidence-based review before funds are released. Your bank transfer is verified and no card details are stored by SuoOps."
       },
       {
         question: "When do I (the seller) get paid for a storefront order?",

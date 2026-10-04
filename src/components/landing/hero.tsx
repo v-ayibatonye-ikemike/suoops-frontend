@@ -23,6 +23,9 @@ export function Hero({ onWatchDemo }: HeroProps) {
               <span className="text-brand-citrus"> from memory</span>
             </h1>
             <p className="mt-6 text-lg text-white/80 max-w-lg">
+              <strong className="text-white">
+                Sell, get paid, and run everything in one place.
+              </strong>{" "}
               Orders buried in chats. Payment screenshots. Inventory in notebooks.
               SuoOps brings your storefront, payments, orders, delivery, inventory,
               invoices, and expenses into one organized, traceable system.
