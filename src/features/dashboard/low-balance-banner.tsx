@@ -17,10 +17,7 @@ const DISMISSED_KEY = "low-balance-banner-dismissed";
 const DISMISS_TTL_DAYS = 1;
 
 /**
- * Banner to prompt users with low invoice balance to purchase more.
- * Shows when FREE users have 2 or fewer invoices remaining.
- * 
- * Conversion target: Get users to buy invoice packs or upgrade.
+ * Prompt merchants to top up when the prepaid commission wallet is low.
  */
 export function LowBalanceBanner() {
   const [dismissed, setDismissed] = useState(true); // Start hidden to prevent flash
@@ -30,7 +27,7 @@ export function LowBalanceBanner() {
     setDismissed(isDismissed(DISMISSED_KEY, DISMISS_TTL_DAYS));
   }, []);
 
-  // Fetch current user to check invoice balance
+  // Fetch current user to check wallet balance
   const { data: user, isLoading } = useQuery<CurrentUser>({
     queryKey: ["currentUser"],
     queryFn: async () => {

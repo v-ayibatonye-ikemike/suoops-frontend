@@ -146,7 +146,7 @@ export default function PaymentHistoryPage() {
               Payment History
             </h1>
             <p className="mt-1 text-xs text-brand-textMuted sm:text-sm">
-              View all your subscription payments and transactions
+              View your wallet top-ups and historical billing transactions
             </p>
           </div>
         </div>
@@ -242,7 +242,7 @@ export default function PaymentHistoryPage() {
           <div className="p-8 text-center sm:p-12">
             <p className="text-brand-textMuted">No payment history found</p>
             <p className="mt-2 text-xs text-brand-textMuted sm:text-sm">
-              Your subscription payments will appear here
+              Your billing transactions will appear here
             </p>
           </div>
         ) : (

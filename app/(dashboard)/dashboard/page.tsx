@@ -11,7 +11,6 @@ import { InvoiceStatusCard } from "@/features/invoices/invoice-status-card";
 import { CashPositionCard } from "@/features/dashboard/cash-position-card";
 import { CommerceCopilot } from "@/features/dashboard/commerce-copilot";
 import { ProfessionalismScoreCard } from "@/features/dashboard/professionalism-score-card";
-import { ProWelcomeModal } from "@/features/dashboard/pro-welcome-modal";
 import { BankDetailsRequiredGate } from "@/features/dashboard/bank-details-required-gate";
 import { NewUserOnboarding } from "@/features/dashboard/new-user-onboarding";
 import { DashboardNudges } from "@/features/dashboard/dashboard-nudges";
@@ -105,9 +104,6 @@ export default function DashboardPage() {
               <DashboardHero />
 
               <ActivationJourney />
-
-              {/* One-time Pro feature tour for new Pro users */}
-              <ProWelcomeModal />
 
               {/* Operational nudges only; activation is coordinated above. */}
               <DashboardNudges />

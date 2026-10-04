@@ -20,10 +20,10 @@ export function Protection() {
             Commerce should be trusted by default
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-brand-charcoal/70">
-            When a customer pays, the money is held safely until the item is
-            delivered — by a courier they pick at checkout. No payment promises
-            or transfer screenshots: buyers know their order is protected, and
-            sellers know the funds are real.
+            On eligible storefront orders, payment is held safely until delivery
+            or the applicable protection window ends. Buyers can choose an
+            available courier at checkout, while sellers work from verified
+            payment records instead of promises or screenshots.
           </p>
         </div>
 
@@ -38,10 +38,10 @@ export function Protection() {
             </div>
             <ul className="mt-6 space-y-4">
               {[
-                "Your money is held safely — the seller is only paid after you get your order.",
-                "Choose a courier at checkout and track your delivery to your door.",
+                "Your money is held safely until delivery or the applicable protection window ends.",
+                "Choose from available couriers at checkout and track delivery to your door.",
                 "Pay by bank transfer, confirmed instantly. No card details stored.",
-                "Something wrong? Open a dispute and get a refund if it's not resolved.",
+                "Something wrong? Report it for evidence-based review before funds are released.",
               ].map((t) => (
                 <li key={t} className="flex gap-3 text-brand-charcoal/80">
                   <Check />
@@ -62,9 +62,9 @@ export function Protection() {
             <ul className="mt-6 space-y-4">
               {[
                 "Guaranteed funds — the buyer has already paid before you ship.",
-                "Mark an order sent and we book the courier — you're paid after delivery.",
-                "No card chargebacks or fraud reversals eating your revenue.",
-                "Automatic daily settlement straight to your Nigerian bank account.",
+                "Mark an order sent and book the selected courier when it is ready.",
+                "Payment, dispatch, delivery, and buyer confirmation stay traceable.",
+                "Eligible cleared orders are settled to your Nigerian bank account.",
               ].map((t) => (
                 <li key={t} className="flex gap-3 text-brand-charcoal/80">
                   <Check />

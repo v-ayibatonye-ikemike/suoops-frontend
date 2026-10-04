@@ -105,7 +105,7 @@ export default function DeleteAccountArticle() {
           </p>
           <ul>
             <li><strong>Download your data</strong> - Export your invoices as PDFs before deleting</li>
-            <li><strong>Downgrade to Free</strong> - If cost is a concern, you can use the free tier</li>
+            <li><strong>Pause activity</strong> - There are no plans or monthly fees while you are not transacting</li>
             <li><strong>Contact support</strong> - We may be able to help resolve any issues</li>
           </ul>
 
@@ -117,10 +117,10 @@ export default function DeleteAccountArticle() {
             removed from our servers.
           </p>
 
-          <h3>What happens to my active subscription?</h3>
+          <h3>What happens to my wallet balance?</h3>
           <p>
-            If you have an active paid subscription, it will be canceled and you will not receive 
-            a refund for the remaining period.
+            Contact support before deletion if you have a remaining prepaid
+            wallet balance or an unsettled storefront order.
           </p>
 
           <h3>Can someone else delete my account?</h3>
@@ -143,8 +143,8 @@ export default function DeleteAccountArticle() {
             <Link href="/articles/account/data-privacy" className="block text-sm text-emerald-600 hover:underline">
               → Data privacy and GDPR
             </Link>
-            <Link href="/articles/billing/cancel-subscription" className="block text-sm text-emerald-600 hover:underline">
-              → Canceling your subscription
+            <Link href="/articles/billing/plans" className="block text-sm text-emerald-600 hover:underline">
+              → Pricing and your invoice wallet
             </Link>
             <Link href="/contact" className="block text-sm text-emerald-600 hover:underline">
               → Contact support

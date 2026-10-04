@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Eye, Settings, ShieldCheck } from "lucide-react";
+import { Eye, Settings, ShieldCheck, Store } from "lucide-react";
 import { useRegisterHref } from "@/hooks/use-tracking-params";
 
 interface HeroProps {
@@ -37,6 +37,13 @@ export function Hero({ onWatchDemo }: HeroProps) {
                 className="inline-flex items-center justify-center rounded-lg bg-brand-jade px-8 py-4 text-base font-semibold text-white shadow-lg transition-all hover:scale-105 hover:bg-brand-teal"
               >
                 Start selling free
+              </Link>
+              <Link
+                href="/stores"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-brand-citrus/60 bg-brand-citrus/10 px-8 py-4 text-base font-semibold text-brand-citrus transition-all hover:bg-brand-citrus hover:text-brand-evergreen"
+              >
+                <Store className="h-4 w-4" />
+                Browse shops
               </Link>
               <button
                 onClick={onWatchDemo}
@@ -108,6 +115,19 @@ export function Hero({ onWatchDemo }: HeroProps) {
                           <p>👤 Joy</p>
                           <p>💰 ₦7,000</p>
                         </div>
+                        <div className="flex justify-start">
+                          <div className="max-w-[90%] rounded-lg border-l-4 border-brand-citrus bg-white px-4 py-3 shadow-sm">
+                            <p className="text-xs font-semibold uppercase tracking-wide text-brand-jade">
+                              Today&apos;s priority
+                            </p>
+                            <p className="mt-1 text-sm text-slate-700">
+                              Follow up ₦45,000 overdue and review 2 low-stock products.
+                            </p>
+                            <p className="mt-1 text-[11px] text-slate-500">
+                              Verified from your SuoOps records
+                            </p>
+                          </div>
+                        </div>
                         <button className="mt-3 w-full rounded-lg bg-brand-jade py-2 text-sm font-semibold text-white">
                           View Invoice →
                         </button>
@@ -132,10 +152,12 @@ export function Hero({ onWatchDemo }: HeroProps) {
 
 function FeaturePills() {
   const features = [
-    { emoji: "�️", text: "Online storefront" },
+    { emoji: "🛍️", text: "Online storefront" },
     { emoji: "🚚", text: "Nationwide delivery" },
     { emoji: "🛡️", text: "Buyer protection" },
-    { emoji: "�💬", text: "WhatsApp invoices" },
+    { emoji: "💬", text: "WhatsApp invoices" },
+    { emoji: "✨", text: "Commerce Copilot" },
+    { emoji: "🤝", text: "Collections assistant" },
     { emoji: "📧", text: "Email delivery" },
     { emoji: "🔐", text: "QR verification" },
     { emoji: "📱", text: "Mobile-first" },

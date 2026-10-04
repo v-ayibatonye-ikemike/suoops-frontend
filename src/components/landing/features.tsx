@@ -1,8 +1,9 @@
 import {
+  BarChart3,
   CheckCircle2,
+  HandCoins,
   MessageCircle,
   Package,
-  Receipt,
   ShoppingBag,
   Truck,
   type LucideIcon,
@@ -43,7 +44,7 @@ export function Features() {
             <StepCard
               number={4}
               title="Ship & track everything"
-              description="Mark the order sent and we book the rider. See who's paid, what stock is low, and whether you're tax-safe — all in one dashboard."
+              description="Mark the order sent and book an available rider. See who's paid, what stock is low, what is overdue, and what needs attention next."
             />
           </div>
         </div>
@@ -61,66 +62,82 @@ export function Features() {
           <div className="grid gap-8 md:grid-cols-2">
             <FeatureCard
               icon={CheckCircle2}
-              title="Invoicing, without complexity"
+              title="Sell from chat or dashboard"
               features={[
-                "Create and send invoices in seconds",
-                "Track paid, pending, and overdue invoices",
-                "Works with any Nigerian bank — no forced lock-in",
-                "Custom branding and team access — included, no plans",
+                "Create branded invoices by WhatsApp text, voice, photo, or web",
+                "Sell through a public storefront, checkout, payment links, and QR codes",
+                "Track paid, pending, overdue, and buyer-protected orders",
+                "Send invoices and receipts through WhatsApp, email, or PDF",
               ]}
-              highlight="Every feature included — just 0.5% per invoice (min ₦100, capped ₦400 under ₦500,000)."
+              highlight="Keep selling the way you already do—SuoOps adds the structure."
             />
             <FeatureCard
               icon={ShoppingBag}
-              title="Storefront & online payments"
+              title="Get paid with confidence"
               features={[
-                "Share a public shop link on WhatsApp, Instagram or your bio",
-                "Customers browse, pay by bank transfer, and pick a courier at checkout",
-                "Every order is held under buyer protection until it's delivered",
-                "You just mark it sent — we settle you after delivery",
+                "Accept verified online payments or confirm bank transfers",
+                "Generate payment-ready invoices and paid receipts",
+                "Protect eligible storefront orders until delivery or the applicable protection window",
+                "Track settlement, payout, and dispute status without payment screenshots",
               ]}
-              highlight="Your own online storefront, live in minutes."
+              highlight="Real payment records for sellers; clear protection for buyers."
             />
             <FeatureCard
               icon={Truck}
-              title="Delivery, handled for you"
+              title="Deliver across Nigeria"
               features={[
                 "Customers pick a courier and pay for delivery right at checkout",
-                "Nationwide couriers — GIG, Fez, Sendbox, Gokada and more",
-                "Just mark the order sent and we book the rider automatically",
-                "You're paid after it's delivered, so buyers order with confidence",
+                "Compare available nationwide courier options for their route",
+                "Book the selected rider when the order is ready",
+                "Track pickup, transit, delivery, and buyer confirmation",
               ]}
               highlight="Sell to anyone in Nigeria — delivery is built in."
+              note="Courier options, prices, and delivery times vary by route, parcel, and live availability."
             />
             <FeatureCard
               icon={Package}
-              title="Inventory that actually helps you sell"
+              title="Run stock and purchasing"
               features={[
-                "Manage products and categories",
-                "Automatic stock updates when invoicing",
-                "Low-stock alerts before you run out"
+                "Manage products, categories, suppliers, SKUs, and barcodes",
+                "Update stock automatically when you sell or receive goods",
+                "See low stock, stock cover, sales velocity, and slow-moving products",
+                "Prepare supplier-linked draft purchase orders",
               ]}
             />
             <FeatureCard
-              icon={Receipt}
-              title="Simple tax insight (Nigeria-focused)"
+              icon={HandCoins}
+              title="Recover revenue and control cash"
               features={[
-                "See your tax band clearly",
-                "Know when you're exempt",
-                "Understand your obligations without accounting jargon"
+                "Prioritize overdue invoices by amount, age, and urgency",
+                "Review and edit reminders before sending anything",
+                "Track expenses, collections, and cash position",
+                "Understand margins and customer concentration",
               ]}
-              note="Small businesses under ₦100M annual turnover are exempt from Company Income Tax (NTA 2025)."
             />
             <FeatureCard
-              icon={MessageCircle}
-              title="WhatsApp Bot (your unfair advantage)"
+              icon={BarChart3}
+              title="See what the business is doing"
               features={[
-                "Create invoices by chat",
-                "Receive invoice notifications",
-                "Follow up where conversations already happen"
+                "Monitor revenue, conversion, cash, margin, and storefront performance",
+                "Give team members one shared operating workspace",
+                "Understand Nigerian tax obligations and generate reports",
+                "Get a grounded daily briefing and recommended next steps",
               ]}
-              highlight="This is not an add-on. This is the core workflow."
+              note="Tax tools support business administration and are not legal or financial advice."
+              highlight="Less guessing. More visible, traceable decisions."
             />
+          </div>
+
+          <div className="mt-10 rounded-2xl border border-brand-jade/20 bg-brand-mint p-6 text-center">
+            <MessageCircle className="mx-auto h-7 w-7 text-brand-jade" />
+            <h3 className="mt-3 text-xl font-bold text-brand-evergreen">
+              WhatsApp is still your fastest way in
+            </h3>
+            <p className="mx-auto mt-2 max-w-2xl text-sm leading-relaxed text-brand-charcoal/70">
+              Create invoices, use voice notes, receive alerts, check what is
+              owed, and ask grounded business questions where your customer
+              conversations already happen.
+            </p>
           </div>
         </div>
       </section>

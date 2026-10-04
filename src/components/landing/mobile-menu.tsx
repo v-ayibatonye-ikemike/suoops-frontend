@@ -68,6 +68,13 @@ export function MobileMenu() {
                 Features
               </a>
               <a
+                href="#ai-commerce"
+                onClick={close}
+                className="rounded-lg px-4 py-3 text-base font-medium text-white/90 hover:bg-white/10 transition-colors"
+              >
+                AI Commerce
+              </a>
+              <a
                 href="#pricing"
                 onClick={close}
                 className="rounded-lg px-4 py-3 text-base font-medium text-white/90 hover:bg-white/10 transition-colors"
@@ -92,9 +99,23 @@ export function MobileMenu() {
               </a>
               <hr className="border-white/10" />
               <Link
-                href="/login"
+                href="/stores"
+                onClick={close}
+                className="rounded-lg border border-brand-citrus/50 px-4 py-3 text-center text-base font-semibold text-brand-citrus transition-colors hover:bg-brand-citrus hover:text-brand-evergreen"
+              >
+                Browse shops
+              </Link>
+              <Link
+                href="/register"
                 onClick={close}
                 className="rounded-lg bg-brand-jade px-4 py-3 text-center text-base font-semibold text-white shadow-lg transition-colors hover:bg-brand-teal"
+              >
+                Start selling free
+              </Link>
+              <Link
+                href="/login"
+                onClick={close}
+                className="rounded-lg px-4 py-3 text-center text-base font-semibold text-white/90 transition-colors hover:bg-white/10"
               >
                 Login
               </Link>

@@ -35,6 +35,10 @@ const faqCategories: FAQCategory[] = [
       {
         question: "Can I use SuoOps on my phone?",
         answer: "Yes! SuoOps works on any device. You can use our web dashboard at suoops.com, or create invoices directly via WhatsApp by messaging our bot."
+      },
+      {
+        question: "What can SuoOps AI do?",
+        answer: "SuoOps AI can explain your daily priorities, help with overdue collections, inventory reordering, storefront listings, buyer product discovery and dispute evidence. It works from verified SuoOps records. You still approve messages, stock actions, purchase drafts and promotions, and AI cannot move money or decide disputes."
       }
     ]
   },
@@ -74,7 +78,7 @@ const faqCategories: FAQCategory[] = [
       },
       {
         question: "Do I need a subscription?",
-        answer: "No. There are no subscriptions or plans. Custom branding, tax reports, inventory, team access and your storefront are all free. You simply fund a prepaid wallet and pay just 1% per manual invoice (3% on storefront orders paid online)."
+        answer: "No. There are no subscriptions or plans. Custom branding, tax reports, inventory, team access, governed AI and your storefront are all included. You simply fund a prepaid wallet and pay 0.5% per manual invoice (3% on storefront orders paid online)."
       },
       {
         question: "What is the invoice wallet?",
@@ -90,7 +94,7 @@ const faqCategories: FAQCategory[] = [
       },
       {
         question: "Are there any other fees?",
-        answer: "Just 0.1% per manual invoice (3% on storefront orders paid online). For storefront/online card and transfer payments, a small payment-processing fee from the payment provider may also apply."
+        answer: "Just 0.5% per manual invoice (minimum ₦100, capped at ₦400 below ₦500,000, then uncapped) and 3% on storefront orders paid online. Courier delivery is quoted separately, and a small payment-processing fee from the payment provider may also apply."
       }
     ]
   },
@@ -104,7 +108,7 @@ const faqCategories: FAQCategory[] = [
       },
       {
         question: "How does delivery work?",
-        answer: "At checkout the customer sees live courier options (GIG, Fez, Sendbox, Gokada and more) with prices and delivery times, picks one, and pays for delivery as part of their order. When you're ready to ship, open the order and mark it 'Sent' — SuoOps books the courier for you. The customer can track it, and you're paid after it's delivered."
+        answer: "At checkout the customer sees available courier options (including GIG, Fez, Sendbox, Gokada and others where available) with live prices and delivery times, picks one, and pays for delivery as part of their order. When you're ready to ship, open the order and mark it 'Sent' — SuoOps books the selected courier. Options vary by route, parcel and live courier availability."
       },
       {
         question: "Who pays for delivery?",
@@ -112,11 +116,11 @@ const faqCategories: FAQCategory[] = [
       },
       {
         question: "Is my payment protected as a buyer?",
-        answer: "Yes. Your payment is held safely and the seller is only paid after your order is delivered. If something goes wrong — wrong item, or it never arrives — report a problem with your release code and get a refund if it isn't resolved. Your bank transfer is confirmed instantly and no card details are stored."
+        answer: "Eligible storefront payments are held safely until delivery or the applicable protection window ends. If something goes wrong — such as a wrong item or non-delivery — report the problem for evidence-based review before funds are released. Your bank transfer is verified and no card details are stored by SuoOps."
       },
       {
         question: "When do I (the seller) get paid for a storefront order?",
-        answer: "The buyer pays up front, but the money is held under buyer protection. For a courier order you're settled after the courier reports delivery (plus a short inspection window); for pickup orders, after the buyer confirms or the protection window ends. Payouts go straight to your Nigerian bank on the next daily settlement run — with no card chargebacks."
+        answer: "The buyer pays up front, but eligible orders are held under buyer protection. For a courier order you're settled after delivery and the applicable inspection window; for pickup orders, after the buyer confirms or the protection window ends. Cleared payouts are sent to your Nigerian bank during the next settlement run."
       }
     ]
   },

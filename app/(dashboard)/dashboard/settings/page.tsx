@@ -37,7 +37,7 @@ type TabKey = "profile" | "business" | "billing" | "team" | "advanced";
 const TABS: { key: TabKey; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
   { key: "profile", label: "Profile", icon: User },
   { key: "business", label: "Business setup", icon: Building2 },
-  { key: "billing", label: "Billing & Plan", icon: CreditCard },
+  { key: "billing", label: "Billing & Wallet", icon: CreditCard },
   { key: "team", label: "Team", icon: Users },
   { key: "advanced", label: "Advanced", icon: AlertTriangle },
 ];

@@ -178,13 +178,13 @@ export function InvoiceCreateForm() {
           gate.currentCount != null && gate.limit != null
             ? `You have used ${gate.currentCount} of ${gate.limit}.`
             : null,
-          "Upgrade now to unlock more invoices and premium automation.",
+          "Top up your wallet to keep creating manual invoices.",
         ]
           .filter(Boolean)
           .join(" ");
         setQuotaError(composed);
         setCurrentPlan(gate.currentPlan || currentPlan);
-        setUpgradeUrl(gate.upgradeUrl || "/dashboard/upgrade");
+        setUpgradeUrl(gate.upgradeUrl || "/dashboard/billing/purchase");
         setShowUpgradeModal(true);
         return;
       }

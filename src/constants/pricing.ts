@@ -114,7 +114,7 @@ export const FREE_PLAN: Plan = {
   priceDisplay: "₦0",
   invoicesDisplay: "All features free · 0.5% per invoice",
   icon: "🚀",
-  description: "Everything included. We just take 0.5% when you invoice.",
+  description: "Everything included. You pay commission only when you transact.",
   features: [
     "All features included — no plans",
     "0.5% per invoice (min ₦100, ₦400 cap under ₦500k), from your wallet",

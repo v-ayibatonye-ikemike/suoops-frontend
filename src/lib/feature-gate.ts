@@ -1,5 +1,4 @@
-// Unified feature gate error parsing for plan-gated features
-// Supports invoice_limit_reached and premium_feature_required errors from backend.
+// Unified parser for wallet, legacy feature-gate, and invoice errors.
 
 import type { AxiosError } from "axios";
 
@@ -79,7 +78,8 @@ export function parseFeatureGateError(err: unknown): FeatureGateParsed | null {
   const currentPlan = (detail.current_plan || detail.currentPlan)?.toString();
   const currentCount = detail.current_count ?? detail.currentCount;
   const limit = detail.limit;
-  const upgradeUrl = detail.upgrade_url || detail.upgradeUrl || "/dashboard/upgrade";
+  const upgradeUrl =
+    detail.upgrade_url || detail.upgradeUrl || "/dashboard/billing/purchase";
 
   // Handle missing bank details error (INV004)
   if (code === "INV004") {

@@ -4,6 +4,421 @@
  */
 
 export interface paths {
+    "/ai/availability": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Ai Availability */
+        get: operations["get_ai_availability_ai_availability_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/usage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Ai Usage */
+        get: operations["get_ai_usage_ai_usage_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/preferences": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Ai Preferences */
+        get: operations["get_ai_preferences_ai_preferences_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update Ai Preferences */
+        patch: operations["update_ai_preferences_ai_preferences_patch"];
+        trace?: never;
+    };
+    "/ai/feedback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Submit Ai Feedback */
+        post: operations["submit_ai_feedback_ai_feedback_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/copilot/briefing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Copilot Briefing */
+        get: operations["get_copilot_briefing_ai_copilot_briefing_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/copilot/ask": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Ask Copilot */
+        post: operations["ask_copilot_ai_copilot_ask_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/copilot/actions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Copilot Actions */
+        get: operations["list_copilot_actions_ai_copilot_actions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/copilot/actions/{action_id}/decision": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Decide Copilot Action */
+        post: operations["decide_copilot_action_ai_copilot_actions__action_id__decision_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/collections/priorities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Collection Priorities */
+        get: operations["get_collection_priorities_ai_collections_priorities_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/collections/drafts/{draft_id}/enhance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Enhance Collection Draft */
+        post: operations["enhance_collection_draft_ai_collections_drafts__draft_id__enhance_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/collections/drafts/{draft_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update Collection Draft */
+        patch: operations["update_collection_draft_ai_collections_drafts__draft_id__patch"];
+        trace?: never;
+    };
+    "/ai/collections/drafts/{draft_id}/send": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Send Collection Draft */
+        post: operations["send_collection_draft_ai_collections_drafts__draft_id__send_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/collections/drafts/{draft_id}/dismiss": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Dismiss Collection Draft */
+        post: operations["dismiss_collection_draft_ai_collections_drafts__draft_id__dismiss_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/collections/metrics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Collection Metrics */
+        get: operations["get_collection_metrics_ai_collections_metrics_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/inventory/advice": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Inventory Advice */
+        get: operations["get_inventory_advice_ai_inventory_advice_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/inventory/purchase-orders": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create Inventory Purchase Order */
+        post: operations["create_inventory_purchase_order_ai_inventory_purchase_orders_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/storefront/advice": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Storefront Advice */
+        get: operations["get_storefront_advice_ai_storefront_advice_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/storefront/products/{product_id}/copy-draft": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Draft Storefront Product Copy */
+        post: operations["draft_storefront_product_copy_ai_storefront_products__product_id__copy_draft_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/storefront/products/{product_id}/copy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Apply Storefront Product Copy */
+        patch: operations["apply_storefront_product_copy_ai_storefront_products__product_id__copy_patch"];
+        trace?: never;
+    };
+    "/ai/storefront/merchandising": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Apply Storefront Merchandising */
+        post: operations["apply_storefront_merchandising_ai_storefront_merchandising_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/storefront/products/{product_id}/promotion": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Apply Storefront Promotion */
+        post: operations["apply_storefront_promotion_ai_storefront_products__product_id__promotion_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ai/storefront/bundles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Apply Storefront Bundle */
+        post: operations["apply_storefront_bundle_ai_storefront_bundles_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analytics/exchange-rate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Exchange Rate
+         * @description Get the current NGN/USD exchange rate used for conversions.
+         */
+        get: operations["get_exchange_rate_analytics_exchange_rate_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analytics/exchange-rate/refresh": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Refresh Exchange Rate
+         * @description Force-refresh the exchange rate (busts the server cache).
+         */
+        post: operations["refresh_exchange_rate_analytics_exchange_rate_refresh_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/analytics/dashboard": {
         parameters: {
             query?: never;
@@ -15,15 +430,7 @@ export interface paths {
          * Get Analytics Dashboard
          * @description Get comprehensive analytics dashboard with revenue, invoices, customers, and aging.
          *
-         *     Args:
-         *         current_user_id: Authenticated user ID
-         *         data_owner_id: Data owner ID (team admin for members)
-         *         db: Database session
-         *         period: Time period (7d, 30d, 90d, 1y, all)
-         *         currency: Display currency (NGN or USD)
-         *
-         *     Returns:
-         *         Complete analytics dashboard data (team data for team members)
+         *     Requires a paid plan (Pro or higher).
          */
         get: operations["get_analytics_dashboard_analytics_dashboard_get"];
         put?: never;
@@ -74,6 +481,151 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/analytics/cash-position": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Cash Position
+         * @description Cash-first business snapshot.
+         *
+         *     Shows real money movement: what came in, what's owed, what's overdue,
+         *     and what to expect this week — the numbers that matter most to a
+         *     Nigerian small business owner.
+         */
+        get: operations["get_cash_position_analytics_cash_position_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analytics/customer-insights": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Customer Insights
+         * @description Customer value, payment behaviour, and dormancy insights.
+         *
+         *     Segments customers into VIP / Active / New / At-Risk / Dormant so the
+         *     business knows who to nurture and who to re-engage.
+         */
+        get: operations["get_customer_insights_analytics_customer_insights_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analytics/professionalism-score": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Professionalism Score
+         * @description Score how professional the business looks (0-100).
+         *
+         *     Five checks, 20 points each: logo, bank details, due dates, receipts,
+         *     payment instructions. Only visible to the business — not to customers.
+         */
+        get: operations["get_professionalism_score_analytics_professionalism_score_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analytics/business-snapshot": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Business Snapshot
+         * @description Composite SME activity snapshot for sharing with a financial
+         *     institution — payment reliability, revenue consistency,
+         *     professionalism, tax/VAT compliance signal, and activity depth,
+         *     assembled from data SuoOps already has.
+         *
+         *     NOT a credit score (see the `disclaimer` field) — an alternative-data
+         *     input intended to sit alongside a bank's own underwriting and
+         *     cross-bank data, not replace it.
+         */
+        get: operations["get_business_snapshot_analytics_business_snapshot_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analytics/margin-insights": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Margin Insights
+         * @description Discount leakage and product margin analysis.
+         *
+         *     Shows total discounts given, who gets the most, and which products have
+         *     thin margins — so the business can price more profitably.
+         */
+        get: operations["get_margin_insights_analytics_margin_insights_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analytics/storefront-insights": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Storefront Insights
+         * @description Storefront performance: views, orders, GMV, ratings, top products, demand.
+         *
+         *     Store-lifetime counters (views, rating, conversion) plus period-scoped order
+         *     metrics (orders, GMV of goods, avg order value, refunds/disputes, top
+         *     products, restock demand). Returns ``enabled=false`` when the business has no
+         *     storefront so the UI can prompt setup.
+         */
+        get: operations["get_storefront_insights_analytics_storefront_insights_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/auth/signup/request": {
         parameters: {
             query?: never;
@@ -85,7 +637,10 @@ export interface paths {
         put?: never;
         /**
          * Request Signup
-         * @description Request signup OTP via phone OR email.
+         * @description Request signup OTP.
+         *
+         *     The code is delivered to the user's EMAIL (WhatsApp only as a fallback). The
+         *     WhatsApp number is verified separately after signup, before the dashboard.
          */
         post: operations["request_signup_auth_signup_request_post"];
         delete?: never;
@@ -122,7 +677,7 @@ export interface paths {
         put?: never;
         /**
          * Request Login
-         * @description Request login OTP via phone OR email.
+         * @description Request a login OTP through email or WhatsApp, matching the supplied identifier.
          */
         post: operations["request_login_auth_login_request_post"];
         delete?: never;
@@ -162,6 +717,36 @@ export interface paths {
          * @description Resend OTP for phone OR email.
          */
         post: operations["resend_otp_auth_otp_resend_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/otp/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Otp Delivery Status
+         * @description Return delivery status for a pending OTP.
+         *
+         *     Frontends poll this after requesting an OTP to detect WhatsApp delivery
+         *     failures reported asynchronously via Meta's status webhook (e.g. the
+         *     recipient is not a WhatsApp user, the business account has a payment
+         *     issue, the number is in a restricted region, etc.).
+         *
+         *     Response shape::
+         *
+         *         {"state": "pending" | "failed" | "none",
+         *          "code": "131026", "title": "...", "detail": "..."}
+         */
+        get: operations["otp_delivery_status_auth_otp_status_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -361,8 +946,33 @@ export interface paths {
          * @description Handle incoming WhatsApp messages.
          *
          *     Messages are enqueued for async processing via Celery worker.
+         *     Verifies X-Hub-Signature-256 header from Meta to prevent spoofing.
          */
         post: operations["whatsapp_webhook_webhooks_whatsapp_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webhooks/ses": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Ses Webhook
+         * @description Handle Amazon SNS notifications for SES bounces and complaints.
+         *
+         *     SNS posts bounce/complaint events here. We verify the SNS signature,
+         *     auto-confirm the topic subscription, and record hard-bounced / complained
+         *     addresses in the suppression list so we stop emailing them.
+         */
+        post: operations["ses_webhook_webhooks_ses_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -380,6 +990,55 @@ export interface paths {
         put?: never;
         /** Paystack Webhook */
         post: operations["paystack_webhook_webhooks_paystack_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webhooks/flutterwave": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Flutterwave Webhook
+         * @description Flutterwave collection webhook — verified via the `verif-hash` header
+         *     (the secret hash set in the FW dashboard, read from FLUTTERWAVE_WEBHOOK_HASH).
+         *     Flutterwave's webhook source IPs are dynamic, so signature is the trust
+         *     anchor (not IP allow-listing).
+         */
+        post: operations["flutterwave_webhook_webhooks_flutterwave_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webhooks/shipbubble": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Shipbubble Webhook
+         * @description Shipbubble courier webhook — shipment status/tracking updates.
+         *
+         *     Verified via the ``x-ship-signature`` header (HMAC-SHA512 of the raw body,
+         *     keyed by our Shipbubble secret). Register this URL in the Shipbubble
+         *     dashboard: ``https://api.suoops.com/webhooks/shipbubble``. Must return 200
+         *     within 15s or Shipbubble retries. Fail-soft: a body we can't correlate is
+         *     still acknowledged so the endpoint isn't marked failed.
+         */
+        post: operations["shipbubble_webhook_webhooks_shipbubble_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -420,6 +1079,101 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/public/invoices/{invoice_id}/pay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Initialize Invoice Payment
+         * @description Public: start an online payment for an invoice via the issuer's Paystack
+         *     subaccount. Reuses the shared invoice_payment_service.
+         */
+        post: operations["initialize_invoice_payment_public_invoices__invoice_id__pay_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/invoices/{invoice_id}/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Verify Invoice Payment
+         * @description Public: verify a Paystack payment on return from checkout and confirm the
+         *     invoice — a pull-based fallback so a delayed/missed webhook doesn't leave the
+         *     customer stuck on "pending". Only marks paid when Paystack itself reports
+         *     success for a reference that belongs to this invoice.
+         */
+        post: operations["verify_invoice_payment_public_invoices__invoice_id__verify_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/invoices/online-payments-status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Online Payments Status */
+        get: operations["get_online_payments_status_invoices_online_payments_status_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/invoices/enable-online-payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Enable Online Payments */
+        post: operations["enable_online_payments_invoices_enable_online_payments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/invoices/disable-online-payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Disable Online Payments */
+        post: operations["disable_online_payments_invoices_disable_online_payments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/invoices/": {
         parameters: {
             query?: never;
@@ -445,6 +1199,34 @@ export interface paths {
          *               the system automatically forces synchronous generation so the attachment is present.
          */
         post: operations["create_invoice_invoices__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/invoices/quick-sale": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Quick Sale
+         * @description Record a walk-in / in-person sale and mark it paid in one step.
+         *
+         *     Unlike a normal invoice, no customer contact is required and no bank
+         *     details are needed (the deliverable is a receipt, not a "please pay"
+         *     document) — this is for cash/POS-style sales that are already settled at
+         *     the point of sale. The sale still goes through the same paid-invoice
+         *     pipeline as any other invoice (inventory deduction, receipt generation,
+         *     fraud-review gate on large self-confirmed amounts), so it behaves
+         *     identically to a business manually marking an invoice paid.
+         */
+        post: operations["create_quick_sale_invoices_quick_sale_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -575,21 +1357,18 @@ export interface paths {
         put?: never;
         /**
          * Initialize Invoice Pack Purchase
-         * @description Initialize Paystack payment for invoice pack purchase.
-         *
-         *     NEW BILLING MODEL:
-         *     - 100 invoices = ₦2,500 per pack
-         *     - Available to all plans (FREE, STARTER, PRO, BUSINESS)
-         *     - Invoice balance never expires
+         * @description Initialize a Paystack payment to top up the prepaid wallet.
          *
          *     **Parameters:**
-         *     - quantity: Number of packs to purchase (default 1)
+         *     - amount: Top-up amount in Naira; must be an offered tier (1250/5000/20000).
+         *       The customer additionally covers the Paystack fee at checkout; the wallet
+         *       is credited the full tier amount.
          *
          *     **Returns:**
          *     - authorization_url: Paystack checkout URL
          *     - reference: Payment reference for tracking
-         *     - amount: Amount in kobo (₦ x 100)
-         *     - invoices_to_add: Number of invoices that will be added
+         *     - amount: Total charged in Naira (tier + Paystack fee)
+         *     - wallet_credit_naira: Amount credited to the wallet (the tier)
          */
         post: operations["initialize_invoice_pack_purchase_invoices_purchase_pack_post"];
         delete?: never;
@@ -723,7 +1502,7 @@ export interface paths {
          * Parse Receipt Image
          * @description Parse receipt/invoice image to extract data (Step 1).
          *
-         *     **🔒 PAID FEATURE - Requires paid subscription plan**
+         *     Included for every merchant, with a monthly usage limit for cost control.
          *
          *     **Upload image → Get structured data → Review → Confirm**
          *
@@ -774,7 +1553,7 @@ export interface paths {
          * Create Invoice From Image
          * @description Parse image AND create invoice in one step (convenience endpoint).
          *
-         *     **🔒 PAID FEATURE - Requires paid subscription plan**
+         *     Included for every merchant, with the same monthly OCR usage limit.
          *
          *     **Quick flow: Upload image → Invoice created automatically**
          *
@@ -808,7 +1587,76 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/subscriptions/initialize": {
+    "/referrals/code": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Referral Code
+         * @description Get or create the current user's referral code.
+         *
+         *     Every user gets a unique referral code they can share.
+         */
+        get: operations["get_referral_code_referrals_code_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/referrals/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Referral Stats
+         * @description Get referral statistics for the current user.
+         *
+         *     Includes:
+         *     - Total referrals (completed)
+         *     - Pending referrals (awaiting verification)
+         *     - Free vs paid signups
+         *     - Rewards earned and pending
+         *     - Progress towards next reward
+         */
+        get: operations["get_referral_stats_referrals_stats_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/referrals/recent": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Recent Referrals
+         * @description Get recent referrals for the current user.
+         */
+        get: operations["get_recent_referrals_referrals_recent_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/referrals/apply-reward": {
         parameters: {
             query?: never;
             header?: never;
@@ -818,32 +1666,48 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Initialize Subscription Payment
-         * @description Initialize Paystack payment for subscription upgrade.
+         * Apply Reward
+         * @description Apply a pending reward to the user's account.
          *
-         *     **Flow:**
-         *     1. User selects plan (STARTER/PRO/BUSINESS)
-         *     2. We generate Paystack payment link
-         *     3. User pays via Paystack
-         *     4. Webhook confirms payment
-         *     5. We upgrade user's plan automatically
-         *
-         *     **Parameters:**
-         *     - plan: Target subscription plan (FREE not allowed - it's default)
-         *
-         *     **Returns:**
-         *     - authorization_url: Paystack checkout URL
-         *     - reference: Payment reference for tracking
-         *     - amount: Amount in kobo (₦ x 100)
+         *     This will:
+         *     - Add bonus invoices to the user's balance
+         *     - Add 1 month to their subscription (if Pro)
          */
-        post: operations["initialize_subscription_payment_subscriptions_initialize_post"];
+        post: operations["apply_reward_referrals_apply_reward_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/subscriptions/verify/{reference}": {
+    "/referrals/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Validate Referral Code
+         * @description Validate a referral code (public endpoint for signup form).
+         *
+         *     This endpoint is used to check if a referral code is valid
+         *     before the user completes registration.
+         *
+         *     Accepts either the random referral code OR an influencer's custom
+         *     vanity slug (case-insensitive) — matching the same lookup used when
+         *     the referral is actually recorded at signup.
+         */
+        post: operations["validate_referral_code_referrals_validate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/referrals/payout-bank": {
         parameters: {
             query?: never;
             header?: never;
@@ -851,13 +1715,48 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Verify Subscription Payment
-         * @description Verify Paystack payment status.
+         * Get Payout Bank Details
+         * @description Get the current user's payout bank details for referral commissions.
          *
-         *     Called by frontend after user returns from Paystack checkout.
-         *     If payment successful, upgrade plan immediately.
+         *     Behavior:
+         *     - If a dedicated payout account is set, return that (override)
+         *     - Otherwise, fall back to the user's business invoice bank account
+         *         so influencers don't have to set bank details twice
          */
-        get: operations["verify_subscription_payment_subscriptions_verify__reference__get"];
+        get: operations["get_payout_bank_details_referrals_payout_bank_get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete Payout Bank Details
+         * @description Clear the current user's payout bank details.
+         */
+        delete: operations["delete_payout_bank_details_referrals_payout_bank_delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update Payout Bank Details
+         * @description Update the current user's payout bank details for referral commissions.
+         *
+         *     This is where commission payouts will be sent (weekly payout schedule).
+         */
+        patch: operations["update_payout_bank_details_referrals_payout_bank_patch"];
+        trace?: never;
+    };
+    "/referrals/earnings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Influencer Earnings
+         * @description Get detailed earnings breakdown for influencer dashboard.
+         *
+         *     Only meaningful for users with is_influencer=True on their
+         *     referral code, but any authenticated user can call it.
+         */
+        get: operations["get_influencer_earnings_referrals_earnings_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -907,9 +1806,68 @@ export interface paths {
          * Get Payment Detail
          * @description Get detailed information about a specific payment transaction.
          *
-         *     Includes full metadata from Paystack webhook.
+         *     Note: Paystack internal fields (transaction_id, metadata, ip_address)
+         *     are excluded from the response to prevent data leakage.
          */
         get: operations["get_payment_detail_subscriptions_history__payment_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/subscriptions/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Cancel Subscription
+         * @description Cancel user's Paystack subscription (stop auto-renewal).
+         *
+         *     **Important:** This stops future charges but does NOT immediately downgrade.
+         *     User keeps their plan until subscription_expires_at date.
+         *
+         *     **Flow:**
+         *     1. Disable subscription on Paystack
+         *     2. Clear subscription code from user
+         *     3. User keeps plan until expiry, then auto-downgrades to FREE
+         *
+         *     **Returns:**
+         *     - success: Confirmation message
+         *     - expires_at: When the current subscription period ends
+         */
+        post: operations["cancel_subscription_subscriptions_cancel_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/subscriptions/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Subscription Status
+         * @description Get current subscription status including billing info.
+         *
+         *     **Returns:**
+         *     - plan: Current plan name
+         *     - is_recurring: Whether subscription auto-renews
+         *     - expires_at: When current period ends
+         *     - invoice_balance: Available invoices
+         */
+        get: operations["get_subscription_status_subscriptions_status_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -925,10 +1883,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get Tax Profile */
+        /**
+         * Get Tax Profile
+         * @description Get the user's included tax profile.
+         */
         get: operations["get_tax_profile_tax_profile_get"];
         put?: never;
-        /** Update Tax Profile */
+        /**
+         * Update Tax Profile
+         * @description Update the user's included tax profile.
+         */
         post: operations["update_tax_profile_tax_profile_post"];
         delete?: never;
         options?: never;
@@ -943,7 +1907,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Small Business Check */
+        /**
+         * Small Business Check
+         * @description Check small-business eligibility.
+         */
         get: operations["small_business_check_tax_small_business_check_get"];
         put?: never;
         post?: never;
@@ -960,10 +1927,62 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Tax Compliance */
+        /**
+         * Tax Compliance
+         * @description Get the user's tax compliance summary.
+         */
         get: operations["tax_compliance_tax_compliance_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tax/profile/verify-tin": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Verify Tin
+         * @description Verify the business's TIN via Mono Lookup, charged from their own
+         *     wallet — not gated by plan, since it's a metered, opt-in, self-funded
+         *     action rather than a subscription feature. Idempotent: an
+         *     already-verified TIN returns immediately at no charge.
+         *     SuoOpsException subclasses (invalid TIN, insufficient wallet balance,
+         *     Mono not configured/unavailable) are handled by the global exception
+         *     handler registered in app.api.main.
+         */
+        post: operations["verify_tin_tax_profile_verify_tin_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tax/profile/verify-cac": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Verify Cac
+         * @description Verify the business's CAC/RC registration via Mono Lookup, charged
+         *     from their own wallet. Confirms the business is a formally registered
+         *     legal entity — independent of, and a meaningful signal alongside, VAT
+         *     registration status.
+         */
+        post: operations["verify_cac_tax_profile_verify_cac_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1032,26 +2051,9 @@ export interface paths {
         put?: never;
         /**
          * Generate Tax Report
-         * @description Generate tax report for specified period.
+         * @description Generate tax report for specified period. Requires STARTER or PRO plan.
          */
         post: operations["generate_tax_report_tax_reports_generate_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/tax/admin/alerts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List Recent Alerts */
-        get: operations["list_recent_alerts_tax_admin_alerts_get"];
-        put?: never;
-        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -1189,6 +2191,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/tax/admin/alerts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Recent Alerts */
+        get: operations["list_recent_alerts_tax_admin_alerts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/tax/invoice/{invoice_id}/fiscalize": {
         parameters: {
             query?: never;
@@ -1206,6 +2225,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/users/me/activation-state": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Activation State
+         * @description Return current activation state derived entirely from existing records.
+         */
+        get: operations["get_activation_state_users_me_activation_state_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/users/me": {
         parameters: {
             query?: never;
@@ -1215,7 +2254,7 @@ export interface paths {
         };
         /**
          * Get Profile
-         * @description Return current user's core profile and subscription details.
+         * @description Return the current user's core profile and legacy billing fields.
          */
         get: operations["get_profile_users_me_get"];
         put?: never;
@@ -1232,7 +2271,16 @@ export interface paths {
         delete: operations["delete_own_account_users_me_delete"];
         options?: never;
         head?: never;
-        patch?: never;
+        /**
+         * Update Profile
+         * @description Update the current user's profile information.
+         *
+         *     Currently supports:
+         *     - Name updates
+         *
+         *     Returns updated profile data.
+         */
+        patch: operations["update_profile_users_me_patch"];
         trace?: never;
     };
     "/users/me/features": {
@@ -1244,13 +2292,10 @@ export interface paths {
         };
         /**
          * Get Feature Access
-         * @description Get current user's feature access and subscription limits.
+         * @description Get commission-model feature access and wallet availability.
          *
-         *     Returns detailed information about:
-         *     - Current subscription plan
-         *     - Monthly invoice usage and limits
-         *     - Premium feature access (OCR, voice, etc)
-         *     - Upgrade options
+         *     Every feature is included. Manual invoice creation depends only on whether
+         *     the prepaid wallet can cover the applicable commission.
          */
         get: operations["get_feature_access_users_me_features_get"];
         put?: never;
@@ -1276,6 +2321,7 @@ export interface paths {
          * @description Admin endpoint to delete any user account.
          *
          *     Requires admin role and confirmation text "DELETE MY ACCOUNT".
+         *     Note: get_current_admin already verifies admin privileges.
          */
         delete: operations["admin_delete_account_users_admin__user_id__delete"];
         options?: never;
@@ -1294,7 +2340,7 @@ export interface paths {
         put?: never;
         /**
          * Upload Logo
-         * @description Upload custom logo (Pro+ feature).
+         * @description Upload a custom business logo.
          */
         post: operations["upload_logo_users_me_logo_post"];
         /** Delete Logo */
@@ -1304,7 +2350,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/users/me/phone/request": {
+    "/users/me/storefront-cover": {
         parameters: {
             query?: never;
             header?: never;
@@ -1314,22 +2360,18 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Request Phone Otp
-         * @description Set phone number and send OTP via WhatsApp.
-         *
-         *     This endpoint:
-         *     1. Saves the phone number to user (unverified)
-         *     2. Generates a 6-digit OTP
-         *     3. Sends OTP via WhatsApp
+         * Upload Storefront Cover
+         * @description Upload a landscape storefront cover.
          */
-        post: operations["request_phone_otp_users_me_phone_request_post"];
-        delete?: never;
+        post: operations["upload_storefront_cover_users_me_storefront_cover_post"];
+        /** Delete Storefront Cover */
+        delete: operations["delete_storefront_cover_users_me_storefront_cover_delete"];
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/users/me/phone/verify": {
+    "/users/me/phone/request-otp": {
         parameters: {
             query?: never;
             header?: never;
@@ -1339,13 +2381,11 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Verify Phone
-         * @description Verify phone number with OTP.
-         *
-         *     After successful verification, the phone number is marked as verified
-         *     and can be used for WhatsApp invoice creation.
+         * Request Phone Change Otp
+         * @description Send a step-up code to the CURRENT phone/email to authorise changing the
+         *     login phone number (protects against a hijacked session rerouting it).
          */
-        post: operations["verify_phone_users_me_phone_verify_post"];
+        post: operations["request_phone_change_otp_users_me_phone_request_otp_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1361,9 +2401,49 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post?: never;
-        /** Remove Phone Number */
+        /**
+         * Save Phone Number
+         * @description Save/link a phone number for WhatsApp bot access.
+         *
+         *     First-time linking is frictionless (verified when the user messages the bot
+         *     from the number). CHANGING an existing phone requires a step-up OTP sent to
+         *     the CURRENT phone/email — the phone is the login identity, so a hijacked
+         *     session must not be able to silently point it at an attacker's number.
+         */
+        post: operations["save_phone_number_users_me_phone_post"];
+        /**
+         * Remove Phone Number
+         * @description Phone numbers cannot be removed — only replaced.
+         *
+         *     A phone is required on every account so we can deliver invoices via WhatsApp
+         *     and prevent the same number from being recycled to create a second account.
+         *     To change phones, POST /me/phone with the new number; the old one is replaced
+         *     atomically.
+         */
         delete: operations["remove_phone_number_users_me_phone_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/me/resolve-bank-account": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Resolve Bank Account
+         * @description Resolve a bank account holder's name via Paystack for the settings form.
+         *
+         *     Lets the frontend auto-fill and verify the account name as the user types,
+         *     so the saved name always matches the bank exactly.
+         */
+        post: operations["resolve_bank_account_users_me_resolve_bank_account_post"];
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -1387,6 +2467,30 @@ export interface paths {
         head?: never;
         /** Update Bank Details */
         patch: operations["update_bank_details_users_me_bank_details_patch"];
+        trace?: never;
+    };
+    "/users/me/bank-details/request-otp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Request Bank Change Otp
+         * @description Send a one-time code to confirm a change of bank details (step-up auth).
+         *
+         *     Required before SETTING or CHANGING a payout account — protects against an
+         *     attacker who has a hijacked session pointing the business's money at their
+         *     own account.
+         */
+        post: operations["request_bank_change_otp_users_me_bank_details_request_otp_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/metrics": {
@@ -1583,6 +2687,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/inventory/products/{product_id}/image": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Upload Product Image
+         * @description Upload a product image (shown on the storefront).
+         */
+        post: operations["upload_product_image_inventory_products__product_id__image_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/inventory/stock/adjust": {
         parameters: {
             query?: never;
@@ -1712,6 +2836,533 @@ export interface paths {
         get: operations["get_low_stock_alerts_inventory_analytics_low_stock_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/inventory/storefront/enable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Enable Storefront
+         * @description Enable the public storefront and return the shareable link.
+         */
+        post: operations["enable_storefront_inventory_storefront_enable_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/inventory/storefront": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Storefront
+         * @description Return the current storefront status + link for the logged-in business.
+         */
+        get: operations["get_storefront_inventory_storefront_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Storefront
+         * @description Update the storefront profile (description, location, hours, delivery…).
+         */
+        patch: operations["update_storefront_inventory_storefront_patch"];
+        trace?: never;
+    };
+    "/inventory/storefront/location": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Set Storefront Location
+         * @description Save the business's GPS location and derive its state on the SERVER.
+         *
+         *     The client sends raw GPS coordinates; we reverse-geocode them ourselves so
+         *     the state used for the escrow same/different-state window is trustworthy and
+         *     can't be spoofed by the client.
+         */
+        post: operations["set_storefront_location_inventory_storefront_location_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/inventory/storefront/disable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Disable Storefront
+         * @description Hide the public storefront (keeps the slug for later re-enable).
+         */
+        post: operations["disable_storefront_inventory_storefront_disable_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/inventory/products/{product_id}/scan-to-pay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Product Scan To Pay
+         * @description Generate a scan-to-pay QR code for one product.
+         *
+         *     Customers scan it to open the product on the business's storefront and pay
+         *     online. The product's barcode is auto-generated on first use, so the
+         *     business never has to type one. Requires the storefront to be enabled —
+         *     that's where the customer actually pays.
+         */
+        get: operations["product_scan_to_pay_inventory_products__product_id__scan_to_pay_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/inventory/storefront/qr": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Storefront Qr
+         * @description Shareable QR code that opens the whole storefront when scanned.
+         *
+         *     Anyone who scans it lands on the business's public catalog and can browse
+         *     and order. Requires the storefront to be enabled.
+         */
+        get: operations["storefront_qr_inventory_storefront_qr_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/inventory/categories/{category_id}/qr": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Category Qr
+         * @description Shareable QR code that opens the storefront filtered to ONE category.
+         *
+         *     Print it next to a shelf/section (e.g. "Drinks", "Cooked Food") so a customer
+         *     scans straight to those items and orders. Requires the storefront enabled.
+         */
+        get: operations["category_qr_inventory_categories__category_id__qr_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/inventory/storefront/orders/{invoice_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Order Escrow
+         * @description Business: buyer-protection status for one of your storefront orders.
+         *
+         *     Scoped to the account owner so invited team members (shared workspace) see
+         *     and manage the same orders, mirroring the invoice endpoints.
+         */
+        get: operations["get_order_escrow_inventory_storefront_orders__invoice_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/inventory/storefront/orders/{invoice_id}/mark-delivered": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Mark Order Delivered
+         * @description Business: mark a storefront order delivered, with an optional proof photo.
+         *
+         *     This is your evidence if the buyer later falsely claims non-delivery — it
+         *     does NOT release funds (only the buyer's code or the window does that).
+         *     Scoped to the account owner so invited team members can act on shared orders.
+         */
+        post: operations["mark_order_delivered_inventory_storefront_orders__invoice_id__mark_delivered_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/inventory/storefront/orders/{invoice_id}/mark-sent": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Mark Order Sent
+         * @description Business: mark a storefront order SENT OUT (dispatched), with an optional
+         *     courier/waybill tracking code, courier name, expected delivery date, and a
+         *     photo of the packaged item.
+         *
+         *     This is seller protection: timestamped proof you shipped a quality item,
+         *     before the buyer confirms delivery. It also tells the buyer who's bringing
+         *     their order and when to expect it. It does NOT release funds.
+         *
+         *     Scoped to the account owner (data_owner_id) so invited team members can act
+         *     on shared orders; current_user_id is still logged as the actual actor.
+         */
+        post: operations["mark_order_sent_inventory_storefront_orders__invoice_id__mark_sent_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/inventory/storefront/orders/{invoice_id}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Seller List Messages
+         * @description Seller reads the thread for one of their storefront orders.
+         */
+        get: operations["seller_list_messages_inventory_storefront_orders__invoice_id__messages_get"];
+        put?: never;
+        /**
+         * Seller Send Message
+         * @description Seller replies on one of their storefront orders. Circumvention attempts
+         *     (masked contact/account or off-platform pushes) flag the store. Scoped to the
+         *     account owner so team members can reply; current_user_id records who sent it.
+         */
+        post: operations["seller_send_message_inventory_storefront_orders__invoice_id__messages_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Public Storefront
+         * @description Public: a business's shareable inventory catalog.
+         */
+        get: operations["get_public_storefront_public_store__slug__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}/shopping-assistant": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Ask Storefront Shopping Assistant
+         * @description Recommend only currently visible, available products from this store.
+         */
+        post: operations["ask_storefront_shopping_assistant_public_store__slug__shopping_assistant_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/stores": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Public Stores
+         * @description Public marketplace directory + global search across ALL stores.
+         *
+         *     Trust gate: only businesses that opted in AND have a logo AND verified bank
+         *     (active Paystack subaccount) AND a shopper-visible product AND a description
+         *     AND a location are listed — the SAME gate as the admin "Live in search"
+         *     metric (``live_storefronts_query``). When ``q`` is given it searches business
+         *     name, description, city/state and product names + categories across every
+         *     store, so a shopper can find an item and pick which store to buy it from.
+         */
+        get: operations["list_public_stores_public_stores_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}/delivery-quote": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Store Delivery Quote
+         * @description Public: live courier delivery options for a prospective order (buyer pays
+         *     delivery). Returns ``{"enabled": False, "options": []}`` unless the Shipbubble
+         *     integration is switched on with a key + funded wallet — so the manual dispatch
+         *     flow is the default and nothing here can break checkout.
+         *
+         *     Cost-abuse hardened: identical quotes are cached briefly and per-store fresh
+         *     fetches are capped daily, so this public endpoint can't be used to burn the
+         *     Shipbubble quota (or as a free address-validation oracle).
+         */
+        post: operations["store_delivery_quote_public_store__slug__delivery_quote_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}/order": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Store Order
+         * @description Public: place an online order from a storefront.
+         *
+         *     Creates a pending, online-only invoice for the business (no invoice balance
+         *     consumed) and returns a Paystack pay link. Storefront orders can only be
+         *     paid online — that is how the platform earns its commission.
+         */
+        post: operations["create_store_order_public_store__slug__order_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}/notify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Notify When In Stock
+         * @description Public: capture a phone number to alert when a sold-out item returns.
+         */
+        post: operations["notify_when_in_stock_public_store__slug__notify_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}/review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Submit Review
+         * @description Public: leave a review — gated to customers who actually paid this store.
+         */
+        post: operations["submit_review_public_store__slug__review_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Reviews
+         * @description Public: approved reviews for a storefront.
+         */
+        get: operations["list_reviews_public_store__slug__reviews_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}/confirm-delivery": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Confirm Delivery
+         * @description Public: confirm delivery with the buyer's delivery code → ends the
+         *     buyer-protection window early. The seller is paid on our T+1 settlement
+         *     cadence (the next daily settlement run), never same-day.
+         *
+         *     The code is only ever shown to the buyer, so the seller can't self-release.
+         */
+        post: operations["confirm_delivery_public_store__slug__confirm_delivery_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}/report-problem": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Report Order Problem
+         * @description Public: the buyer reports a problem with a held order (e.g. never
+         *     delivered, wrong item). Puts the hold into ``disputed`` so no auto-payout
+         *     happens. Gated by the buyer's RELEASE CODE (a secret only the buyer has), so
+         *     a third party who knows a phone number can't dispute someone else's order.
+         */
+        post: operations["report_order_problem_public_store__slug__report_problem_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Buyer Send Message
+         * @description Public: buyer sends a message on their order, authenticated by the
+         *     buyer-only delivery code.
+         */
+        post: operations["buyer_send_message_public_store__slug__messages_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/store/{slug}/messages/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Buyer List Messages
+         * @description Public: buyer reads their order thread (delivery code = access).
+         */
+        post: operations["buyer_list_messages_public_store__slug__messages_list_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1927,122 +3578,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/referrals/code": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Referral Code
-         * @description Get or create the current user's referral code.
-         *
-         *     Every user gets a unique referral code they can share.
-         */
-        get: operations["get_referral_code_referrals_code_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/referrals/stats": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Referral Stats
-         * @description Get referral statistics for the current user.
-         *
-         *     Includes:
-         *     - Total referrals (completed)
-         *     - Pending referrals (awaiting verification)
-         *     - Free vs paid signups
-         *     - Rewards earned and pending
-         *     - Progress towards next reward
-         */
-        get: operations["get_referral_stats_referrals_stats_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/referrals/recent": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Recent Referrals
-         * @description Get recent referrals for the current user.
-         */
-        get: operations["get_recent_referrals_referrals_recent_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/referrals/apply-reward": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Apply Reward
-         * @description Apply a pending reward to the user's account.
-         *
-         *     This will:
-         *     - Upgrade user to Starter plan (if on Free)
-         *     - Add 1 month to their subscription
-         */
-        post: operations["apply_reward_referrals_apply_reward_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/referrals/validate": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Validate Referral Code
-         * @description Validate a referral code (public endpoint for signup form).
-         *
-         *     This endpoint is used to check if a referral code is valid
-         *     before the user completes registration.
-         */
-        post: operations["validate_referral_code_referrals_validate_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/support/contact": {
         parameters: {
             query?: never;
@@ -2148,7 +3683,52 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/admin/auth/login": {
+    "/public/testimonials": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Public Testimonials
+         * @description Return approved testimonials for the landing page.
+         */
+        get: operations["get_public_testimonials_public_testimonials_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/top-users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Top Users
+         * @description Return top active businesses for the landing page showcase.
+         *
+         *     Criteria: users with a business name, at least 5 invoices in the last
+         *     90 days, and who have opted in to showcase (showcase_opted_in=True on
+         *     their Testimonial, or have an approved testimonial).
+         *     Shows anonymized data — only business name, logo, and category.
+         */
+        get: operations["get_top_users_public_top_users_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/feedback": {
         parameters: {
             query?: never;
             header?: never;
@@ -2158,10 +3738,73 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Admin Login
-         * @description Login to admin dashboard.
+         * Submit Feedback Via Token
+         * @description Submit feedback via a signed email token (no login required).
          */
-        post: operations["admin_login_admin_auth_login_post"];
+        post: operations["submit_feedback_via_token_public_feedback_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/testimonials": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Submit Testimonial
+         * @description Submit a testimonial. Requires admin approval before appearing publicly.
+         */
+        post: operations["submit_testimonial_testimonials_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/auth/request-otp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Admin Request Otp
+         * @description Passwordless login step 1: email a one-time code to an admin.
+         *
+         *     Always returns a generic success message so the endpoint cannot be used to
+         *     enumerate which @suoops.com addresses are admins.
+         */
+        post: operations["admin_request_otp_admin_auth_request_otp_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/auth/verify-otp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Admin Verify Otp
+         * @description Passwordless login step 2: verify the emailed code and issue a session.
+         */
+        post: operations["admin_verify_otp_admin_auth_verify_otp_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2179,9 +3822,7 @@ export interface paths {
         put?: never;
         /**
          * Invite Admin
-         * @description Invite a new admin user.
-         *
-         *     Note: Requires authentication - must be called with valid admin token.
+         * @description Invite a new admin user. Requires admin authentication with invite permission.
          */
         post: operations["invite_admin_admin_auth_invite_post"];
         delete?: never;
@@ -2201,9 +3842,29 @@ export interface paths {
         put?: never;
         /**
          * Accept Invite
-         * @description Accept an admin invitation and set password.
+         * @description Accept an admin invitation and activate the account (passwordless).
          */
         post: operations["accept_invite_admin_auth_accept_invite_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/auth/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Admin Logout
+         * @description Clear admin authentication cookie.
+         */
+        post: operations["admin_logout_admin_auth_logout_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2219,9 +3880,11 @@ export interface paths {
         };
         /**
          * Get Current Admin User
-         * @description Get current admin user info.
+         * @description Get current admin user info and issue a fresh access token.
          *
-         *     Note: This route requires authentication via admin token.
+         *     On page refresh the frontend loses the in-memory JWT but the httpOnly
+         *     cookie still authenticates. This endpoint returns a fresh token so the
+         *     frontend can restore its in-memory state.
          */
         get: operations["get_current_admin_user_admin_auth_me_get"];
         put?: never;
@@ -2241,9 +3904,7 @@ export interface paths {
         };
         /**
          * List Admins
-         * @description List all admin users.
-         *
-         *     Note: Only super admins or those with invite permission can see this.
+         * @description List all admin users. Requires admin authentication.
          */
         get: operations["list_admins_admin_auth_admins_get"];
         put?: never;
@@ -2254,7 +3915,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/admin/auth/change-password": {
+    "/admin/auth/admins/{admin_id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2263,15 +3924,154 @@ export interface paths {
         };
         get?: never;
         put?: never;
+        post?: never;
         /**
-         * Change Password
-         * @description Change admin password.
+         * Remove Admin
+         * @description Remove an admin user. Only super admins can perform this action.
          */
-        post: operations["change_password_admin_auth_change_password_post"];
+        delete: operations["remove_admin_admin_auth_admins__admin_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/auth/login-audit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Login Audit
+         * @description Return recent admin authentication events (logins, failures, OTP requests).
+         *
+         *     Lets admins spot logins from unexpected IPs. Restricted to super admins.
+         */
+        get: operations["list_login_audit_admin_auth_login_audit_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
+        trace?: never;
+    };
+    "/admin/auth/ip-allowed": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Admin Ip Allowed
+         * @description Public verdict used by the frontend to gate the /admin pages.
+         *
+         *     Returns whether the requesting IP may access the admin panel. This route is
+         *     intentionally exempt from the IP-allowlist middleware so a blocked client
+         *     still receives a clean ``{"allowed": false}`` answer (rather than a 403),
+         *     letting the dashboard show a friendly "blocked" page.
+         *
+         *     The admin frontend middleware calls this SERVER-SIDE and forwards the real
+         *     visitor IP in ``X-Client-IP`` (a header intermediary proxies don't rewrite,
+         *     unlike X-Forwarded-For). We honor it when present so the verdict matches what
+         *     the visitor's own browser would get — otherwise the extra Vercel→Cloudflare
+         *     →Render hop makes us read a proxy IP and wrongly block the visitor. This
+         *     endpoint only returns a verdict; the admin routes + API enforce the allowlist
+         *     authoritatively via the real client IP.
+         */
+        get: operations["admin_ip_allowed_admin_auth_ip_allowed_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/auth/ip-allowlist": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Ip Allowlist
+         * @description List IP addresses/ranges allowed to access the admin panel (super admin).
+         */
+        get: operations["list_ip_allowlist_admin_auth_ip_allowlist_get"];
+        put?: never;
+        /**
+         * Add Ip Allowlist Entry
+         * @description Add an IP/CIDR to the admin allowlist (super admin).
+         *
+         *     Guards against lock-out: the entry is rejected if applying it would block
+         *     the IP the requesting admin is currently connecting from.
+         */
+        post: operations["add_ip_allowlist_entry_admin_auth_ip_allowlist_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/auth/ip-allowlist/{entry_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Ip Allowlist Entry
+         * @description Remove an IP/CIDR from the admin allowlist (super admin).
+         *
+         *     Guards against lock-out: removal is rejected if the remaining allowlist
+         *     would block the requesting admin's current IP.
+         */
+        delete: operations["delete_ip_allowlist_entry_admin_auth_ip_allowlist__entry_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/ai-governance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Ai Governance */
+        get: operations["get_ai_governance_admin_ai_governance_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/ai-governance/features/{feature}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Patch Ai Feature Control */
+        patch: operations["patch_ai_feature_control_admin_ai_governance_features__feature__patch"];
         trace?: never;
     };
     "/admin/": {
@@ -2377,6 +4177,1147 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/admin/users/{user_id}/credit-wallet": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Credit User Wallet
+         * @description Credit a business's prepaid wallet as a goodwill / support gesture.
+         *
+         *     In the flat-3%/free model the wallet is what invoices debit their fee from,
+         *     so this lets a business invoice without the 3% wallet debit until the credit
+         *     is used up. It is PLATFORM value (free fees), NOT a cash payout — no real
+         *     money leaves the platform. Super-admin only + audited + capped per credit.
+         */
+        post: operations["credit_user_wallet_admin_users__user_id__credit_wallet_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/referrals/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Referral Stats
+         * @description Get comprehensive referral program statistics.
+         */
+        get: operations["get_referral_stats_admin_referrals_stats_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/referrals/payouts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Referral Payouts
+         * @description Get list of all users with pending referral commission payouts.
+         *
+         *     Aggregates actual commission rewards earned (ReferralReward records:
+         *     first-purchase, recurring, and perpetual commissions) so the admin view
+         *     matches what influencers see on their earnings dashboard.
+         *
+         *     Use month/year to filter to a specific period (for the weekly/monthly
+         *     payout run). Returns payout bank details (falling back to the user's
+         *     invoice bank account) so you can process payments.
+         */
+        get: operations["get_referral_payouts_admin_referrals_payouts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/influencers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Influencers
+         * @description List all influencer partnerships with performance stats.
+         */
+        get: operations["list_influencers_admin_influencers_get"];
+        put?: never;
+        /**
+         * Create Influencer
+         * @description Create a new influencer partnership linked to an existing user account.
+         */
+        post: operations["create_influencer_admin_influencers_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/influencers/{influencer_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Influencer
+         * @description Update an influencer partnership's terms.
+         */
+        patch: operations["update_influencer_admin_influencers__influencer_id__patch"];
+        trace?: never;
+    };
+    "/admin/sme-onboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Onboard Sme
+         * @description Concierge onboard an SME business.
+         *
+         *     1. Creates or finds the business owner's account
+         *     2. Credits their prepaid invoice wallet (all features are free)
+         *     3. Creates a team and invites staff members
+         *     4. Sends a tailored WhatsApp onboarding message
+         */
+        post: operations["onboard_sme_admin_sme_onboard_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/metrics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Platform Metrics
+         * @description Get platform-wide metrics for monitoring.
+         */
+        get: operations["get_platform_metrics_admin_metrics_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/metrics/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Metrics Summary
+         * @description Filterable headline numbers over a chosen window. This is the SINGLE source
+         *     of truth used by both the Platform Metrics page and the Dashboard, so the two
+         *     always agree (no duplicated computation) — and supports week/month/year/all.
+         *     Applies the same test-account exclusion + invoice ceiling as the rest of the
+         *     metrics.
+         */
+        get: operations["get_metrics_summary_admin_metrics_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/metrics/growth": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Growth Metrics
+         * @description Get business growth metrics — commission, churn, activation funnel, trends.
+         */
+        get: operations["get_growth_metrics_admin_metrics_growth_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/metrics/zero-invoice-diagnostic": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Zero Invoice Diagnostic
+         * @description Diagnose why users sign up but never create an invoice.
+         */
+        get: operations["get_zero_invoice_diagnostic_admin_metrics_zero_invoice_diagnostic_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/metrics/activity": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Activity Analytics
+         * @description User activity analytics — daily/weekly/monthly invoice creation
+         *     broken down by channel (WhatsApp vs dashboard vs email).
+         */
+        get: operations["get_activity_analytics_admin_metrics_activity_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/businesses": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Business Intelligence
+         * @description Business-level intelligence — per-business health metrics.
+         */
+        get: operations["get_business_intelligence_admin_businesses_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/businesses/{user_id}/invoices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Business Invoices
+         * @description Recent invoices (with amounts) for one business — admin drill-down so an
+         *     admin can see exactly what a user has billed and how much is outstanding.
+         */
+        get: operations["get_business_invoices_admin_businesses__user_id__invoices_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/audit/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Verify Audit Chain
+         * @description Walk the audit_log hash chain and confirm nothing was edited or deleted.
+         *
+         *     For each row we recompute ``sha256(prev_entry_hash + canonical(columns))`` and
+         *     check it equals the stored ``entry_hash`` (detects CONTENT edits) and that the
+         *     row's ``prev_hash`` matches the previous row's ``entry_hash`` (detects DELETED
+         *     or reordered rows). The first mismatch is reported.
+         */
+        get: operations["verify_audit_chain_admin_audit_verify_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/segments/inactive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Inactive Users
+         * @description Get users who registered but never created an invoice.
+         *     Perfect for activation campaign.
+         *
+         *     Export this list to Brevo for Email/WhatsApp campaign targeting.
+         */
+        get: operations["get_inactive_users_admin_users_segments_inactive_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/segments/low-balance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Low Balance Users
+         * @description Get FREE users with low invoice balance (1-2 left).
+         *     Perfect for upgrade campaign - "Running low! Buy 100 for ₦2,500"
+         */
+        get: operations["get_low_balance_users_admin_users_segments_low_balance_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/segments/active-free": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Active Free Users
+         * @description Get active commission-model merchants who create invoices.
+         *     Useful for wallet education, retention, and product research.
+         */
+        get: operations["get_active_free_users_admin_users_segments_active_free_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/segments/churned": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Churned Users
+         * @description Get users who haven't logged in for X days but had activity before.
+         *     Perfect for win-back campaign - "We miss you! Create an invoice today"
+         */
+        get: operations["get_churned_users_admin_users_segments_churned_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/segments/starter": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Starter Users
+         * @description Get merchants with legacy invoice-pack balances.
+         *     Useful for migrating and supporting historical wallet records.
+         */
+        get: operations["get_starter_users_admin_users_segments_starter_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/segments/pro": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Pro Users
+         * @description Get historical PRO users for migration and legacy billing support.
+         */
+        get: operations["get_pro_users_admin_users_segments_pro_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/brevo/sync/{segment}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Sync Segment To Brevo
+         * @description Sync a user segment directly to a Brevo contact list.
+         *
+         *     Segments: inactive, low-balance, active-free, churned, starter, pro, all
+         *
+         *     1. First create lists in Brevo Dashboard → Contacts → Lists
+         *     2. Get the list ID from Brevo
+         *     3. Call this endpoint to push contacts to that list
+         */
+        post: operations["sync_segment_to_brevo_admin_brevo_sync__segment__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/brevo/lists": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Brevo Lists
+         * @description Get all Brevo contact lists to find list IDs for syncing.
+         */
+        get: operations["get_brevo_lists_admin_brevo_lists_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/brevo/create-list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Brevo List
+         * @description Create a new contact list in Brevo.
+         */
+        post: operations["create_brevo_list_admin_brevo_create_list_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/export/csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Export Users Csv
+         * @description Export users as a Zoho Campaigns-ready CSV for marketing import.
+         *
+         *     Download and import into a Zoho Campaigns list (Contacts → Import). Suppressed
+         *     addresses (hard bounce / complaint) are excluded so a fresh sender never
+         *     inherits known-bad contacts. ``segment`` = all | active | inactive | paying.
+         */
+        get: operations["export_users_csv_admin_users_export_csv_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/purge-inactive-accounts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Purge Inactive Accounts
+         * @description Immediately delete inactive accounts older than N days.
+         *
+         *     No warning — direct deletion. Only deletes FREE users.
+         *
+         *     Parameters:
+         *     - days: Minimum inactive days (default 60)
+         *     - channel: "all", "email_only" (no WhatsApp), or "whatsapp" (phone verified)
+         *     - max_invoices: Maximum invoice count to qualify for deletion (default 0 = zero invoices only)
+         */
+        post: operations["purge_inactive_accounts_admin_purge_inactive_accounts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/purge-low-quality-accounts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Purge Low Quality Accounts
+         * @description Purge accounts without a business name and fewer than 5 invoices.
+         *
+         *     Protects:
+         *     - PRO subscribers
+         *     - Users who purchased invoice packs (any successful payment)
+         *
+         *     Parameters:
+         *     - dry_run: If True (default), only count — don't delete. Set to False to actually purge.
+         */
+        post: operations["purge_low_quality_accounts_admin_purge_low_quality_accounts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/purge-no-bank-accounts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Purge No Bank Accounts
+         * @description Purge accounts without bank details and fewer than 5 invoices.
+         *
+         *     Protects:
+         *     - PRO subscribers
+         *     - Users who purchased invoice packs (any successful payment)
+         *
+         *     Parameters:
+         *     - dry_run: If True (default), only count. Set to False to actually purge.
+         */
+        post: operations["purge_no_bank_accounts_admin_purge_no_bank_accounts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/sync-brevo-contacts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Sync Brevo Contacts
+         * @description Sync Brevo contacts with current database.
+         *
+         *     Fetches all contacts from Brevo, cross-references with DB,
+         *     and deletes contacts whose emails no longer exist in the DB.
+         *     Also re-syncs all current users to ensure lists are accurate.
+         */
+        post: operations["sync_brevo_contacts_admin_sync_brevo_contacts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/tasks/schedule": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Task Schedule
+         * @description Show all scheduled Celery Beat tasks, recent email log counts, and worker connectivity.
+         */
+        get: operations["get_task_schedule_admin_tasks_schedule_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/tasks/{task_key}/trigger": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Trigger Task
+         * @description Manually trigger a scheduled Celery task for testing.
+         */
+        post: operations["trigger_task_admin_tasks__task_key__trigger_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/testimonials": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Testimonials
+         * @description List all testimonials for admin review.
+         */
+        get: operations["list_testimonials_admin_testimonials_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/testimonials/{testimonial_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Testimonial
+         * @description Delete a testimonial.
+         */
+        delete: operations["delete_testimonial_admin_testimonials__testimonial_id__delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update Testimonial
+         * @description Approve, feature, or reject a testimonial.
+         */
+        patch: operations["update_testimonial_admin_testimonials__testimonial_id__patch"];
+        trace?: never;
+    };
+    "/admin/testimonials/send-requests": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Send Testimonial Requests
+         * @description Trigger feedback collection emails to eligible users now.
+         */
+        post: operations["send_testimonial_requests_admin_testimonials_send_requests_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/storefronts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Storefronts
+         * @description Per-storefront metrics + moderation intelligence.
+         *
+         *     Surfaces catalog, reputation and sales metrics for every business that has
+         *     opted into a public storefront, plus auto risk-flags for stores that fail our
+         *     quality/trust criteria so an admin can decide whether to suspend or delist.
+         */
+        get: operations["list_storefronts_admin_storefronts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/storefronts/{user_id}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Set Storefront Status
+         * @description Suspend, delist or reinstate a business's public storefront.
+         *
+         *     - ``suspended`` / ``delisted`` immediately remove the store from the public
+         *       directory and make its store page + ordering return 404.
+         *     - ``active`` reinstates it.
+         *
+         *     The owner's account, invoices and data are untouched — this only controls the
+         *     public storefront's visibility.
+         */
+        post: operations["set_storefront_status_admin_storefronts__user_id__status_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/fraud/flagged": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Flagged Users
+         * @description List accounts that need Trust & Safety attention.
+         *
+         *     ``view=flagged`` (default) shows accounts flagged at signup; ``risky`` shows
+         *     any account with a non-trivial risk score; ``all`` ignores the risk gate and
+         *     is mostly useful with a search term. Each row includes how many other
+         *     accounts share the same IP or device fingerprint (duplicate-account cluster).
+         */
+        get: operations["list_flagged_users_admin_fraud_flagged_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/fraud/{user_id}/linked": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Linked Accounts
+         * @description List other accounts that share this user's IP or device fingerprint.
+         */
+        get: operations["get_linked_accounts_admin_fraud__user_id__linked_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/fraud/{user_id}/dossier": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Account Review Dossier
+         * @description Full account dossier for a Trust & Safety review — identity, signup
+         *     forensics, financials, activity, storefront/escrow history, circumvention
+         *     evidence and the duplicate-account cluster, in one payload.
+         *
+         *     Everything a reviewer needs to clear/flag/ban an account without spelunking
+         *     across pages. Bank account numbers are masked to their last 4 digits.
+         */
+        get: operations["get_account_review_dossier_admin_fraud__user_id__dossier_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/fraud/{user_id}/review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Review Flagged User
+         * @description Resolve a Trust & Safety review for an account.
+         *
+         *     - ``clear`` — mark the account as legitimate (unflag).
+         *     - ``flag``  — flag the account for review.
+         *     - ``ban``   — flag the account AND delist its public storefront.
+         */
+        post: operations["review_flagged_user_admin_fraud__user_id__review_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/flagged-messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Flagged Messages
+         * @description Order messages flagged for circumvention (masked contact/account, or an
+         *     off-platform payment push), newest first. ``body_raw`` is the exact text kept
+         *     for adjudication; ``blocked`` messages were never delivered to the recipient.
+         */
+        get: operations["list_flagged_messages_admin_flagged_messages_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/disputes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Disputes
+         * @description List storefront escrow orders for the Trust & Safety review queue.
+         *
+         *     Defaults to open disputes; ``status_filter=review`` shows collusion/anomaly
+         *     holds; ``status_filter=all`` shows every escrow. Paginated (skip/limit) with
+         *     a bounded count so the large browse tabs (held/released/all) never run a full
+         *     COUNT over the whole table. NOTE: 'held' orders AUTO-RELEASE on schedule via
+         *     the escrow worker — the tabs needing human action are 'disputed' and 'review'.
+         */
+        get: operations["list_disputes_admin_disputes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/disputes/by-business": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Disputes By Business
+         * @description Per-business rollup of escrow orders that need attention — so an admin can
+         *     see EACH business and how many of its orders are held / disputed / under review
+         *     without scrolling one big mixed per-order list. Sorted busiest-first (most
+         *     held), then most disputed. Only real (paid) held/disputed orders are counted.
+         */
+        get: operations["disputes_by_business_admin_disputes_by_business_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/disputes/{escrow_id}/step-up-otp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Request Dispute Stepup Otp
+         * @description Send a step-up confirmation code to the admin's email for a high-value
+         *     refund/release on this order.
+         */
+        post: operations["request_dispute_stepup_otp_admin_disputes__escrow_id__step_up_otp_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/disputes/{escrow_id}/assistant": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Analyse Dispute Evidence
+         * @description Organise dispute evidence without recommending or executing a money action.
+         */
+        post: operations["analyse_dispute_evidence_admin_disputes__escrow_id__assistant_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/money/step-up-otp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Request Money Stepup Otp
+         * @description Send a step-up confirmation code for a high-value money action that isn't
+         *     tied to a single order (e.g. bulk 'retry all held for a business').
+         */
+        post: operations["request_money_stepup_otp_admin_money_step_up_otp_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/disputes/{escrow_id}/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Resolve Dispute
+         * @description Resolve an escrow dispute.
+         *
+         *     - ``refund``  — return the money to the buyer (Paystack Refund). Optionally
+         *       suspend the seller's storefront (``suspend_seller``).
+         *     - ``release`` — side with the seller and pay them out (Paystack Transfer).
+         */
+        post: operations["resolve_dispute_admin_disputes__escrow_id__resolve_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/disputes/{escrow_id}/payout-status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Dispute Payout Status
+         * @description Live payout state for one escrow's seller transfer.
+         *
+         *     Confirms the actual provider transfer state (paid/pending/failed) on demand —
+         *     used by the disputes panel so an admin can see whether a release actually
+         *     landed without leaving the page. Normalizes provider values to:
+         *     paid | pending | failed | unknown | refunded | none.
+         */
+        get: operations["dispute_payout_status_admin_disputes__escrow_id__payout_status_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/disputes/{escrow_id}/retry-payout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Retry Dispute Payout
+         * @description Force a fresh seller payout on the CURRENT rail for a stuck hold.
+         *
+         *     Use when a release is stuck (e.g. an earlier attempt went out on the wrong
+         *     rail and failed, leaving a reference the current provider reports as
+         *     'unknown'). Safe: if the current rail already shows the transfer as paid or
+         *     in flight, it finalizes/waits instead of sending a second payout; otherwise
+         *     it clears the void reference and sends a fresh transfer on the correct rail.
+         */
+        post: operations["retry_dispute_payout_admin_disputes__escrow_id__retry_payout_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/businesses/{user_id}/retry-held-payouts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Retry Held Payouts For Business
+         * @description Reconcile + (re)send payouts for ALL of a seller's held orders in one go.
+         *
+         *     A safe bulk version of the per-order retry-payout: for each held order it
+         *     reconciles the CURRENT rail first (successful → finalize, pending → leave in
+         *     flight) and only clears a void reference and resends when the rail reports
+         *     failed/unknown — so an in-flight transfer is never double-paid. One step-up
+         *     OTP authorizes the whole batch. Storefront orders pay out on their collecting
+         *     rail (Flutterwave); the reconciliation uses each order's own rail.
+         */
+        post: operations["retry_held_payouts_for_business_admin_businesses__user_id__retry_held_payouts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/invoices/{invoice_id}/force-confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Force Confirm Invoice
+         * @description Super-admin: confirm a large MANUAL invoice that the anti-GMV-bloat guard
+         *     held for review. Bypasses the low-trust confirmation block — use only after
+         *     verifying the payment actually landed.
+         */
+        post: operations["force_confirm_invoice_admin_invoices__invoice_id__force_confirm_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/healthz": {
         parameters: {
             query?: never;
@@ -2457,16 +5398,360 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/robots.txt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Robots Txt
+         * @description Block all crawlers from the API domain.
+         */
+        get: operations["robots_txt_robots_txt_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AIAvailabilityOut */
+        AIAvailabilityOut: {
+            /** Enabled */
+            enabled: boolean;
+            /** Provider */
+            provider: string;
+            /** Default Model */
+            default_model: string;
+            /**
+             * Structured Outputs
+             * @default true
+             */
+            structured_outputs: boolean;
+            /**
+             * Prompt Storage Enabled
+             * @default false
+             */
+            prompt_storage_enabled: boolean;
+        };
+        /** AIFeatureControlOut */
+        AIFeatureControlOut: {
+            /** Feature */
+            feature: string;
+            /** Label */
+            label: string;
+            /** Enabled */
+            enabled: boolean;
+            /** Rollout Percent */
+            rollout_percent: number;
+            /** Allowlisted Owner Ids */
+            allowlisted_owner_ids: number[];
+            /** Reason */
+            reason: string | null;
+            /** Updated At */
+            updated_at: string | null;
+        };
+        /** AIFeatureControlUpdateIn */
+        AIFeatureControlUpdateIn: {
+            /** Enabled */
+            enabled: boolean;
+            /** Rollout Percent */
+            rollout_percent: number;
+            /** Allowlisted Owner Ids */
+            allowlisted_owner_ids?: number[];
+            /** Reason */
+            reason?: string | null;
+        };
+        /** AIFeatureMetricOut */
+        AIFeatureMetricOut: {
+            /** Feature */
+            feature: string;
+            /** Label */
+            label: string;
+            /** Operations */
+            operations: number;
+            /** Succeeded */
+            succeeded: number;
+            /** Failed */
+            failed: number;
+            /** Blocked */
+            blocked: number;
+            /** Success Rate */
+            success_rate: number;
+            /** Input Tokens */
+            input_tokens: number;
+            /** Output Tokens */
+            output_tokens: number;
+            /** Estimated Cost Usd */
+            estimated_cost_usd: number;
+            /** Average Duration Ms */
+            average_duration_ms: number | null;
+            /** Positive Feedback */
+            positive_feedback: number;
+            /** Negative Feedback */
+            negative_feedback: number;
+        };
+        /** AIFeedbackIn */
+        AIFeedbackIn: {
+            /** Feature */
+            feature: string;
+            /** Sentiment */
+            sentiment: string;
+            /** Reason Code */
+            reason_code?: string | null;
+            /** Comment */
+            comment?: string | null;
+            /** Context Id */
+            context_id?: string | null;
+        };
+        /** AIFeedbackOut */
+        AIFeedbackOut: {
+            /** Accepted */
+            accepted: boolean;
+        };
+        /** AIGovernanceOverviewOut */
+        AIGovernanceOverviewOut: {
+            /** Period Days */
+            period_days: number;
+            /** Master Enabled */
+            master_enabled: boolean;
+            /** Provider */
+            provider: string;
+            /** Default Model */
+            default_model: string;
+            /** Total Operations */
+            total_operations: number;
+            /** Total Cost Usd */
+            total_cost_usd: number;
+            /** Disabled Tenants */
+            disabled_tenants: number;
+            /** Features */
+            features: components["schemas"]["AIFeatureMetricOut"][];
+            /** Controls */
+            controls: components["schemas"]["AIFeatureControlOut"][];
+        };
+        /** AITenantPreferencesOut */
+        AITenantPreferencesOut: {
+            /** Enabled */
+            enabled: boolean;
+            /** Feature Overrides */
+            feature_overrides: {
+                [key: string]: boolean;
+            };
+            /** Available Features */
+            available_features: {
+                [key: string]: string;
+            };
+            /** Updated At */
+            updated_at?: string | null;
+        };
+        /** AITenantPreferencesUpdateIn */
+        AITenantPreferencesUpdateIn: {
+            /** Enabled */
+            enabled: boolean;
+            /** Feature Overrides */
+            feature_overrides?: {
+                [key: string]: boolean;
+            };
+        };
+        /** AIUsageFeatureOut */
+        AIUsageFeatureOut: {
+            /** Feature */
+            feature: string;
+            /** Operations */
+            operations: number;
+            /** Input Tokens */
+            input_tokens: number;
+            /** Output Tokens */
+            output_tokens: number;
+            /** Estimated Cost Usd */
+            estimated_cost_usd: number;
+        };
+        /** AIUsageOut */
+        AIUsageOut: {
+            /** Enabled */
+            enabled: boolean;
+            /**
+             * Period Start
+             * Format: date-time
+             */
+            period_start: string;
+            /**
+             * Period End
+             * Format: date-time
+             */
+            period_end: string;
+            /** Included Operations */
+            included_operations: number;
+            /** Used Operations */
+            used_operations: number;
+            /** Remaining Operations */
+            remaining_operations: number;
+            /** Features */
+            features: components["schemas"]["AIUsageFeatureOut"][];
+        };
         /** AcceptInviteRequest */
         AcceptInviteRequest: {
             /** Token */
             token: string;
-            /** Password */
-            password: string;
+        };
+        /** ActivationFunnel */
+        ActivationFunnel: {
+            /** Total Signups */
+            total_signups: number;
+            /** Created First Invoice */
+            created_first_invoice: number;
+            /** Received First Payment */
+            received_first_payment: number;
+            /** Enabled Online Payments */
+            enabled_online_payments: number;
+        };
+        /**
+         * ActivationStateOut
+         * @description Derived activation facts; storefront setup is recommended, not required for 100%.
+         */
+        ActivationStateOut: {
+            /**
+             * Business Profile Ready
+             * @description True when a non-empty business name is saved.
+             */
+            business_profile_ready: boolean;
+            /**
+             * Bank Details Ready
+             * @description True when bank name, account number, and verified account name are all saved.
+             */
+            bank_details_ready: boolean;
+            /**
+             * Storefront Enabled
+             * @description True when the public storefront is enabled.
+             */
+            storefront_enabled: boolean;
+            /**
+             * Storefront Profile Ready
+             * @description True when logo, storefront description and state are saved and at least one active product has both a photo and description. This is recommended and does not affect progress_percent.
+             */
+            storefront_profile_ready: boolean;
+            /**
+             * Product Count
+             * @description Total number of products, including inactive products.
+             */
+            product_count: number;
+            /**
+             * Online Payments Enabled
+             * @description True when the user's Paystack subaccount is active.
+             */
+            online_payments_enabled: boolean;
+            /**
+             * Invoice Count
+             * @description Total revenue invoices; expense invoices are excluded.
+             */
+            invoice_count: number;
+            /**
+             * Paid Invoice Count
+             * @description Revenue invoices whose status is paid; expenses are excluded.
+             */
+            paid_invoice_count: number;
+            /**
+             * Progress Percent
+             * @description Percentage of six core milestones completed: business profile, bank details, first product, online payments, first revenue invoice, and first paid revenue invoice. Storefront milestones are recommendations and never block 100%.
+             */
+            progress_percent: number;
+        };
+        /** ActivityAnalytics */
+        ActivityAnalytics: {
+            today: components["schemas"]["PeriodActivity"];
+            yesterday: components["schemas"]["PeriodActivity"];
+            this_week: components["schemas"]["PeriodActivity"];
+            last_week: components["schemas"]["PeriodActivity"];
+            this_month: components["schemas"]["PeriodActivity"];
+            last_month: components["schemas"]["PeriodActivity"];
+            this_year: components["schemas"]["PeriodActivity"];
+            /**
+             * Active Users Today
+             * @default 0
+             */
+            active_users_today: number;
+            /**
+             * Active Users This Week
+             * @default 0
+             */
+            active_users_this_week: number;
+            /**
+             * Active Users This Month
+             * @default 0
+             */
+            active_users_this_month: number;
+            /**
+             * New Active Users Today
+             * @default 0
+             */
+            new_active_users_today: number;
+            /**
+             * Returning Active Users Today
+             * @default 0
+             */
+            returning_active_users_today: number;
+            /**
+             * New Active Users This Week
+             * @default 0
+             */
+            new_active_users_this_week: number;
+            /**
+             * Returning Active Users This Week
+             * @default 0
+             */
+            returning_active_users_this_week: number;
+            /**
+             * New Active Users This Month
+             * @default 0
+             */
+            new_active_users_this_month: number;
+            /**
+             * Returning Active Users This Month
+             * @default 0
+             */
+            returning_active_users_this_month: number;
+            /**
+             * Daily Trend
+             * @default []
+             */
+            daily_trend: components["schemas"]["DailyPoint"][];
+            /**
+             * Logins Today
+             * @default 0
+             */
+            logins_today: number;
+            /**
+             * Logins This Week
+             * @default 0
+             */
+            logins_this_week: number;
+            /**
+             * Logins This Month
+             * @default 0
+             */
+            logins_this_month: number;
+        };
+        /**
+         * ActivityMixOut
+         * @description Billed-to-a-customer sales vs walk-in (Quick Sale) sales.
+         */
+        ActivityMixOut: {
+            /** Billed Invoice Count */
+            billed_invoice_count: number;
+            /** Billed Invoice Amount */
+            billed_invoice_amount: number;
+            /** Walk In Sale Count */
+            walk_in_sale_count: number;
+            /** Walk In Sale Amount */
+            walk_in_sale_amount: number;
         };
         /**
          * AdminDashboardStats
@@ -2474,12 +5759,27 @@ export interface components {
          */
         AdminDashboardStats: {
             /** Users */
-            users: Record<string, never>;
+            users: {
+                [key: string]: unknown;
+            };
             tickets: components["schemas"]["TicketStats"];
             /** Invoices */
-            invoices: Record<string, never>;
+            invoices: {
+                [key: string]: unknown;
+            };
             /** Revenue */
-            revenue: Record<string, never>;
+            revenue: {
+                [key: string]: unknown;
+            };
+        };
+        /** AdminIdentity */
+        AdminIdentity: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /** Role */
+            role: string;
         };
         /** AdminInviteRequest */
         AdminInviteRequest: {
@@ -2520,15 +5820,93 @@ export interface components {
             /** Invite Link */
             invite_link?: string | null;
         };
-        /** AdminLoginRequest */
-        AdminLoginRequest: {
+        /** AdminInvoiceItem */
+        AdminInvoiceItem: {
+            /** Id */
+            id: number;
+            /** Invoice Id */
+            invoice_id: string;
+            /** Amount */
+            amount: number;
+            /** Status */
+            status: string;
+            /** Invoice Type */
+            invoice_type: string;
+            /** Channel */
+            channel: string | null;
+            /** Customer Name */
+            customer_name: string | null;
+            /** Created At */
+            created_at: string;
+            /** Due Date */
+            due_date: string | null;
+            /** Paid At */
+            paid_at: string | null;
             /**
-             * Email
-             * Format: email
+             * Payment Method
+             * @default
              */
-            email: string;
-            /** Password */
-            password: string;
+            payment_method: string;
+        };
+        /** AdminInvoiceListResponse */
+        AdminInvoiceListResponse: {
+            /** Invoices */
+            invoices: components["schemas"]["AdminInvoiceItem"][];
+            /** Total */
+            total: number;
+            /** Total Amount */
+            total_amount: number;
+            /** Paid Amount */
+            paid_amount: number;
+            /** Pending Amount */
+            pending_amount: number;
+        };
+        /** AdminIpAllowlistCreate */
+        AdminIpAllowlistCreate: {
+            /** Cidr */
+            cidr: string;
+            /** Label */
+            label?: string | null;
+        };
+        /** AdminIpAllowlistEntryOut */
+        AdminIpAllowlistEntryOut: {
+            /** Id */
+            id: number;
+            /** Cidr */
+            cidr: string;
+            /** Label */
+            label: string | null;
+            /** Created By Id */
+            created_by_id: number | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** AdminLoginAuditOut */
+        AdminLoginAuditOut: {
+            /** Id */
+            id: number;
+            /** Admin Id */
+            admin_id: number | null;
+            /** Email */
+            email: string | null;
+            /** Ip */
+            ip: string | null;
+            /** User Agent */
+            user_agent: string | null;
+            /** Status */
+            status: string;
+            /** Event */
+            event: string;
+            /** Reason */
+            reason: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** AdminLoginResponse */
         AdminLoginResponse: {
@@ -2540,7 +5918,69 @@ export interface components {
              */
             token_type: string;
             /** User */
-            user: Record<string, never>;
+            user: {
+                [key: string]: unknown;
+            };
+        };
+        /**
+         * AdminOTPRequest
+         * @description Step 1 of passwordless login: request a one-time code by email.
+         */
+        AdminOTPRequest: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+        };
+        /**
+         * AdminOTPVerify
+         * @description Step 2 of passwordless login: verify the emailed one-time code.
+         */
+        AdminOTPVerify: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Otp */
+            otp: string;
+        };
+        /** AdminRootOut */
+        AdminRootOut: {
+            /** Message */
+            message: string;
+            /** Endpoints */
+            endpoints: {
+                [key: string]: string;
+            };
+            authenticated_as: components["schemas"]["AdminIdentity"];
+        };
+        /** AdminTestimonialItem */
+        AdminTestimonialItem: {
+            /** Id */
+            id: number;
+            /** User Id */
+            user_id: number;
+            /** User Name */
+            user_name: string;
+            /** Business Name */
+            business_name: string | null;
+            /** Email */
+            email: string | null;
+            /** Text */
+            text: string;
+            /** Rating */
+            rating: number;
+            /** Approved */
+            approved: boolean;
+            /** Featured */
+            featured: boolean;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** AdminUserOut */
         AdminUserOut: {
@@ -2586,6 +6026,19 @@ export interface components {
             /** Total Outstanding */
             total_outstanding: number;
         };
+        /** AlertEventOut */
+        AlertEventOut: {
+            /** Id */
+            id: number;
+            /** Category */
+            category: string;
+            /** Severity */
+            severity: string;
+            /** Message */
+            message: string;
+            /** Created At */
+            created_at: string | null;
+        };
         /**
          * AnalyticsDashboard
          * @description Complete analytics dashboard data.
@@ -2630,6 +6083,21 @@ export interface components {
             /** Message */
             message: string;
         };
+        /** AuditChainResult */
+        AuditChainResult: {
+            /** Ok */
+            ok: boolean;
+            /** Total */
+            total: number;
+            /** Verified */
+            verified: number;
+            /** First Broken Id */
+            first_broken_id: number | null;
+            /** Reason */
+            reason: string | null;
+            /** Message */
+            message: string;
+        };
         /**
          * BankDetailsOut
          * @description Schema for returning bank account details.
@@ -2648,6 +6116,12 @@ export interface components {
              * @description Whether bank details are fully configured
              */
             is_configured: boolean;
+            /**
+             * Online Payments Enabled
+             * @description Whether the business has an active Paystack subaccount (online payments on)
+             * @default false
+             */
+            online_payments_enabled: boolean;
         };
         /**
          * BankDetailsUpdate
@@ -2674,45 +6148,459 @@ export interface components {
              * @description Account holder name
              */
             account_name?: string | null;
+            /**
+             * Otp
+             * @description One-time code (required only when changing an EXISTING bank account)
+             */
+            otp?: string | null;
         };
         /** Body_create_invoice_from_image_ocr_create_invoice_post */
         Body_create_invoice_from_image_ocr_create_invoice_post: {
-            /**
-             * File
-             * Format: binary
-             */
+            /** File */
             file: string;
+        };
+        /** Body_mark_order_delivered_inventory_storefront_orders__invoice_id__mark_delivered_post */
+        Body_mark_order_delivered_inventory_storefront_orders__invoice_id__mark_delivered_post: {
+            /** Note */
+            note?: string | null;
+            /** File */
+            file?: string | null;
+        };
+        /** Body_mark_order_sent_inventory_storefront_orders__invoice_id__mark_sent_post */
+        Body_mark_order_sent_inventory_storefront_orders__invoice_id__mark_sent_post: {
+            /** Tracking */
+            tracking?: string | null;
+            /** Note */
+            note?: string | null;
+            /** Carrier */
+            carrier?: string | null;
+            /** Eta */
+            eta?: string | null;
+            /** File */
+            file?: string | null;
         };
         /** Body_parse_receipt_image_ocr_parse_post */
         Body_parse_receipt_image_ocr_parse_post: {
-            /**
-             * File
-             * Format: binary
-             */
+            /** File */
             file: string;
         };
         /** Body_upload_expense_receipt_invoices_upload_receipt_post */
         Body_upload_expense_receipt_invoices_upload_receipt_post: {
-            /**
-             * File
-             * Format: binary
-             */
+            /** File */
             file: string;
         };
         /** Body_upload_logo_users_me_logo_post */
         Body_upload_logo_users_me_logo_post: {
-            /**
-             * File
-             * Format: binary
-             */
+            /** File */
             file: string;
         };
-        /** ChangePasswordRequest */
-        ChangePasswordRequest: {
-            /** Current Password */
-            current_password: string;
-            /** New Password */
-            new_password: string;
+        /** Body_upload_product_image_inventory_products__product_id__image_post */
+        Body_upload_product_image_inventory_products__product_id__image_post: {
+            /** File */
+            file: string;
+        };
+        /** Body_upload_storefront_cover_users_me_storefront_cover_post */
+        Body_upload_storefront_cover_users_me_storefront_cover_post: {
+            /** File */
+            file: string;
+        };
+        /**
+         * BrevoSyncResult
+         * @description Result of syncing a segment to Brevo.
+         */
+        BrevoSyncResult: {
+            /** Segment */
+            segment: string;
+            /** Contacts Synced */
+            contacts_synced: number;
+            /** List Id */
+            list_id: number;
+            /** Success */
+            success: boolean;
+            /** Error */
+            error?: string | null;
+        };
+        /** BulkRetryResult */
+        BulkRetryResult: {
+            /** Seller Id */
+            seller_id: number;
+            /** Total Held */
+            total_held: number;
+            /** Total Amount */
+            total_amount: number;
+            /** Released */
+            released: number;
+            /** Retried */
+            retried: number;
+            /** In Flight */
+            in_flight: number;
+            /** Skipped */
+            skipped: number;
+            /** Failed */
+            failed: number;
+            /**
+             * Errors
+             * @default []
+             */
+            errors: string[];
+            /** Message */
+            message: string;
+        };
+        /**
+         * BusinessHealthItem
+         * @description Per-business health snapshot.
+         */
+        BusinessHealthItem: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /** Business Name */
+            business_name: string | null;
+            /** Phone */
+            phone: string | null;
+            /** Email */
+            email: string | null;
+            /** Plan */
+            plan: string;
+            /** Created At */
+            created_at: string;
+            /** Last Login */
+            last_login: string | null;
+            /** Subscription Started At */
+            subscription_started_at: string | null;
+            /** Subscription Expires At */
+            subscription_expires_at: string | null;
+            /** Subscription Status */
+            subscription_status: string;
+            /** Days Until Expiry */
+            days_until_expiry: number | null;
+            /** Invoice Balance */
+            invoice_balance: number;
+            /** Total Revenue */
+            total_revenue: number;
+            /** Total Expenses */
+            total_expenses: number;
+            /** Net Income */
+            net_income: number;
+            /** Invoices Total */
+            invoices_total: number;
+            /** Invoices Paid */
+            invoices_paid: number;
+            /** Invoices Pending */
+            invoices_pending: number;
+            /** Collection Rate */
+            collection_rate: number;
+            /** Customers Count */
+            customers_count: number;
+            /** Invoices This Month */
+            invoices_this_month: number;
+            /** Last Invoice Date */
+            last_invoice_date: string | null;
+            /** Days Since Last Invoice */
+            days_since_last_invoice: number | null;
+            /** Avg Invoice Value */
+            avg_invoice_value: number;
+            /** Health Score */
+            health_score: number;
+            /** Risk Flags */
+            risk_flags: string[];
+            /**
+             * Has Outlier Invoice
+             * @default false
+             */
+            has_outlier_invoice: boolean;
+        };
+        /** BusinessHeldGroup */
+        BusinessHeldGroup: {
+            /** Seller Id */
+            seller_id: number;
+            /** Seller Name */
+            seller_name: string | null;
+            /** Seller Business */
+            seller_business: string | null;
+            /** Seller Store Status */
+            seller_store_status: string | null;
+            /** Held Count */
+            held_count: number;
+            /** Disputed Count */
+            disputed_count: number;
+            /** Review Count */
+            review_count: number;
+            /** Held Total Naira */
+            held_total_naira: number;
+            /** Oldest Created At */
+            oldest_created_at: string | null;
+        };
+        /** BusinessListResponse */
+        BusinessListResponse: {
+            /** Businesses */
+            businesses: components["schemas"]["BusinessHealthItem"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            summary: components["schemas"]["BusinessSummary"];
+        };
+        /**
+         * BusinessSnapshotOut
+         * @description Composite SME activity snapshot assembled from existing SuoOps data.
+         *
+         *     NOT a credit score — see `disclaimer`. Intended as one alternative-data
+         *     input a business can share with a financial institution alongside the
+         *     institution's own underwriting and cross-bank data.
+         */
+        BusinessSnapshotOut: {
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+            /** Period Months */
+            period_months: number;
+            /** Composite Score */
+            composite_score: number;
+            /** Level */
+            level: string;
+            /** Components */
+            components: {
+                [key: string]: number;
+            };
+            /** Component Weights */
+            component_weights: {
+                [key: string]: number;
+            };
+            payment_reliability: components["schemas"]["PaymentReliabilityOut"];
+            revenue_consistency: components["schemas"]["RevenueConsistencyOut"];
+            /** Professionalism Score */
+            professionalism_score: number;
+            tax_compliance: components["schemas"]["TaxComplianceOut"];
+            activity_mix: components["schemas"]["ActivityMixOut"];
+            fulfillment_reliability: components["schemas"]["FulfillmentReliabilityOut"];
+            data_provenance: components["schemas"]["DataProvenanceOut"];
+            /** Disclaimer */
+            disclaimer: string;
+        };
+        /**
+         * BusinessSummary
+         * @description Aggregate health counts across ALL matching businesses (not just the page).
+         */
+        BusinessSummary: {
+            /** Total */
+            total: number;
+            /** Healthy */
+            healthy: number;
+            /** At Risk */
+            at_risk: number;
+            /** Inactive */
+            inactive: number;
+            /** Never Invoiced */
+            never_invoiced: number;
+            /** Upgrade Candidates */
+            upgrade_candidates: number;
+            /**
+             * Excluded Count
+             * @default 0
+             */
+            excluded_count: number;
+        };
+        /** BuyerMessageIn */
+        BuyerMessageIn: {
+            /** Code */
+            code: string;
+            /** Body */
+            body: string;
+        };
+        /** BuyerProductMatchOut */
+        BuyerProductMatchOut: {
+            /** Product Id */
+            product_id: number;
+            /** Name */
+            name: string;
+            /** Price */
+            price: number;
+            /** Original Price */
+            original_price: number;
+            /** Discount Percent */
+            discount_percent: number;
+            /** Category */
+            category: string | null;
+            /** Fulfilment Type */
+            fulfilment_type: string;
+            /** Reason */
+            reason: string;
+        };
+        /** BuyerShoppingRequest */
+        BuyerShoppingRequest: {
+            /** Query */
+            query: string;
+            /** Cart Product Ids */
+            cart_product_ids?: number[];
+        };
+        /** BuyerShoppingResponse */
+        BuyerShoppingResponse: {
+            /** Answer */
+            answer: string;
+            /** Matches */
+            matches: components["schemas"]["BuyerProductMatchOut"][];
+            /** Detected Budget */
+            detected_budget: number | null;
+            /** Ai Ranked */
+            ai_ranked: boolean;
+            /** Notice */
+            notice?: string | null;
+        };
+        /** BuyerThreadIn */
+        BuyerThreadIn: {
+            /** Code */
+            code: string;
+        };
+        /** CACVerifyIn */
+        CACVerifyIn: {
+            /**
+             * Rc Number
+             * @description CAC/RC registration number
+             */
+            rc_number: string;
+        };
+        /** CancelSubscriptionOut */
+        CancelSubscriptionOut: {
+            /** Status */
+            status: string;
+            /** Message */
+            message: string;
+            /** Plan */
+            plan?: string | null;
+            /** Expires At */
+            expires_at?: string | null;
+        };
+        /** CashPositionOut */
+        CashPositionOut: {
+            /** Cash Collected Today */
+            cash_collected_today: number;
+            /** Cash Collected This Week */
+            cash_collected_this_week: number;
+            /** Total Outstanding */
+            total_outstanding: number;
+            /** Total Overdue */
+            total_overdue: number;
+            /** Overdue Count */
+            overdue_count: number;
+            /** Expected Inflow 7 Days */
+            expected_inflow_7_days: number;
+            /** Invoices Created Today */
+            invoices_created_today: number;
+            /** Expenses Today */
+            expenses_today: number;
+            /** Net Today */
+            net_today: number;
+        };
+        /** ChannelBreakdown */
+        ChannelBreakdown: {
+            /**
+             * Whatsapp
+             * @default 0
+             */
+            whatsapp: number;
+            /**
+             * Dashboard
+             * @default 0
+             */
+            dashboard: number;
+        };
+        /** CollectionDraftOut */
+        CollectionDraftOut: {
+            /** Id */
+            id: string;
+            /** Invoice Id */
+            invoice_id: string;
+            /** Customer Name */
+            customer_name: string;
+            /** Amount */
+            amount: number;
+            /** Currency */
+            currency: string;
+            /** Days Overdue */
+            days_overdue: number;
+            /**
+             * Channel
+             * @enum {string}
+             */
+            channel: "email" | "whatsapp" | "unavailable";
+            /** Recipient Masked */
+            recipient_masked: string;
+            /** Subject */
+            subject?: string | null;
+            /** Message */
+            message: string;
+            /** Priority Score */
+            priority_score: number;
+            /**
+             * Priority Level
+             * @enum {string}
+             */
+            priority_level: "low" | "medium" | "high" | "critical";
+            /** Reasons */
+            reasons: string[];
+            /** Explanation */
+            explanation: string;
+            /** Ai Generated */
+            ai_generated: boolean;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "draft" | "sent" | "dismissed" | "failed";
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Sent At */
+            sent_at?: string | null;
+            /** Can Send */
+            can_send: boolean;
+        };
+        /** CollectionDraftUpdateIn */
+        CollectionDraftUpdateIn: {
+            /** Subject */
+            subject?: string | null;
+            /** Message */
+            message: string;
+        };
+        /** CollectionMetricsOut */
+        CollectionMetricsOut: {
+            /** Sent Reminders */
+            sent_reminders: number;
+            /** Recovered Invoices */
+            recovered_invoices: number;
+            /** Recovered Amount */
+            recovered_amount: number;
+            /** Recovery Rate */
+            recovery_rate: number;
+        };
+        /** CollectionPrioritiesOut */
+        CollectionPrioritiesOut: {
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+            /** Cooldown Days */
+            cooldown_days: number;
+            /** Drafts */
+            drafts: components["schemas"]["CollectionDraftOut"][];
+            /** Total Overdue Amount */
+            total_overdue_amount: number;
+            /** Eligible Count */
+            eligible_count: number;
+        };
+        /** ConfirmDeliveryIn */
+        ConfirmDeliveryIn: {
+            /** Code */
+            code: string;
         };
         /**
          * ContactRequest
@@ -2745,6 +6633,152 @@ export interface components {
             /** Ticket Id */
             ticket_id?: number | null;
         };
+        /** ConversionFunnel */
+        ConversionFunnel: {
+            /** Created */
+            created: number;
+            /** Sent */
+            sent: number;
+            /** Viewed */
+            viewed: number;
+            /** Awaiting Confirmation */
+            awaiting_confirmation: number;
+            /** Paid */
+            paid: number;
+            /** Cancelled */
+            cancelled: number;
+        };
+        /** ConversionFunnelOut */
+        ConversionFunnelOut: {
+            /** Period */
+            period: string;
+            funnel: components["schemas"]["ConversionFunnel"];
+            conversion_rates: components["schemas"]["ConversionRates"];
+        };
+        /** ConversionRates */
+        ConversionRates: {
+            /** Sent To Viewed */
+            sent_to_viewed: number;
+            /** Viewed To Paid */
+            viewed_to_paid: number;
+            /** Overall */
+            overall: number;
+        };
+        /** CopilotActionOut */
+        CopilotActionOut: {
+            /** Id */
+            id: string;
+            /** Action Type */
+            action_type: string;
+            /** Title */
+            title: string;
+            /** Reason */
+            reason: string;
+            /** Action Url */
+            action_url: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "proposed" | "accepted" | "dismissed";
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** CopilotAnswerOut */
+        CopilotAnswerOut: {
+            /** Intent */
+            intent: string;
+            /** Answer */
+            answer: string;
+            /** Evidence */
+            evidence: string[];
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+            /** Suggested Questions */
+            suggested_questions: string[];
+        };
+        /** CopilotBriefingOut */
+        CopilotBriefingOut: {
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+            /**
+             * Data As Of
+             * Format: date-time
+             */
+            data_as_of: string;
+            /** Headline */
+            headline: string;
+            /** Summary */
+            summary: string;
+            /** Ai Generated */
+            ai_generated: boolean;
+            /** Generation Notice */
+            generation_notice?: string | null;
+            /** Facts */
+            facts: {
+                [key: string]: unknown;
+            };
+            /** Actions */
+            actions: components["schemas"]["CopilotActionOut"][];
+            /** Suggested Questions */
+            suggested_questions: string[];
+        };
+        /** CopilotDecisionIn */
+        CopilotDecisionIn: {
+            /**
+             * Decision
+             * @enum {string}
+             */
+            decision: "accepted" | "dismissed";
+        };
+        /** CopilotQuestionIn */
+        CopilotQuestionIn: {
+            /** Question */
+            question: string;
+        };
+        /** CustomerInsightItem */
+        CustomerInsightItem: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /** Phone */
+            phone?: string | null;
+            /** Total Spent */
+            total_spent: number;
+            /** Invoice Count */
+            invoice_count: number;
+            /** Paid Count */
+            paid_count: number;
+            /** Payment Rate */
+            payment_rate: number;
+            /** Last Purchase Days Ago */
+            last_purchase_days_ago: number;
+            /** Status */
+            status: string;
+        };
+        /** CustomerInsightsOut */
+        CustomerInsightsOut: {
+            /** Customers */
+            customers: components["schemas"]["CustomerInsightItem"][];
+            /** Summary */
+            summary: {
+                [key: string]: number;
+            };
+            /** Dormant Customers */
+            dormant_customers: components["schemas"]["CustomerInsightItem"][];
+            /** Total Analyzed */
+            total_analyzed: number;
+        };
         /**
          * CustomerMetrics
          * @description Customer engagement metrics.
@@ -2768,6 +6802,47 @@ export interface components {
             /** Email */
             email?: string | null;
         };
+        /** CustomerRevenueItem */
+        CustomerRevenueItem: {
+            /** Name */
+            name: string;
+            /** Total Revenue */
+            total_revenue: number;
+            /** Invoice Count */
+            invoice_count: number;
+        };
+        /** DailyPoint */
+        DailyPoint: {
+            /** Date */
+            date: string;
+            /**
+             * Total
+             * @default 0
+             */
+            total: number;
+            /**
+             * Whatsapp
+             * @default 0
+             */
+            whatsapp: number;
+            /**
+             * Dashboard
+             * @default 0
+             */
+            dashboard: number;
+        };
+        /**
+         * DataProvenanceOut
+         * @description Gateway-confirmed (Paystack/Flutterwave/storefront) vs self-reported
+         *     (business marked it paid itself, e.g. cash) paid amounts — different
+         *     trust levels, kept separate rather than blended into one figure.
+         */
+        DataProvenanceOut: {
+            /** Gateway Confirmed Amount */
+            gateway_confirmed_amount: number;
+            /** Self Reported Amount */
+            self_reported_amount: number;
+        };
         /**
          * DeleteAccountRequest
          * @description Request to delete user account.
@@ -2786,7 +6861,246 @@ export interface components {
             /** Message */
             message: string;
             /** Deleted Items */
-            deleted_items?: Record<string, never> | null;
+            deleted_items?: {
+                [key: string]: unknown;
+            } | null;
+        };
+        /** DiscountedCustomer */
+        DiscountedCustomer: {
+            /** Name */
+            name: string;
+            /** Count */
+            count: number;
+            /** Total Discount */
+            total_discount: number;
+        };
+        /** DisputeAssistantOut */
+        DisputeAssistantOut: {
+            /** Escrow Id */
+            escrow_id: number;
+            /** Invoice Id */
+            invoice_id: string | null;
+            /** Status */
+            status: string;
+            /** Amount Naira */
+            amount_naira: number;
+            /** Neutral Summary */
+            neutral_summary: string;
+            /** Timeline */
+            timeline: components["schemas"]["DisputeTimelineEventOut"][];
+            /** Evidence */
+            evidence: components["schemas"]["DisputeEvidenceOut"][];
+            /** Missing Evidence */
+            missing_evidence: string[];
+            /** Review Flags */
+            review_flags: string[];
+            /** Reviewer Questions */
+            reviewer_questions: string[];
+            /** Ai Generated */
+            ai_generated: boolean;
+            /** Generation Notice */
+            generation_notice?: string | null;
+            /** Decision Notice */
+            decision_notice: string;
+        };
+        /** DisputeEvidenceOut */
+        DisputeEvidenceOut: {
+            /** Label */
+            label: string;
+            /** Detail */
+            detail: string;
+            /** Source */
+            source: string;
+        };
+        /** DisputeItem */
+        DisputeItem: {
+            /** Escrow Id */
+            escrow_id: number;
+            /** Invoice Id */
+            invoice_id: number;
+            /** Invoice Public Id */
+            invoice_public_id?: string | null;
+            /** Status */
+            status: string;
+            /** Seller Id */
+            seller_id: number;
+            /** Seller Name */
+            seller_name?: string | null;
+            /** Seller Business */
+            seller_business?: string | null;
+            /** Seller Store Status */
+            seller_store_status?: string | null;
+            /** Customer Name */
+            customer_name?: string | null;
+            /** Customer Phone */
+            customer_phone?: string | null;
+            /** Gross Naira */
+            gross_naira: number;
+            /** Payout Naira */
+            payout_naira: number;
+            /** Dispute Reason */
+            dispute_reason?: string | null;
+            /**
+             * Held For Review
+             * @default false
+             */
+            held_for_review: boolean;
+            /** Review Reason */
+            review_reason?: string | null;
+            /** Delivered At */
+            delivered_at?: string | null;
+            /** Delivery Proof Note */
+            delivery_proof_note?: string | null;
+            /** Delivery Proof Url */
+            delivery_proof_url?: string | null;
+            /** Dispatched At */
+            dispatched_at?: string | null;
+            /** Dispatch Tracking */
+            dispatch_tracking?: string | null;
+            /** Dispatch Note */
+            dispatch_note?: string | null;
+            /** Dispatch Proof Url */
+            dispatch_proof_url?: string | null;
+            /** Delivery Location */
+            delivery_location?: string | null;
+            /**
+             * Buyer Disputes
+             * @default 0
+             */
+            buyer_disputes: number;
+            /**
+             * Buyer False Disputes
+             * @default 0
+             */
+            buyer_false_disputes: number;
+            /**
+             * Buyer Flagged
+             * @default false
+             */
+            buyer_flagged: boolean;
+            /**
+             * Seller Circumvention Attempts
+             * @default 0
+             */
+            seller_circumvention_attempts: number;
+            /**
+             * Payout State
+             * @default none
+             */
+            payout_state: string;
+            /** Transfer Reference */
+            transfer_reference?: string | null;
+            /** Payout Eta */
+            payout_eta?: string | null;
+            /** Disputed At */
+            disputed_at?: string | null;
+            /** Created At */
+            created_at?: string | null;
+        };
+        /** DisputeListResponse */
+        DisputeListResponse: {
+            /** Disputes */
+            disputes: components["schemas"]["DisputeItem"][];
+            /** Total */
+            total: number;
+            /**
+             * Total Capped
+             * @default false
+             */
+            total_capped: boolean;
+            /**
+             * Skip
+             * @default 0
+             */
+            skip: number;
+            /**
+             * Limit
+             * @default 0
+             */
+            limit: number;
+            /**
+             * Has More
+             * @default false
+             */
+            has_more: boolean;
+        };
+        /** DisputeResolveAction */
+        DisputeResolveAction: {
+            /** Action */
+            action: string;
+            /**
+             * Suspend Seller
+             * @default false
+             */
+            suspend_seller: boolean;
+            /** Reason */
+            reason?: string | null;
+            /** Otp */
+            otp?: string | null;
+            /**
+             * Block Card
+             * @default false
+             */
+            block_card: boolean;
+        };
+        /** DisputeTimelineEventOut */
+        DisputeTimelineEventOut: {
+            /**
+             * Occurred At
+             * Format: date-time
+             */
+            occurred_at: string;
+            /** Event */
+            event: string;
+            /** Detail */
+            detail: string;
+            /** Source */
+            source: string;
+        };
+        /** DisputesByBusinessResponse */
+        DisputesByBusinessResponse: {
+            /** Businesses */
+            businesses: components["schemas"]["BusinessHeldGroup"][];
+            /** Total Businesses */
+            total_businesses: number;
+            /** Total Capped */
+            total_capped: boolean;
+        };
+        /**
+         * EarningsBreakdown
+         * @description Influencer earnings (flat-commission model: you earn a % of SuoOps' 3%
+         *     on every referred business's activity, ongoing).
+         */
+        EarningsBreakdown: {
+            /** Total Earned */
+            total_earned: number;
+            /** Online Earned */
+            online_earned: number;
+            /** Topup Earned */
+            topup_earned: number;
+            /** Total Signups */
+            total_signups: number;
+            /** Total Conversions */
+            total_conversions: number;
+            /** Pending Payout */
+            pending_payout: number;
+            /** Custom Link */
+            custom_link?: string | null;
+            /** Commission Pct */
+            commission_pct: number;
+            /** Recent Earnings */
+            recent_earnings: {
+                [key: string]: unknown;
+            }[];
+        };
+        /** ExchangeRateOut */
+        ExchangeRateOut: {
+            /** Rate */
+            rate: number;
+            /** Currency Pair */
+            currency_pair: string;
+            /** Description */
+            description: string;
         };
         /**
          * ExpenseCreate
@@ -2870,6 +7184,15 @@ export interface components {
             receipt_url: string | null;
             /** Verified */
             verified: boolean;
+            /**
+             * Record Status
+             * @enum {string}
+             */
+            record_status: "self_reported" | "documented" | "flagged";
+            /** Possible Duplicate */
+            possible_duplicate: boolean;
+            /** Possible Duplicate Of Id */
+            possible_duplicate_of_id?: number | null;
             /** Notes */
             notes: string | null;
             /**
@@ -2957,10 +7280,36 @@ export interface components {
             description?: string | null;
             /** Merchant */
             merchant?: string | null;
-            /** Verified */
-            verified?: boolean | null;
             /** Notes */
             notes?: string | null;
+        };
+        /**
+         * FeatureAccessOut
+         * @description Commission-model feature access; excludes internal user_id.
+         */
+        FeatureAccessOut: {
+            /** Current Plan */
+            current_plan: string;
+            /** Plan Price */
+            plan_price?: number | null;
+            /** Is Free Tier */
+            is_free_tier: boolean;
+            /** Features */
+            features: {
+                [key: string]: unknown;
+            };
+            invoice_usage: components["schemas"]["InvoiceUsage"];
+            /** Upgrade Available */
+            upgrade_available: boolean;
+            /** Upgrade Url */
+            upgrade_url?: string | null;
+        };
+        /** FeedbackSubmit */
+        FeedbackSubmit: {
+            /** Token */
+            token: string;
+            /** Text */
+            text: string;
         };
         /** FiscalizationStatus */
         FiscalizationStatus: {
@@ -2973,10 +7322,343 @@ export interface components {
             /** Timestamp */
             timestamp: string;
         };
+        /** FlaggedMessageItem */
+        FlaggedMessageItem: {
+            /** Id */
+            id: number;
+            /** Escrow Id */
+            escrow_id: number;
+            /** Seller Id */
+            seller_id: number;
+            /** Seller Business */
+            seller_business?: string | null;
+            /** Sender Role */
+            sender_role: string;
+            /** Body Raw */
+            body_raw: string;
+            /** Flag Reasons */
+            flag_reasons?: string | null;
+            /**
+             * Blocked
+             * @default false
+             */
+            blocked: boolean;
+            /** Created At */
+            created_at?: string | null;
+        };
+        /** FlaggedMessageListResponse */
+        FlaggedMessageListResponse: {
+            /** Messages */
+            messages: components["schemas"]["FlaggedMessageItem"][];
+            /** Total */
+            total: number;
+        };
+        /**
+         * FulfillmentReliabilityOut
+         * @description Storefront escrow/delivery outcomes — proof goods actually moved and
+         *     were received (dispatch photo, courier tracking, buyer-only confirmation
+         *     code), not just that an invoice was billed. Zero storefront orders is
+         *     neutral (nothing to judge), not a penalty.
+         */
+        FulfillmentReliabilityOut: {
+            /** Total Storefront Orders */
+            total_storefront_orders: number;
+            /** Delivered And Released Count */
+            delivered_and_released_count: number;
+            /** Disputed Count */
+            disputed_count: number;
+            /** Refunded Count */
+            refunded_count: number;
+        };
+        /** GrowthMetrics */
+        GrowthMetrics: {
+            /** Commission Month */
+            commission_month: number;
+            /** Commission Trend */
+            commission_trend: components["schemas"]["MonthlyDataPoint"][];
+            /** Commission Run Rate */
+            commission_run_rate: number;
+            /** Churned Users */
+            churned_users: number;
+            /** Churn Rate */
+            churn_rate: number;
+            activation_funnel: components["schemas"]["ActivationFunnel"];
+            /** Collection Rate */
+            collection_rate: number;
+            /** Avg Days To Payment */
+            avg_days_to_payment: number | null;
+            /** User Growth */
+            user_growth: components["schemas"]["MonthlyDataPoint"][];
+            /** Invoice Growth */
+            invoice_growth: components["schemas"]["MonthlyDataPoint"][];
+            /** Gmv Growth */
+            gmv_growth: components["schemas"]["MonthlyDataPoint"][];
+            /** Avg Invoices Per User */
+            avg_invoices_per_user: number;
+            /** Power Users */
+            power_users: number;
+            /** Zero Invoice Users */
+            zero_invoice_users: number;
+            /** Whatsapp Users */
+            whatsapp_users: number;
+            /** Email Only Users */
+            email_only_users: number;
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
+        };
+        /** HealthOut */
+        HealthOut: {
+            /** Status */
+            status: string;
+        };
+        /**
+         * InfluencerCreate
+         * @description Payload for creating an influencer partnership.
+         */
+        InfluencerCreate: {
+            /** User Phone */
+            user_phone?: string | null;
+            /** User Email */
+            user_email?: string | null;
+            /** Influencer Name */
+            influencer_name: string;
+            /** Influencer Contact */
+            influencer_contact?: string | null;
+            /** Custom Slug */
+            custom_slug: string;
+            /**
+             * Commission First
+             * @default 0
+             */
+            commission_first: number;
+            /**
+             * Commission Recurring
+             * @default 0
+             */
+            commission_recurring: number;
+            /**
+             * Commission Months
+             * @default 0
+             */
+            commission_months: number;
+            /**
+             * Commission Perpetual Pct
+             * @default 20
+             */
+            commission_perpetual_pct: number;
+            /**
+             * Bonus Invoices
+             * @default 3
+             */
+            bonus_invoices: number;
+            /** Notes */
+            notes?: string | null;
+        };
+        /**
+         * InfluencerInfo
+         * @description Influencer partnership with performance stats.
+         */
+        InfluencerInfo: {
+            /** Id */
+            id: number;
+            /** Code */
+            code: string;
+            /** Custom Slug */
+            custom_slug: string | null;
+            /** Influencer Name */
+            influencer_name: string | null;
+            /** Influencer Contact */
+            influencer_contact: string | null;
+            /** Commission First */
+            commission_first: number;
+            /** Commission Recurring */
+            commission_recurring: number;
+            /** Commission Months */
+            commission_months: number;
+            /** Commission Perpetual Pct */
+            commission_perpetual_pct: number;
+            /** Bonus Invoices */
+            bonus_invoices: number;
+            /** Notes */
+            notes: string | null;
+            /** Is Active */
+            is_active: boolean;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Total Signups
+             * @default 0
+             */
+            total_signups: number;
+            /**
+             * Activated Users
+             * @default 0
+             */
+            activated_users: number;
+            /**
+             * Pro Conversions
+             * @default 0
+             */
+            pro_conversions: number;
+            /**
+             * Gmv Referred
+             * @default 0
+             */
+            gmv_referred: number;
+            /**
+             * Total Commission Earned
+             * @default 0
+             */
+            total_commission_earned: number;
+            /**
+             * Signup Link
+             * @default
+             */
+            signup_link: string;
+        };
+        /** InfluencerListResponse */
+        InfluencerListResponse: {
+            /** Total */
+            total: number;
+            /** Influencers */
+            influencers: components["schemas"]["InfluencerInfo"][];
+        };
+        /**
+         * InfluencerUpdate
+         * @description Payload for updating an influencer partnership.
+         */
+        InfluencerUpdate: {
+            /** Influencer Name */
+            influencer_name?: string | null;
+            /** Influencer Contact */
+            influencer_contact?: string | null;
+            /** Custom Slug */
+            custom_slug?: string | null;
+            /** Commission First */
+            commission_first?: number | null;
+            /** Commission Recurring */
+            commission_recurring?: number | null;
+            /** Commission Months */
+            commission_months?: number | null;
+            /** Commission Perpetual Pct */
+            commission_perpetual_pct?: number | null;
+            /** Bonus Invoices */
+            bonus_invoices?: number | null;
+            /** Notes */
+            notes?: string | null;
+            /** Is Active */
+            is_active?: boolean | null;
+        };
+        /** InventoryAdviceOut */
+        InventoryAdviceOut: {
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+            /** Lookback Days */
+            lookback_days: number;
+            /** Target Cover Days */
+            target_cover_days: number;
+            /** Headline */
+            headline: string;
+            /** Summary */
+            summary: string;
+            /** Ai Generated */
+            ai_generated: boolean;
+            /** Generation Notice */
+            generation_notice?: string | null;
+            /** Reorder Count */
+            reorder_count: number;
+            /** Slow Stock Count */
+            slow_stock_count: number;
+            /** Estimated Reorder Cost */
+            estimated_reorder_cost: number;
+            /** Recommendations */
+            recommendations: components["schemas"]["InventoryRecommendationOut"][];
+        };
+        /** InventoryPurchaseOrderIn */
+        InventoryPurchaseOrderIn: {
+            /** Product Ids */
+            product_ids: number[];
+        };
+        /** InventoryPurchaseOrderLineOut */
+        InventoryPurchaseOrderLineOut: {
+            /** Product Id */
+            product_id: number;
+            /** Product Name */
+            product_name: string;
+            /** Quantity */
+            quantity: number;
+            /** Unit Cost */
+            unit_cost: number | null;
+            /** Total Cost */
+            total_cost: number | null;
+        };
+        /** InventoryPurchaseOrderOut */
+        InventoryPurchaseOrderOut: {
+            /** Id */
+            id: number;
+            /** Order Number */
+            order_number: string;
+            /**
+             * Status
+             * @constant
+             */
+            status: "draft";
+            /** Total Amount */
+            total_amount: number;
+            /** Lines */
+            lines: components["schemas"]["InventoryPurchaseOrderLineOut"][];
+            /** Created */
+            created: boolean;
+            /** Notice */
+            notice: string;
+        };
+        /** InventoryRecommendationOut */
+        InventoryRecommendationOut: {
+            /** Product Id */
+            product_id: number;
+            /** Product Name */
+            product_name: string;
+            /** Sku */
+            sku: string;
+            /** Unit */
+            unit: string;
+            /** Current Stock */
+            current_stock: number;
+            /** Incoming Stock */
+            incoming_stock: number;
+            /** Units Sold 30 Days */
+            units_sold_30_days: number;
+            /** Daily Sales Velocity */
+            daily_sales_velocity: number;
+            /** Days Of Stock */
+            days_of_stock: number | null;
+            /**
+             * Demand Trend
+             * @enum {string}
+             */
+            demand_trend: "rising" | "steady" | "falling" | "no_sales";
+            /**
+             * Recommendation
+             * @enum {string}
+             */
+            recommendation: "reorder_now" | "watch" | "healthy" | "slow_stock" | "insufficient_data";
+            /** Recommended Order Quantity */
+            recommended_order_quantity: number;
+            /** Estimated Order Cost */
+            estimated_order_cost: number | null;
+            /** Explanation */
+            explanation: string;
+            /** Reason Codes */
+            reason_codes: string[];
         };
         /**
          * InventorySummary
@@ -3129,8 +7811,17 @@ export interface components {
         };
         /** InvoiceCreate */
         InvoiceCreate: {
-            /** Amount */
+            /**
+             * Amount
+             * @description Amount must be greater than 0
+             */
             amount: number | string;
+            /**
+             * Currency
+             * @default NGN
+             * @enum {string}
+             */
+            currency: "NGN" | "USD";
             /** Due Date */
             due_date?: string | null;
             /** Lines */
@@ -3157,19 +7848,6 @@ export interface components {
             merchant?: string | null;
             /** Description */
             description?: string | null;
-            /** Receipt Url */
-            receipt_url?: string | null;
-            /** Receipt Text */
-            receipt_text?: string | null;
-            /** Input Method */
-            input_method?: string | null;
-            /** Channel */
-            channel?: string | null;
-            /**
-             * Verified
-             * @default false
-             */
-            verified: boolean;
             /** Notes */
             notes?: string | null;
         };
@@ -3179,10 +7857,14 @@ export interface components {
             description: string;
             /**
              * Quantity
+             * @description Quantity must be at least 1
              * @default 1
              */
             quantity: number;
-            /** Unit Price */
+            /**
+             * Unit Price
+             * @description Unit price must be greater than 0
+             */
             unit_price: number | string;
             /** Product Id */
             product_id?: number | null;
@@ -3191,6 +7873,18 @@ export interface components {
         InvoiceLineOut: {
             /** Id */
             id: number;
+            /** Description */
+            description: string;
+            /** Quantity */
+            quantity: number;
+            /** Unit Price */
+            unit_price: string;
+        };
+        /**
+         * InvoiceLinePublicOut
+         * @description Minimal line-item data for the public payment page.
+         */
+        InvoiceLinePublicOut: {
             /** Description */
             description: string;
             /** Quantity */
@@ -3209,6 +7903,8 @@ export interface components {
             paid_invoices: number;
             /** Pending Invoices */
             pending_invoices: number;
+            /** Failed Invoices */
+            failed_invoices: number;
             /** Awaiting Confirmation */
             awaiting_confirmation: number;
             /** Cancelled Invoices */
@@ -3222,6 +7918,11 @@ export interface components {
             invoice_id: string;
             /** Amount */
             amount: string;
+            /**
+             * Currency
+             * @default NGN
+             */
+            currency: string;
             /** Status */
             status: string;
             /** Pdf Url */
@@ -3249,18 +7950,22 @@ export interface components {
             verified?: boolean | null;
             /** Notes */
             notes?: string | null;
+            /** Channel */
+            channel?: string | null;
+            /** Payment Method */
+            payment_method?: string | null;
             /** Created By User Id */
             created_by_user_id?: number | null;
             /** Created By Name */
             created_by_name?: string | null;
+            /** Customer Name */
+            customer_name?: string | null;
             /** Status Updated By User Id */
             status_updated_by_user_id?: number | null;
             /** Status Updated By Name */
             status_updated_by_name?: string | null;
             /** Status Updated At */
             status_updated_at?: string | null;
-            /** Customer Name */
-            customer_name?: string | null;
         };
         /** InvoiceOutDetailed */
         InvoiceOutDetailed: {
@@ -3268,6 +7973,11 @@ export interface components {
             invoice_id: string;
             /** Amount */
             amount: string;
+            /**
+             * Currency
+             * @default NGN
+             */
+            currency: string;
             /** Status */
             status: string;
             /** Pdf Url */
@@ -3295,10 +8005,16 @@ export interface components {
             verified?: boolean | null;
             /** Notes */
             notes?: string | null;
+            /** Channel */
+            channel?: string | null;
+            /** Payment Method */
+            payment_method?: string | null;
             /** Created By User Id */
             created_by_user_id?: number | null;
             /** Created By Name */
             created_by_name?: string | null;
+            /** Customer Name */
+            customer_name?: string | null;
             /** Status Updated By User Id */
             status_updated_by_user_id?: number | null;
             /** Status Updated By Name */
@@ -3333,9 +8049,16 @@ export interface components {
             amount: number;
             /**
              * Invoices To Add
-             * @description Number of invoices that will be added after payment
+             * @description Legacy: invoices added (0 under wallet model)
+             * @default 0
              */
             invoices_to_add: number;
+            /**
+             * Wallet Credit Naira
+             * @description Amount credited to the prepaid wallet
+             * @default 0
+             */
+            wallet_credit_naira: number;
         };
         /** InvoicePublicOut */
         InvoicePublicOut: {
@@ -3343,14 +8066,23 @@ export interface components {
             invoice_id: string;
             /** Amount */
             amount: string;
+            /**
+             * Currency
+             * @default NGN
+             */
+            currency: string;
             /** Status */
             status: string;
             /** Due Date */
             due_date?: string | null;
+            /** Created At */
+            created_at?: string | null;
             /** Customer Name */
             customer_name?: string | null;
             /** Business Name */
             business_name?: string | null;
+            /** Business Logo Url */
+            business_logo_url?: string | null;
             /** Bank Name */
             bank_name?: string | null;
             /** Account Number */
@@ -3359,6 +8091,25 @@ export interface components {
             account_name?: string | null;
             /** Paid At */
             paid_at?: string | null;
+            /**
+             * Online Payments Enabled
+             * @default false
+             */
+            online_payments_enabled: boolean;
+            /**
+             * Online Only
+             * @default false
+             */
+            online_only: boolean;
+            /** Pdf Url */
+            pdf_url?: string | null;
+            /** Receipt Pdf Url */
+            receipt_pdf_url?: string | null;
+            /**
+             * Lines
+             * @default []
+             */
+            lines: components["schemas"]["InvoiceLinePublicOut"][];
         };
         /**
          * InvoiceQuotaOut
@@ -3372,6 +8123,12 @@ export interface components {
              * @description Remaining invoices available to create
              */
             invoice_balance: number;
+            /**
+             * Total Invoices
+             * @description Total revenue invoices the user has created (drives onboarding activation)
+             * @default 0
+             */
+            total_invoices: number;
             /**
              * Current Plan
              * @description Current subscription plan code
@@ -3408,6 +8165,32 @@ export interface components {
              */
             status: "pending" | "awaiting_confirmation" | "paid" | "cancelled" | "refunded";
         };
+        /** InvoiceUsage */
+        InvoiceUsage: {
+            /** Used This Month */
+            used_this_month: number;
+            /** Limit */
+            limit?: number | null;
+            /** Remaining */
+            remaining?: number | null;
+            /** Can Create More */
+            can_create_more: boolean;
+            /** Limit Message */
+            limit_message?: string | null;
+        };
+        /**
+         * InvoiceVerificationItem
+         * @description A single line on a verified invoice (what was bought).
+         */
+        InvoiceVerificationItem: {
+            /** Description */
+            description: string;
+            /**
+             * Quantity
+             * @default 1
+             */
+            quantity: number;
+        };
         /**
          * InvoiceVerificationOut
          * @description Public invoice verification response (for QR code scanning).
@@ -3423,6 +8206,20 @@ export interface components {
             customer_name: string;
             /** Business Name */
             business_name: string;
+            /**
+             * Verification Code
+             * @default
+             */
+            verification_code: string;
+            /**
+             * Items
+             * @default []
+             */
+            items: components["schemas"]["InvoiceVerificationItem"][];
+            /** Fulfilment Status */
+            fulfilment_status?: string | null;
+            /** Fulfilment Label */
+            fulfilment_label?: string | null;
             /**
              * Created At
              * Format: date-time
@@ -3471,10 +8268,88 @@ export interface components {
             /** Unit */
             unit: string;
         };
+        /** MarginInsightsOut */
+        MarginInsightsOut: {
+            /** Total Discounts */
+            total_discounts: number;
+            /** Discount Count */
+            discount_count: number;
+            /** Total Revenue */
+            total_revenue: number;
+            /** Discount As Percent Of Revenue */
+            discount_as_percent_of_revenue: number;
+            /** Top Discounted Customers */
+            top_discounted_customers: components["schemas"]["DiscountedCustomer"][];
+            /** Product Margins */
+            product_margins: components["schemas"]["ProductMargin"][];
+            /** Low Margin Count */
+            low_margin_count: number;
+        };
         /** MessageOut */
         MessageOut: {
             /** Detail */
             detail: string;
+        };
+        /** MessageResponse */
+        MessageResponse: {
+            /** Message */
+            message: string;
+        };
+        /** MetricsSummary */
+        MetricsSummary: {
+            /** Period */
+            period: string;
+            /** Label */
+            label: string;
+            /** Commission */
+            commission: number;
+            /**
+             * Commission Storefront
+             * @default 0
+             */
+            commission_storefront: number;
+            /**
+             * Commission Manual
+             * @default 0
+             */
+            commission_manual: number;
+            /** Gmv */
+            gmv: number;
+            /**
+             * Gmv Storefront
+             * @default 0
+             */
+            gmv_storefront: number;
+            /**
+             * Gmv Manual
+             * @default 0
+             */
+            gmv_manual: number;
+            /** Invoices */
+            invoices: number;
+            /** Expense Amount */
+            expense_amount: number;
+            /** Documented Expense Amount */
+            documented_expense_amount: number;
+            /** Self Reported Expense Amount */
+            self_reported_expense_amount: number;
+            /** Flagged Expense Amount */
+            flagged_expense_amount: number;
+            /** Expense Entries */
+            expense_entries: number;
+            /** Expense Users */
+            expense_users: number;
+            /** New Users */
+            new_users: number;
+            /** Active Users */
+            active_users: number;
+        };
+        /** MonthlyDataPoint */
+        MonthlyDataPoint: {
+            /** Month */
+            month: string;
+            /** Value */
+            value: number;
         };
         /**
          * MonthlyTrend
@@ -3624,6 +8499,276 @@ export interface components {
              */
             purpose: "signup" | "login";
         };
+        /** OnlinePaymentsStatusOut */
+        OnlinePaymentsStatusOut: {
+            /** Enabled */
+            enabled: boolean;
+            /** Has Bank Details */
+            has_bank_details: boolean;
+        };
+        /** OnlinePaymentsUpdateOut */
+        OnlinePaymentsUpdateOut: {
+            /** Enabled */
+            enabled: boolean;
+            /** Message */
+            message: string;
+            /** Subaccount Code */
+            subaccount_code?: string | null;
+        };
+        /** OrderProblemIn */
+        OrderProblemIn: {
+            /** Code */
+            code: string;
+            /** Reason */
+            reason: string;
+        };
+        /** PackPurchaseItem */
+        PackPurchaseItem: {
+            /** Reference */
+            reference: string;
+            /** Amount */
+            amount: number;
+            /** Invoices Added */
+            invoices_added: number;
+            /** Date */
+            date?: string | null;
+        };
+        /** PaginatedResponse[InvoiceOut] */
+        PaginatedResponse_InvoiceOut_: {
+            /** Items */
+            items: components["schemas"]["InvoiceOut"][];
+            /**
+             * Total
+             * @description Total number of matching records
+             */
+            total: number;
+            /**
+             * Skip
+             * @description Number of records skipped
+             */
+            skip: number;
+            /**
+             * Limit
+             * @description Maximum records returned per page
+             */
+            limit: number;
+            /**
+             * Has More
+             * @description Whether more records exist beyond this page
+             */
+            has_more: boolean;
+            /**
+             * Status Counts
+             * @description Counts per status across all matching records
+             */
+            status_counts?: {
+                [key: string]: number;
+            } | null;
+        };
+        /**
+         * PaymentDetailOut
+         * @description Excludes paystack_transaction_id, payment_metadata, ip_address.
+         */
+        PaymentDetailOut: {
+            /** Id */
+            id: number;
+            /** Reference */
+            reference: string;
+            /** Amount */
+            amount: number;
+            /** Currency */
+            currency: string;
+            /** Status */
+            status: string;
+            /** Provider */
+            provider: string;
+            /** Plan Before */
+            plan_before: string;
+            /** Plan After */
+            plan_after: string;
+            /** Payment Method */
+            payment_method?: string | null;
+            /** Card Last4 */
+            card_last4?: string | null;
+            /** Card Brand */
+            card_brand?: string | null;
+            /** Bank Name */
+            bank_name?: string | null;
+            /** Customer Email */
+            customer_email?: string | null;
+            /** Created At */
+            created_at: string;
+            /** Updated At */
+            updated_at: string;
+            /** Paid At */
+            paid_at?: string | null;
+            /** Billing Start Date */
+            billing_start_date?: string | null;
+            /** Billing End Date */
+            billing_end_date?: string | null;
+            /** Failure Reason */
+            failure_reason?: string | null;
+        };
+        /** PaymentHistoryItem */
+        PaymentHistoryItem: {
+            /** Id */
+            id: number;
+            /** Reference */
+            reference: string;
+            /** Amount */
+            amount: number;
+            /** Currency */
+            currency: string;
+            /** Status */
+            status: string;
+            /** Plan Before */
+            plan_before: string;
+            /** Plan After */
+            plan_after: string;
+            /** Payment Method */
+            payment_method?: string | null;
+            /** Card Last4 */
+            card_last4?: string | null;
+            /** Card Brand */
+            card_brand?: string | null;
+            /** Bank Name */
+            bank_name?: string | null;
+            /** Created At */
+            created_at: string;
+            /** Paid At */
+            paid_at?: string | null;
+            /** Billing Start Date */
+            billing_start_date?: string | null;
+            /** Billing End Date */
+            billing_end_date?: string | null;
+            /** Failure Reason */
+            failure_reason?: string | null;
+        };
+        /** PaymentHistoryOut */
+        PaymentHistoryOut: {
+            /** Payments */
+            payments: components["schemas"]["PaymentHistoryItem"][];
+            /** Total */
+            total: number;
+            /** Limit */
+            limit: number;
+            /** Offset */
+            offset: number;
+            summary: components["schemas"]["PaymentSummary"];
+        };
+        /**
+         * PaymentReliabilityOut
+         * @description How much of what's been billed (last 12 months) actually got paid.
+         */
+        PaymentReliabilityOut: {
+            /** Paid Ratio */
+            paid_ratio: number;
+            /** Overdue Ratio */
+            overdue_ratio: number;
+            aging: components["schemas"]["AgingReport"];
+        };
+        /** PaymentSummary */
+        PaymentSummary: {
+            /** Total Paid */
+            total_paid: number;
+            /** Successful Count */
+            successful_count: number;
+            /** Pending Count */
+            pending_count: number;
+            /** Failed Count */
+            failed_count: number;
+        };
+        /**
+         * PayoutBankDetailsResponse
+         * @description Response with payout bank details.
+         */
+        PayoutBankDetailsResponse: {
+            /** Bank Name */
+            bank_name?: string | null;
+            /** Account Number */
+            account_number?: string | null;
+            /** Account Name */
+            account_name?: string | null;
+            /**
+             * Is Complete
+             * @default false
+             */
+            is_complete: boolean;
+            /**
+             * Using Business Bank
+             * @default false
+             */
+            using_business_bank: boolean;
+        };
+        /**
+         * PayoutBankDetailsUpdate
+         * @description Request to update payout bank details.
+         */
+        PayoutBankDetailsUpdate: {
+            /** Bank Name */
+            bank_name: string;
+            /** Account Number */
+            account_number: string;
+            /** Account Name */
+            account_name: string;
+        };
+        /**
+         * PayoutListResponse
+         * @description Response for payout list endpoint.
+         */
+        PayoutListResponse: {
+            /** Total Users */
+            total_users: number;
+            /** Total Amount */
+            total_amount: number;
+            /** Users With Bank */
+            users_with_bank: number;
+            /** Users Without Bank */
+            users_without_bank: number;
+            /** Payouts */
+            payouts: components["schemas"]["PayoutUserInfo"][];
+        };
+        /**
+         * PayoutUserInfo
+         * @description User with pending referral payout.
+         */
+        PayoutUserInfo: {
+            /** User Id */
+            user_id: number;
+            /** Name */
+            name: string;
+            /** Email */
+            email: string | null;
+            /** Phone */
+            phone: string | null;
+            /** Payout Bank Name */
+            payout_bank_name: string | null;
+            /** Payout Account Number */
+            payout_account_number: string | null;
+            /** Payout Account Name */
+            payout_account_name: string | null;
+            /** Paid Referrals */
+            paid_referrals: number;
+            /** Commission Amount */
+            commission_amount: number;
+            /** Has Bank Details */
+            has_bank_details: boolean;
+        };
+        /** PeriodActivity */
+        PeriodActivity: {
+            /**
+             * Total
+             * @default 0
+             */
+            total: number;
+            /**
+             * @default {
+             *       "whatsapp": 0,
+             *       "dashboard": 0
+             *     }
+             */
+            by_channel: components["schemas"]["ChannelBreakdown"];
+        };
         /**
          * PhoneVerificationRequest
          * @description Request to add/verify phone number.
@@ -3634,6 +8779,8 @@ export interface components {
              * @description Phone number in E.164 format
              */
             phone: string;
+            /** Otp */
+            otp?: string | null;
         };
         /**
          * PhoneVerificationResponse
@@ -3645,15 +8792,46 @@ export interface components {
             /** Phone */
             phone: string;
         };
-        /**
-         * PhoneVerificationVerify
-         * @description Verify phone number with OTP.
-         */
-        PhoneVerificationVerify: {
-            /** Phone */
-            phone: string;
-            /** Otp */
-            otp: string;
+        /** PlatformMetrics */
+        PlatformMetrics: {
+            /** Total Invoices */
+            total_invoices: number;
+            /** Paid Invoices */
+            paid_invoices: number;
+            /** Pending Invoices */
+            pending_invoices: number;
+            /** Cancelled Invoices */
+            cancelled_invoices: number;
+            /** Total Revenue Amount */
+            total_revenue_amount: number;
+            /** Total Expense Amount */
+            total_expense_amount: number;
+            /** Invoices Today */
+            invoices_today: number;
+            /** Invoices This Week */
+            invoices_this_week: number;
+            /** Invoices This Month */
+            invoices_this_month: number;
+            /** Total Users */
+            total_users: number;
+            /** Online Payments Enabled */
+            online_payments_enabled: number;
+            /** Storefronts Enabled */
+            storefronts_enabled: number;
+            /** Storefronts Live */
+            storefronts_live: number;
+            /** Monetized Users */
+            monetized_users: number;
+            /** Commission This Month */
+            commission_this_month: number;
+            /** Commission Wallet This Month */
+            commission_wallet_this_month: number;
+            /** Commission Online This Month */
+            commission_online_this_month: number;
+            /** Total Customers */
+            total_customers: number;
+            /** Top Up Buyers */
+            top_up_buyers: components["schemas"]["TopUpBuyerInfo"][];
         };
         /**
          * ProductCategoryCreate
@@ -3666,6 +8844,8 @@ export interface components {
             description?: string | null;
             /** Color */
             color?: string | null;
+            /** Pack Price */
+            pack_price?: number | string | null;
         };
         /**
          * ProductCategoryOut
@@ -3685,6 +8865,8 @@ export interface components {
              * @default true
              */
             is_active: boolean;
+            /** Pack Price */
+            pack_price?: string | null;
             /**
              * Product Count
              * @default 0
@@ -3704,6 +8886,8 @@ export interface components {
             color?: string | null;
             /** Is Active */
             is_active?: boolean | null;
+            /** Pack Price */
+            pack_price?: number | string | null;
         };
         /**
          * ProductCreate
@@ -3711,7 +8895,7 @@ export interface components {
          */
         ProductCreate: {
             /** Sku */
-            sku: string;
+            sku?: string | null;
             /** Name */
             name: string;
             /** Description */
@@ -3749,8 +8933,26 @@ export interface components {
              * @default true
              */
             track_stock: boolean;
+            /**
+             * Fulfilment Type
+             * @default physical
+             * @enum {string}
+             */
+            fulfilment_type: "physical" | "service" | "digital";
             /** Image Url */
             image_url?: string | null;
+            /**
+             * Storefront Featured
+             * @default false
+             */
+            storefront_featured: boolean;
+            /**
+             * Storefront Discount Percent
+             * @default 0
+             */
+            storefront_discount_percent: number;
+            /** Storefront Bundle Label */
+            storefront_bundle_label?: string | null;
         };
         /**
          * ProductListOut
@@ -3767,6 +8969,19 @@ export interface components {
             page_size: number;
             /** Total Pages */
             total_pages: number;
+        };
+        /** ProductMargin */
+        ProductMargin: {
+            /** Name */
+            name: string;
+            /** Cost Price */
+            cost_price: number;
+            /** Selling Price */
+            selling_price: number;
+            /** Margin Percent */
+            margin_percent: number;
+            /** Stock */
+            stock: number;
         };
         /**
          * ProductOut
@@ -3821,6 +9036,16 @@ export interface components {
              * @default true
              */
             track_stock: boolean;
+            /**
+             * Fulfilment Type
+             * @default physical
+             */
+            fulfilment_type: string;
+            /**
+             * Exclude From Social
+             * @default false
+             */
+            exclude_from_social: boolean;
             /** Image Url */
             image_url?: string | null;
             /**
@@ -3861,6 +9086,8 @@ export interface components {
             cost_price?: number | string | null;
             /** Selling Price */
             selling_price?: number | string | null;
+            /** Quantity In Stock */
+            quantity_in_stock?: number | null;
             /** Reorder Level */
             reorder_level?: number | null;
             /** Reorder Quantity */
@@ -3871,8 +9098,72 @@ export interface components {
             track_stock?: boolean | null;
             /** Is Active */
             is_active?: boolean | null;
+            /** Fulfilment Type */
+            fulfilment_type?: ("physical" | "service" | "digital") | null;
             /** Image Url */
             image_url?: string | null;
+            /** Exclude From Social */
+            exclude_from_social?: boolean | null;
+        };
+        /** ProfessionalismScoreOut */
+        ProfessionalismScoreOut: {
+            /** Score */
+            score: number;
+            /** Checks */
+            checks: {
+                [key: string]: boolean;
+            };
+            /** Tips */
+            tips: string[];
+            /** Level */
+            level: string;
+        };
+        /**
+         * QuickSaleCreate
+         * @description A walk-in / in-person sale: no customer required, paid immediately.
+         *
+         *     Captures the in-person-equivalent of a POS transaction — amount, what was
+         *     sold, and how it was collected (cash/transfer/card) — without the
+         *     customer-billing fields a normal invoice needs. The sale is recorded and
+         *     marked paid in a single call.
+         */
+        QuickSaleCreate: {
+            /**
+             * Amount
+             * @description Amount must be greater than 0
+             */
+            amount: number | string;
+            /**
+             * Currency
+             * @default NGN
+             * @enum {string}
+             */
+            currency: "NGN" | "USD";
+            /** Description */
+            description?: string | null;
+            /**
+             * Payment Method
+             * @default cash
+             * @enum {string}
+             */
+            payment_method: "cash" | "transfer" | "card" | "other";
+            /** Customer Name */
+            customer_name?: string | null;
+        };
+        /** ReadyOut */
+        ReadyOut: {
+            /** Status */
+            status: string;
+            /** Db */
+            db: boolean;
+            /** Redis */
+            redis: boolean;
+            /** S3 */
+            s3: boolean;
+            /** Celery */
+            celery: boolean;
+            /** Latency Ms */
+            latency_ms: number;
         };
         /**
          * ReceiptUploadOut
@@ -3920,6 +9211,47 @@ export interface components {
             /** Is Active */
             is_active: boolean;
         };
+        /** ReferralStats */
+        ReferralStats: {
+            /** Total Referral Codes */
+            total_referral_codes: number;
+            /** Total Referrals */
+            total_referrals: number;
+            /** Completed Referrals */
+            completed_referrals: number;
+            /** Pending Referrals */
+            pending_referrals: number;
+            /** Expired Referrals */
+            expired_referrals: number;
+            /** Free Signup Referrals */
+            free_signup_referrals: number;
+            /** Paid Referrals */
+            paid_referrals: number;
+            /** Total Rewards Earned */
+            total_rewards_earned: number;
+            /** Pending Rewards */
+            pending_rewards: number;
+            /** Applied Rewards */
+            applied_rewards: number;
+            /** Expired Rewards */
+            expired_rewards: number;
+            /** Top Referrers */
+            top_referrers: {
+                [key: string]: unknown;
+            }[];
+            /** Referrals Today */
+            referrals_today: number;
+            /** Referrals This Week */
+            referrals_this_week: number;
+            /** Referrals This Month */
+            referrals_this_month: number;
+            /** Total Commission Earned */
+            total_commission_earned: number;
+            /** Pending Payout Amount */
+            pending_payout_amount: number;
+            /** Users With Payout Bank */
+            users_with_payout_bank: number;
+        };
         /**
          * ReferralStatsResponse
          * @description Referral statistics for a user.
@@ -3942,14 +9274,76 @@ export interface components {
             /** Pending Rewards */
             pending_rewards: number;
             /** Pending Rewards List */
-            pending_rewards_list: Record<string, never>[];
+            pending_rewards_list: {
+                [key: string]: unknown;
+            }[];
             /** Progress */
-            progress: Record<string, never>;
+            progress: {
+                [key: string]: unknown;
+            };
         };
         /** RefreshRequest */
         RefreshRequest: {
             /** Refresh Token */
             refresh_token?: string | null;
+        };
+        /**
+         * ReportCsvOut
+         * @description GET /tax/reports/{id}/csv response.
+         */
+        ReportCsvOut: {
+            /** Csv Url */
+            csv_url: string;
+            /** Basis */
+            basis: string;
+        };
+        /**
+         * ReportDownloadOut
+         * @description GET /tax/reports/{id}/download response.
+         */
+        ReportDownloadOut: {
+            /** Pdf Url */
+            pdf_url: string;
+            /** Period Type */
+            period_type: string;
+            /** Start Date */
+            start_date?: string | null;
+            /** End Date */
+            end_date?: string | null;
+        };
+        /** ResolveAccountIn */
+        ResolveAccountIn: {
+            /** Bank Name */
+            bank_name: string;
+            /** Account Number */
+            account_number: string;
+        };
+        /** ResolveAccountOut */
+        ResolveAccountOut: {
+            /** Account Name */
+            account_name: string;
+        };
+        /** RetryPayoutIn */
+        RetryPayoutIn: {
+            /** Otp */
+            otp?: string | null;
+        };
+        /** RevenueByCustomerOut */
+        RevenueByCustomerOut: {
+            /** Period */
+            period: string;
+            /** Customers */
+            customers: components["schemas"]["CustomerRevenueItem"][];
+        };
+        /**
+         * RevenueConsistencyOut
+         * @description Trading steadiness over the last 6 months.
+         */
+        RevenueConsistencyOut: {
+            /** Months With Revenue */
+            months_with_revenue: number;
+            /** Months Checked */
+            months_checked: number;
         };
         /**
          * RevenueMetrics
@@ -3969,36 +9363,180 @@ export interface components {
             /** Average Invoice Value */
             average_invoice_value: number;
         };
-        /**
-         * SignupStart
-         * @description Start signup with phone OR email.
-         */
-        SignupStart: {
+        /** ReviewIn */
+        ReviewIn: {
             /** Phone */
-            phone?: string | null;
-            /** Email */
-            email?: string | null;
+            phone: string;
+            /** Rating */
+            rating: number;
+            /** Text */
+            text?: string | null;
+        };
+        /** RiskListResponse */
+        RiskListResponse: {
+            /** Users */
+            users: components["schemas"]["RiskUserItem"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            /** Counts */
+            counts: {
+                [key: string]: number;
+            };
+        };
+        /** RiskReviewAction */
+        RiskReviewAction: {
+            /** Action */
+            action: string;
+            /** Reason */
+            reason?: string | null;
+        };
+        /** RiskUserItem */
+        RiskUserItem: {
+            /** Id */
+            id: number;
             /** Name */
             name: string;
             /** Business Name */
-            business_name?: string | null;
+            business_name: string | null;
+            /** Phone */
+            phone: string | null;
+            /** Email */
+            email: string | null;
+            /** Created At */
+            created_at: string;
+            /** Signup Source */
+            signup_source: string | null;
+            /** Signup Ip */
+            signup_ip: string | null;
+            /** Signup Device Id */
+            signup_device_id: string | null;
+            /** Signup User Agent */
+            signup_user_agent: string | null;
+            /** Risk Score */
+            risk_score: number;
+            /** Risk Signals */
+            risk_signals: string[];
+            /** Flagged For Review */
+            flagged_for_review: boolean;
+            /** Store Status */
+            store_status: string;
+            /** Storefront Slug */
+            storefront_slug: string | null;
+            /** Linked Account Count */
+            linked_account_count: number;
+        };
+        /** SMEOnboardPayload */
+        SMEOnboardPayload: {
+            /** Phone */
+            phone: string;
+            /** Name */
+            name: string;
+            /** Business Name */
+            business_name: string;
+            /**
+             * Business Type
+             * @default general
+             */
+            business_type: string;
+            /**
+             * Staff Emails
+             * @default []
+             */
+            staff_emails: string[];
+            /** Notes */
+            notes?: string | null;
+        };
+        /** SMEOnboardResult */
+        SMEOnboardResult: {
+            /** User Id */
+            user_id: number;
+            /** Is New User */
+            is_new_user: boolean;
+            /** Wallet Credited */
+            wallet_credited: boolean;
+            /** Team Created */
+            team_created: boolean;
+            /** Invites Sent */
+            invites_sent: number;
+            /** Whatsapp Sent */
+            whatsapp_sent: boolean;
+            /** Message */
+            message: string;
+        };
+        /** ScanToPayOut */
+        ScanToPayOut: {
+            /** Pay Url */
+            pay_url: string;
+            /** Qr Png */
+            qr_png: string;
+            /** Barcode */
+            barcode: string;
+        };
+        /** SellerMessageIn */
+        SellerMessageIn: {
+            /** Body */
+            body: string;
+        };
+        /**
+         * SignupStart
+         * @description Start signup with WhatsApp phone number.
+         */
+        SignupStart: {
+            /** Phone */
+            phone: string;
+            /**
+             * Email
+             * @description Email address (required — used for login verification codes)
+             */
+            email: string;
+            /** Name */
+            name: string;
+            /**
+             * Business Name
+             * @description Business or brand name (required)
+             */
+            business_name: string;
+            /**
+             * Accept Terms
+             * @description Whether the business accepted the Terms & Conditions (incl. buyer-protection/escrow policy). Must be true to sign up.
+             * @default false
+             */
+            accept_terms: boolean;
             /**
              * Referral Code
-             * @description Referral code from another user
+             * @description Referral code or influencer vanity slug from another user
              */
             referral_code?: string | null;
+            /**
+             * Signup Source
+             * @description Attribution source: google_ads, instagram, whatsapp_ad, social_media, referral, google_oauth, organic
+             */
+            signup_source?: string | null;
+            /**
+             * Device Fingerprint
+             * @description Client-generated device fingerprint (anti-fraud; hashed on the client)
+             */
+            device_fingerprint?: string | null;
         };
         /**
          * SignupVerify
-         * @description Verify signup OTP with phone OR email.
+         * @description Verify signup OTP and provide bank details to complete registration.
          */
         SignupVerify: {
             /** Phone */
-            phone?: string | null;
-            /** Email */
-            email?: string | null;
+            phone: string;
             /** Otp */
             otp: string;
+            /** Bank Name */
+            bank_name: string;
+            /** Account Number */
+            account_number: string;
+            /** Account Name */
+            account_name: string;
         };
         /**
          * StockAdjustmentCreate
@@ -4077,6 +9615,492 @@ export interface components {
             /** Created By */
             created_by?: string | null;
         };
+        /** StockNotifyIn */
+        StockNotifyIn: {
+            /** Product Id */
+            product_id: number;
+            /** Phone */
+            phone: string;
+        };
+        /** StoreOrderIn */
+        StoreOrderIn: {
+            /** Customer Name */
+            customer_name: string;
+            /** Customer Phone */
+            customer_phone: string;
+            /** Items */
+            items: components["schemas"]["StoreOrderItem"][];
+            /** Customer Lat */
+            customer_lat?: number | null;
+            /** Customer Lng */
+            customer_lng?: number | null;
+            /** Delivery Note */
+            delivery_note?: string | null;
+            /** Delivery Courier Id */
+            delivery_courier_id?: string | null;
+            /** Delivery Service Code */
+            delivery_service_code?: string | null;
+        };
+        /** StoreOrderItem */
+        StoreOrderItem: {
+            /** Product Id */
+            product_id: number;
+            /** Quantity */
+            quantity: number;
+        };
+        /** StorefrontAdviceOut */
+        StorefrontAdviceOut: {
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+            /** Quality Score */
+            quality_score: number;
+            /** Headline */
+            headline: string;
+            /** Summary */
+            summary: string;
+            funnel: components["schemas"]["StorefrontFunnelOut"];
+            /** Listings */
+            listings: components["schemas"]["StorefrontListingAdviceOut"][];
+            /** Bundle Suggestions */
+            bundle_suggestions: components["schemas"]["StorefrontBundleSuggestionOut"][];
+            /** Reengagement Drafts */
+            reengagement_drafts: components["schemas"]["StorefrontReengagementDraftOut"][];
+        };
+        /** StorefrontBundleIn */
+        StorefrontBundleIn: {
+            /** Product Ids */
+            product_ids: number[];
+            /** Title */
+            title: string;
+            /**
+             * Active
+             * @default true
+             */
+            active: boolean;
+        };
+        /** StorefrontBundleSuggestionOut */
+        StorefrontBundleSuggestionOut: {
+            /** Title */
+            title: string;
+            /** Product Ids */
+            product_ids: number[];
+            /** Product Names */
+            product_names: string[];
+            /** Supporting Orders */
+            supporting_orders: number;
+            /** Reason */
+            reason: string;
+        };
+        /** StorefrontCopyApplyIn */
+        StorefrontCopyApplyIn: {
+            /** Description */
+            description: string;
+        };
+        /** StorefrontCopyDraftOut */
+        StorefrontCopyDraftOut: {
+            /** Product Id */
+            product_id: number;
+            /** Description */
+            description: string;
+            /** Ai Generated */
+            ai_generated: boolean;
+            /** Generation Notice */
+            generation_notice?: string | null;
+        };
+        /** StorefrontEnableIn */
+        StorefrontEnableIn: {
+            /** Slug */
+            slug?: string | null;
+            /** Description */
+            description?: string | null;
+        };
+        /** StorefrontFunnelOut */
+        StorefrontFunnelOut: {
+            /** Views Lifetime */
+            views_lifetime: number;
+            /** Orders 30 Days */
+            orders_30_days: number;
+            /** Paid Orders 30 Days */
+            paid_orders_30_days: number;
+            /** Abandoned Orders 30 Days */
+            abandoned_orders_30_days: number;
+            /** Lifetime Conversion Rate */
+            lifetime_conversion_rate: number;
+            /** Explanation */
+            explanation: string;
+        };
+        /** StorefrontInsightsOut */
+        StorefrontInsightsOut: {
+            /** Enabled */
+            enabled: boolean;
+            /** Slug */
+            slug?: string | null;
+            /** Store Url */
+            store_url?: string | null;
+            /**
+             * Views
+             * @default 0
+             */
+            views: number;
+            /**
+             * Reviews
+             * @default 0
+             */
+            reviews: number;
+            /** Avg Rating */
+            avg_rating?: number | null;
+            /**
+             * Conversion Rate
+             * @default 0
+             */
+            conversion_rate: number;
+            /** Period */
+            period: string;
+            /**
+             * Orders
+             * @default 0
+             */
+            orders: number;
+            /**
+             * Paid Orders
+             * @default 0
+             */
+            paid_orders: number;
+            /**
+             * Abandoned Orders
+             * @default 0
+             */
+            abandoned_orders: number;
+            /**
+             * Gmv
+             * @default 0
+             */
+            gmv: number;
+            /**
+             * Avg Order Value
+             * @default 0
+             */
+            avg_order_value: number;
+            /**
+             * Awaiting Release
+             * @default 0
+             */
+            awaiting_release: number;
+            /**
+             * Refunds
+             * @default 0
+             */
+            refunds: number;
+            /**
+             * Disputes
+             * @default 0
+             */
+            disputes: number;
+            /**
+             * Restock Requests
+             * @default 0
+             */
+            restock_requests: number;
+            /**
+             * Top Products
+             * @default []
+             */
+            top_products: components["schemas"]["StorefrontTopProduct"][];
+            /**
+             * Top Products Total
+             * @default 0
+             */
+            top_products_total: number;
+        };
+        /** StorefrontListResponse */
+        StorefrontListResponse: {
+            /** Storefronts */
+            storefronts: components["schemas"]["StorefrontMetricItem"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            /** Counts */
+            counts: {
+                [key: string]: number;
+            };
+        };
+        /** StorefrontListingAdviceOut */
+        StorefrontListingAdviceOut: {
+            /** Product Id */
+            product_id: number;
+            /** Product Name */
+            product_name: string;
+            /** Quality Score */
+            quality_score: number;
+            /** Issues */
+            issues: string[];
+            /** Units Sold 30 Days */
+            units_sold_30_days: number;
+            /**
+             * Recommendation
+             * @enum {string}
+             */
+            recommendation: "improve_listing" | "feature" | "promote" | "healthy" | "out_of_stock";
+            /** Explanation */
+            explanation: string;
+            /** Current Discount Percent */
+            current_discount_percent: number;
+            /** Max Safe Discount Percent */
+            max_safe_discount_percent: number;
+            /** Suggested Discount Percent */
+            suggested_discount_percent: number;
+            /** Featured */
+            featured: boolean;
+            /** Bundle Label */
+            bundle_label?: string | null;
+        };
+        /** StorefrontLocationIn */
+        StorefrontLocationIn: {
+            /** Lat */
+            lat: number;
+            /** Lng */
+            lng: number;
+            /** Accuracy */
+            accuracy?: number | null;
+        };
+        /** StorefrontMerchandisingIn */
+        StorefrontMerchandisingIn: {
+            /** Product Ids */
+            product_ids: number[];
+        };
+        /** StorefrontMerchandisingOut */
+        StorefrontMerchandisingOut: {
+            /** Products */
+            products: components["schemas"]["StorefrontProductActionOut"][];
+            /** Notice */
+            notice: string;
+        };
+        /** StorefrontMetricItem */
+        StorefrontMetricItem: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /** Business Name */
+            business_name: string | null;
+            /** Slug */
+            slug: string | null;
+            /** Storefront Enabled */
+            storefront_enabled: boolean;
+            /** Store Status */
+            store_status: string;
+            /** Store Status Reason */
+            store_status_reason: string | null;
+            /** Store Status At */
+            store_status_at: string | null;
+            /** Views */
+            views: number;
+            /** Products Total */
+            products_total: number;
+            /** Products Active */
+            products_active: number;
+            /** Has Logo */
+            has_logo: boolean;
+            /** Has Description */
+            has_description: boolean;
+            /** Has Location */
+            has_location: boolean;
+            /** Online Payments Enabled */
+            online_payments_enabled: boolean;
+            /** Reviews Count */
+            reviews_count: number;
+            /** Reviews Avg */
+            reviews_avg: number | null;
+            /** Sales Count */
+            sales_count: number;
+            /** Gmv */
+            gmv: number;
+            /** Last Sale At */
+            last_sale_at: string | null;
+            /** Days Since Last Sale */
+            days_since_last_sale: number | null;
+            /** Created At */
+            created_at: string;
+            /** Owner Flagged */
+            owner_flagged: boolean;
+            /** Owner Risk Score */
+            owner_risk_score: number;
+            /** Owner Phone */
+            owner_phone: string | null;
+            /** Owner Email */
+            owner_email: string | null;
+            /** Quality Score */
+            quality_score: number;
+            /** Risk Flags */
+            risk_flags: string[];
+            /** Not Live Reasons */
+            not_live_reasons: string[];
+        };
+        /** StorefrontOut */
+        StorefrontOut: {
+            /** Enabled */
+            enabled: boolean;
+            /** Slug */
+            slug: string | null;
+            /** Link */
+            link: string | null;
+            /** Description */
+            description?: string | null;
+            /**
+             * Product Count
+             * @default 0
+             */
+            product_count: number;
+            /** Address */
+            address?: string | null;
+            /** City */
+            city?: string | null;
+            /** State */
+            state?: string | null;
+            /** Lat */
+            lat?: number | null;
+            /** Lng */
+            lng?: number | null;
+            /** Hours */
+            hours?: {
+                [key: string]: unknown;
+            } | null;
+            /** Announcement */
+            announcement?: string | null;
+            /**
+             * Views
+             * @default 0
+             */
+            views: number;
+            /**
+             * Has Logo
+             * @default false
+             */
+            has_logo: boolean;
+            /**
+             * Online Payments
+             * @default false
+             */
+            online_payments: boolean;
+            /**
+             * Listable Product Count
+             * @default 0
+             */
+            listable_product_count: number;
+            /** Suggestions */
+            suggestions?: string[];
+            /**
+             * Social Promotion Opt In
+             * @default false
+             */
+            social_promotion_opt_in: boolean;
+        };
+        /** StorefrontProductActionOut */
+        StorefrontProductActionOut: {
+            /** Product Id */
+            product_id: number;
+            /** Product Name */
+            product_name: string;
+            /** Description */
+            description?: string | null;
+            /** Featured */
+            featured: boolean;
+            /** Discount Percent */
+            discount_percent: number;
+            /** Bundle Label */
+            bundle_label?: string | null;
+        };
+        /** StorefrontPromotionIn */
+        StorefrontPromotionIn: {
+            /** Discount Percent */
+            discount_percent: number;
+        };
+        /** StorefrontQrOut */
+        StorefrontQrOut: {
+            /** Link */
+            link: string;
+            /** Qr Png */
+            qr_png: string;
+        };
+        /** StorefrontReengagementDraftOut */
+        StorefrontReengagementDraftOut: {
+            /** Notification Id */
+            notification_id: number;
+            /** Product Id */
+            product_id: number;
+            /** Product Name */
+            product_name: string;
+            /** Recipient Masked */
+            recipient_masked: string;
+            /** Message */
+            message: string;
+        };
+        /** StorefrontStatusUpdate */
+        StorefrontStatusUpdate: {
+            /** Status */
+            status: string;
+            /** Reason */
+            reason?: string | null;
+        };
+        /** StorefrontTopProduct */
+        StorefrontTopProduct: {
+            /** Name */
+            name: string;
+            /** Units */
+            units: number;
+            /** Revenue */
+            revenue: number;
+        };
+        /** StorefrontUpdateIn */
+        StorefrontUpdateIn: {
+            /** Slug */
+            slug?: string | null;
+            /** Description */
+            description?: string | null;
+            /** Address */
+            address?: string | null;
+            /** City */
+            city?: string | null;
+            /** State */
+            state?: string | null;
+            /** Hours */
+            hours?: {
+                [key: string]: unknown;
+            } | null;
+            /** Announcement */
+            announcement?: string | null;
+            /** Social Promotion Opt In */
+            social_promotion_opt_in?: boolean | null;
+        };
+        /** SubscriptionStatusOut */
+        SubscriptionStatusOut: {
+            /** Plan */
+            plan: string;
+            /** Is Recurring */
+            is_recurring: boolean;
+            /** Subscription Started At */
+            subscription_started_at?: string | null;
+            /** Expires At */
+            expires_at?: string | null;
+            /**
+             * Invoice Balance
+             * @default 0
+             */
+            invoice_balance: number;
+        };
+        /** SuccessMessageOut */
+        SuccessMessageOut: {
+            /** Success */
+            success: boolean;
+            /** Message */
+            message: string;
+        };
         /**
          * SupplierCreate
          * @description Schema for creating a supplier.
@@ -4142,6 +10166,39 @@ export interface components {
             /** Is Active */
             is_active?: boolean | null;
         };
+        /** TaxAlertItem */
+        TaxAlertItem: {
+            /** Type */
+            type: string;
+            /** Severity */
+            severity: string;
+            /** Message */
+            message: string;
+        };
+        /**
+         * TaxComplianceOut
+         * @description Tax/VAT tracking signal — not registration status alone.
+         */
+        TaxComplianceOut: {
+            /** Vat Registered */
+            vat_registered: boolean;
+            /** Has Generated Tax Report */
+            has_generated_tax_report: boolean;
+            /** Business Size */
+            business_size?: string | null;
+            /**
+             * Tin Verified
+             * @default false
+             */
+            tin_verified: boolean;
+            /**
+             * Cac Verified
+             * @default false
+             */
+            cac_verified: boolean;
+            /** Cac Registered Name */
+            cac_registered_name?: string | null;
+        };
         /** TaxProfileUpdate */
         TaxProfileUpdate: {
             /** Annual Turnover */
@@ -4154,6 +10211,76 @@ export interface components {
             vat_registration_number?: string | null;
             /** Vat Registered */
             vat_registered?: boolean | null;
+            /** Business Type */
+            business_type?: string | null;
+            /** Vat Apply To */
+            vat_apply_to?: string | null;
+            /** Withholding Vat Applies */
+            withholding_vat_applies?: boolean | null;
+        };
+        /**
+         * TaxReportOut
+         * @description POST /tax/reports/generate — excludes debug_info.
+         */
+        TaxReportOut: {
+            /** Id */
+            id: number;
+            /** Period Type */
+            period_type: string;
+            /** Period Label */
+            period_label: string;
+            /** Start Date */
+            start_date?: string | null;
+            /** End Date */
+            end_date?: string | null;
+            /** Year */
+            year?: number | null;
+            /** Month */
+            month?: number | null;
+            /** Total Revenue */
+            total_revenue: number;
+            /** Total Expenses */
+            total_expenses: number;
+            /** Documented Expenses */
+            documented_expenses: number;
+            /** Self Reported Expenses */
+            self_reported_expenses: number;
+            /** Flagged Expenses */
+            flagged_expenses: number;
+            /** Cogs Amount */
+            cogs_amount: number;
+            /** Assessable Profit */
+            assessable_profit: number;
+            /** Levy Amount */
+            levy_amount: number;
+            /** Pit Amount */
+            pit_amount: number;
+            /** Cit Amount */
+            cit_amount: number;
+            /** Vat Collected */
+            vat_collected: number;
+            /** Taxable Sales */
+            taxable_sales: number;
+            /** Zero Rated Sales */
+            zero_rated_sales: number;
+            /** Exempt Sales */
+            exempt_sales: number;
+            /** Pdf Url */
+            pdf_url?: string | null;
+            /** Basis */
+            basis: string;
+            /** User Plan */
+            user_plan: string;
+            /** Is Vat Eligible */
+            is_vat_eligible: boolean;
+            /** Is Cit Eligible */
+            is_cit_eligible: boolean;
+            /** Pit Band Info */
+            pit_band_info: string;
+            /** Alerts */
+            alerts: components["schemas"]["TaxAlertItem"][];
+            /** Annual Revenue Estimate */
+            annual_revenue_estimate: number;
         };
         /**
          * TeamCreate
@@ -4235,6 +10362,11 @@ export interface components {
             /** Can Invite */
             can_invite: boolean;
         };
+        /** TelemetryAck */
+        TelemetryAck: {
+            /** Status */
+            status: string;
+        };
         /**
          * TelemetryIn
          * @description Telemetry event payload from frontend.
@@ -4247,7 +10379,57 @@ export interface components {
             /** Trace Id */
             trace_id?: string | null;
             /** Detail */
-            detail?: Record<string, never> | null;
+            detail?: {
+                [key: string]: unknown;
+            } | null;
+        };
+        /** TestimonialCreate */
+        TestimonialCreate: {
+            /** Text */
+            text: string;
+            /**
+             * Rating
+             * @default 5
+             */
+            rating: number;
+        };
+        /** TestimonialOut */
+        TestimonialOut: {
+            /** Id */
+            id: number;
+            /** Text */
+            text: string;
+            /** Rating */
+            rating: number;
+            /** User Name */
+            user_name: string;
+            /** Business Name */
+            business_name: string | null;
+            /** Logo Url */
+            logo_url: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** TestimonialSubmitOut */
+        TestimonialSubmitOut: {
+            /** Id */
+            id: number;
+            /** Text */
+            text: string;
+            /** Rating */
+            rating: number;
+            /** Message */
+            message: string;
+        };
+        /** TestimonialUpdateIn */
+        TestimonialUpdateIn: {
+            /** Approved */
+            approved?: boolean | null;
+            /** Featured */
+            featured?: boolean | null;
         };
         /**
          * TicketOut
@@ -4346,6 +10528,99 @@ export interface components {
             /** Refresh Token */
             refresh_token?: string | null;
         };
+        /** TopUpBuyerInfo */
+        TopUpBuyerInfo: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /** Email */
+            email: string | null;
+            /** Phone */
+            phone: string | null;
+            /** Business Name */
+            business_name: string | null;
+            /** Wallet Balance Naira */
+            wallet_balance_naira: number;
+            /** Total Top Ups */
+            total_top_ups: number;
+            /** Last Purchase Date */
+            last_purchase_date: string | null;
+        };
+        /** TopUserOut */
+        TopUserOut: {
+            /** Business Name */
+            business_name: string;
+            /** Logo Url */
+            logo_url: string | null;
+            /** What They Sell */
+            what_they_sell: string | null;
+            /** Invoices Sent */
+            invoices_sent: number;
+            /** Member Since */
+            member_since: string;
+        };
+        /**
+         * UpdateProfileRequest
+         * @description Request to update user profile.
+         */
+        UpdateProfileRequest: {
+            /**
+             * Name
+             * @description User's full name
+             */
+            name: string;
+        };
+        /**
+         * UpdateProfileResponse
+         * @description Response after profile update.
+         */
+        UpdateProfileResponse: {
+            /** Success */
+            success: boolean;
+            /** Message */
+            message: string;
+            /** Name */
+            name: string;
+        };
+        /** UserActivity */
+        UserActivity: {
+            /** Total Invoices */
+            total_invoices: number;
+            /** Revenue Invoices */
+            revenue_invoices: number;
+            /** Expense Invoices */
+            expense_invoices: number;
+            /** Total Customers */
+            total_customers: number;
+            /** Has Logo */
+            has_logo: boolean;
+            /** Has Bank Details */
+            has_bank_details: boolean;
+            /**
+             * Wallet Balance Naira
+             * @default 0
+             */
+            wallet_balance_naira: number;
+            /** Invoice Balance */
+            invoice_balance: number;
+            /** Invoices Used */
+            invoices_used: number;
+            /** Pack Purchases */
+            pack_purchases: components["schemas"]["PackPurchaseItem"][];
+        };
+        /** UserCountOut */
+        UserCountOut: {
+            /** Total Users */
+            total_users: number;
+            /** Ts */
+            ts: number;
+        };
+        /** UserDetailOut */
+        UserDetailOut: {
+            user: components["schemas"]["UserListItem"];
+            activity: components["schemas"]["UserActivity"];
+        };
         /** UserListItem */
         UserListItem: {
             /** Id */
@@ -4355,7 +10630,7 @@ export interface components {
             /** Email */
             email: string | null;
             /** Phone */
-            phone: string;
+            phone: string | null;
             /** Plan */
             plan: string;
             /** Phone Verified */
@@ -4373,6 +10648,11 @@ export interface components {
             business_name: string | null;
             /** Role */
             role: string;
+            /**
+             * Pro Override
+             * @default false
+             */
+            pro_override: boolean;
         };
         /** UserOut */
         UserOut: {
@@ -4389,6 +10669,12 @@ export interface components {
             email?: string | null;
             /** Name */
             name: string;
+            /** Business Name */
+            business_name?: string | null;
+            /** Bank Name */
+            bank_name?: string | null;
+            /** Account Number */
+            account_number?: string | null;
             /** Plan */
             plan: string;
             /**
@@ -4397,12 +10683,19 @@ export interface components {
              */
             invoice_balance: number;
             /**
+             * Wallet Balance Kobo
+             * @default 0
+             */
+            wallet_balance_kobo: number;
+            /**
              * Invoices This Month
              * @default 0
              */
             invoices_this_month: number;
             /** Logo Url */
             logo_url?: string | null;
+            /** Storefront Cover Url */
+            storefront_cover_url?: string | null;
             /** Subscription Expires At */
             subscription_expires_at?: string | null;
             /** Subscription Started At */
@@ -4412,6 +10705,45 @@ export interface components {
              * @default false
              */
             is_influencer: boolean;
+            /**
+             * Online Payments Enabled
+             * @default false
+             */
+            online_payments_enabled: boolean;
+            /**
+             * Storefront Enabled
+             * @default false
+             */
+            storefront_enabled: boolean;
+            /**
+             * Has Invoiced
+             * @default false
+             */
+            has_invoiced: boolean;
+        };
+        /**
+         * UserSegmentExport
+         * @description User data formatted for Brevo campaign import.
+         */
+        UserSegmentExport: {
+            /** Name */
+            name: string;
+            /** Phone */
+            phone: string | null;
+            /** Email */
+            email: string | null;
+            /** Plan */
+            plan: string;
+            /** Invoice Balance */
+            invoice_balance: number;
+            /** Total Invoices */
+            total_invoices: number;
+            /** Days Since Signup */
+            days_since_signup: number;
+            /** Days Since Last Login */
+            days_since_last_login: number | null;
+            /** Business Name */
+            business_name: string | null;
         };
         /** UserStats */
         UserStats: {
@@ -4479,35 +10811,105 @@ export interface components {
             msg: string;
             /** Error Type */
             type: string;
+            /** Input */
+            input?: unknown;
+            /** Context */
+            ctx?: Record<string, never>;
+        };
+        /** VerificationResultOut */
+        VerificationResultOut: {
+            /** Verified */
+            verified: boolean;
+            /** Verification Status */
+            verification_status: string;
+            /** Charged Kobo */
+            charged_kobo: number;
+            /** Registered Name */
+            registered_name?: string | null;
+            /** Message */
+            message: string;
+        };
+        /** WalletCreditIn */
+        WalletCreditIn: {
+            /** Amount Naira */
+            amount_naira: number;
+            /** Reason */
+            reason: string;
         };
         /**
-         * AlertEventOut
-         * @description Alert event output schema.
+         * ZeroInvoiceCohort
+         * @description A group of zero-invoice users sharing a trait.
          */
-        app__api__routes_tax__schemas__AlertEventOut: {
-            /** Id */
-            id: number;
-            /** Category */
-            category: string;
-            /** Severity */
-            severity: string;
-            /** Message */
-            message: string;
-            /** Created At */
-            created_at: string | null;
+        ZeroInvoiceCohort: {
+            /** Label */
+            label: string;
+            /** Count */
+            count: number;
+            /** Pct */
+            pct: number;
         };
-        /** AlertEventOut */
-        app__api__routes_tax_misc__AlertEventOut: {
+        /** ZeroInvoiceDiagnostic */
+        ZeroInvoiceDiagnostic: {
+            /** Total Zero Invoice */
+            total_zero_invoice: number;
+            /** Total Signups */
+            total_signups: number;
+            /** Drop Off Rate */
+            drop_off_rate: number;
+            never_logged_back: components["schemas"]["ZeroInvoiceCohort"];
+            logged_in_once: components["schemas"]["ZeroInvoiceCohort"];
+            logged_in_multiple: components["schemas"]["ZeroInvoiceCohort"];
+            whatsapp_verified: components["schemas"]["ZeroInvoiceCohort"];
+            email_only: components["schemas"]["ZeroInvoiceCohort"];
+            has_business_name: components["schemas"]["ZeroInvoiceCohort"];
+            has_bank_details: components["schemas"]["ZeroInvoiceCohort"];
+            signed_up_today: components["schemas"]["ZeroInvoiceCohort"];
+            signed_up_1_3_days: components["schemas"]["ZeroInvoiceCohort"];
+            signed_up_4_7_days: components["schemas"]["ZeroInvoiceCohort"];
+            signed_up_8_14_days: components["schemas"]["ZeroInvoiceCohort"];
+            signed_up_15_30_days: components["schemas"]["ZeroInvoiceCohort"];
+            signed_up_over_30_days: components["schemas"]["ZeroInvoiceCohort"];
+            /** Weekly Signup Vs Activation */
+            weekly_signup_vs_activation: {
+                [key: string]: unknown;
+            }[];
+            /** Source Breakdown */
+            source_breakdown: components["schemas"]["ZeroInvoiceCohort"][];
+            /** Source Activation Rates */
+            source_activation_rates: {
+                [key: string]: unknown;
+            }[];
+            /** Recent Zero Invoice Users */
+            recent_zero_invoice_users: components["schemas"]["ZeroInvoiceUser"][];
+        };
+        /** ZeroInvoiceUser */
+        ZeroInvoiceUser: {
             /** Id */
             id: number;
-            /** Category */
-            category: string;
-            /** Severity */
-            severity: string;
-            /** Message */
-            message: string;
+            /** Name */
+            name: string | null;
+            /** Phone */
+            phone: string | null;
+            /** Email */
+            email: string | null;
+            /** Phone Verified */
+            phone_verified: boolean;
             /** Created At */
-            created_at: string | null;
+            created_at: string;
+            /** Last Login */
+            last_login: string | null;
+            /** Has Business Name */
+            has_business_name: boolean;
+            /** Has Bank Details */
+            has_bank_details: boolean;
+            /** Has Logo */
+            has_logo: boolean;
+            /** Days Since Signup */
+            days_since_signup: number;
+            /** Login Count Bucket */
+            login_count_bucket: string;
+            /** Signup Source */
+            signup_source: string | null;
         };
     };
     responses: never;
@@ -4518,6 +10920,849 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    get_ai_availability_ai_availability_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AIAvailabilityOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_ai_usage_ai_usage_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AIUsageOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_ai_preferences_ai_preferences_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AITenantPreferencesOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_ai_preferences_ai_preferences_patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AITenantPreferencesUpdateIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AITenantPreferencesOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_ai_feedback_ai_feedback_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AIFeedbackIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AIFeedbackOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_copilot_briefing_ai_copilot_briefing_get: {
+        parameters: {
+            query?: {
+                enhance?: boolean;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CopilotBriefingOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    ask_copilot_ai_copilot_ask_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CopilotQuestionIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CopilotAnswerOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_copilot_actions_ai_copilot_actions_get: {
+        parameters: {
+            query?: {
+                status?: string;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CopilotActionOut"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    decide_copilot_action_ai_copilot_actions__action_id__decision_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                action_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CopilotDecisionIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CopilotActionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_collection_priorities_ai_collections_priorities_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CollectionPrioritiesOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    enhance_collection_draft_ai_collections_drafts__draft_id__enhance_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                draft_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CollectionDraftOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_collection_draft_ai_collections_drafts__draft_id__patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                draft_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CollectionDraftUpdateIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CollectionDraftOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    send_collection_draft_ai_collections_drafts__draft_id__send_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                draft_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CollectionDraftUpdateIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CollectionDraftOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    dismiss_collection_draft_ai_collections_drafts__draft_id__dismiss_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                draft_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CollectionDraftOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_collection_metrics_ai_collections_metrics_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CollectionMetricsOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_inventory_advice_ai_inventory_advice_get: {
+        parameters: {
+            query?: {
+                enhance?: boolean;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InventoryAdviceOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_inventory_purchase_order_ai_inventory_purchase_orders_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InventoryPurchaseOrderIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InventoryPurchaseOrderOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_storefront_advice_ai_storefront_advice_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontAdviceOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    draft_storefront_product_copy_ai_storefront_products__product_id__copy_draft_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                product_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontCopyDraftOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    apply_storefront_product_copy_ai_storefront_products__product_id__copy_patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                product_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StorefrontCopyApplyIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontProductActionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    apply_storefront_merchandising_ai_storefront_merchandising_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StorefrontMerchandisingIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontMerchandisingOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    apply_storefront_promotion_ai_storefront_products__product_id__promotion_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                product_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StorefrontPromotionIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontProductActionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    apply_storefront_bundle_ai_storefront_bundles_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StorefrontBundleIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontMerchandisingOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_exchange_rate_analytics_exchange_rate_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExchangeRateOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    refresh_exchange_rate_analytics_exchange_rate_refresh_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExchangeRateOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_analytics_dashboard_analytics_dashboard_get: {
         parameters: {
             query?: {
@@ -4557,6 +11802,7 @@ export interface operations {
             query?: {
                 period?: string;
                 limit?: number;
+                currency?: string;
             };
             header?: {
                 authorization?: string;
@@ -4572,7 +11818,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["RevenueByCustomerOut"];
                 };
             };
             /** @description Validation Error */
@@ -4605,7 +11851,201 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["ConversionFunnelOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_cash_position_analytics_cash_position_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CashPositionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_customer_insights_analytics_customer_insights_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerInsightsOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_professionalism_score_analytics_professionalism_score_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProfessionalismScoreOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_business_snapshot_analytics_business_snapshot_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BusinessSnapshotOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_margin_insights_analytics_margin_insights_get: {
+        parameters: {
+            query?: {
+                period?: string;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MarginInsightsOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_storefront_insights_analytics_storefront_insights_get: {
+        parameters: {
+            query?: {
+                period?: string;
+                currency?: string;
+                top_limit?: number;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontInsightsOut"];
                 };
             };
             /** @description Validation Error */
@@ -4784,6 +12224,39 @@ export interface operations {
             };
         };
     };
+    otp_delivery_status_auth_otp_status_get: {
+        parameters: {
+            query: {
+                purpose: string;
+                phone?: string | null;
+                email?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     refresh_token_auth_refresh_post: {
         parameters: {
             query?: never;
@@ -4929,10 +12402,10 @@ export interface operations {
     };
     revoke_oauth_access_auth_oauth__provider__revoke_post: {
         parameters: {
-            query: {
-                current_user_id: number;
+            query?: never;
+            header?: {
+                authorization?: string;
             };
-            header?: never;
             path: {
                 provider: string;
             };
@@ -4946,7 +12419,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
             /** @description Validation Error */
@@ -5013,7 +12488,67 @@ export interface operations {
             };
         };
     };
+    ses_webhook_webhooks_ses_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
     paystack_webhook_webhooks_paystack_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
+    flutterwave_webhook_webhooks_flutterwave_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
+    shipbubble_webhook_webhooks_shipbubble_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -5095,10 +12630,177 @@ export interface operations {
             };
         };
     };
+    initialize_invoice_payment_public_invoices__invoice_id__pay_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                invoice_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    verify_invoice_payment_public_invoices__invoice_id__verify_post: {
+        parameters: {
+            query: {
+                reference: string;
+            };
+            header?: never;
+            path: {
+                invoice_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_online_payments_status_invoices_online_payments_status_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlinePaymentsStatusOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    enable_online_payments_invoices_enable_online_payments_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlinePaymentsUpdateOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    disable_online_payments_invoices_disable_online_payments_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlinePaymentsUpdateOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     list_invoices_invoices__get: {
         parameters: {
             query?: {
                 invoice_type?: string | null;
+                start_date?: string | null;
+                end_date?: string | null;
+                status?: string | null;
+                search?: string | null;
+                skip?: number;
+                limit?: number;
             };
             header?: {
                 authorization?: string;
@@ -5114,7 +12816,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InvoiceOut"][];
+                    "application/json": components["schemas"]["PaginatedResponse_InvoiceOut_"];
                 };
             };
             /** @description Validation Error */
@@ -5142,6 +12844,41 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["InvoiceCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InvoiceOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_quick_sale_invoices_quick_sale_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuickSaleCreate"];
             };
         };
         responses: {
@@ -5368,7 +13105,7 @@ export interface operations {
     initialize_invoice_pack_purchase_invoices_purchase_pack_post: {
         parameters: {
             query?: {
-                quantity?: number;
+                amount?: number;
             };
             header?: {
                 authorization?: string;
@@ -5729,10 +13466,72 @@ export interface operations {
             };
         };
     };
-    initialize_subscription_payment_subscriptions_initialize_post: {
+    get_referral_code_referrals_code_get: {
         parameters: {
-            query: {
-                plan: string;
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReferralCodeResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_referral_stats_referrals_stats_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReferralStatsResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_recent_referrals_referrals_recent_get: {
+        parameters: {
+            query?: {
+                limit?: number;
             };
             header?: {
                 authorization?: string;
@@ -5748,7 +13547,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["RecentReferralResponse"][];
                 };
             };
             /** @description Validation Error */
@@ -5762,15 +13561,81 @@ export interface operations {
             };
         };
     };
-    verify_subscription_payment_subscriptions_verify__reference__get: {
+    apply_reward_referrals_apply_reward_post: {
         parameters: {
             query?: never;
             header?: {
                 authorization?: string;
             };
-            path: {
-                reference: string;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ApplyRewardRequest"];
             };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApplyRewardResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    validate_referral_code_referrals_validate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ValidateCodeRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ValidateCodeResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_payout_bank_details_referrals_payout_bank_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
             cookie?: never;
         };
         requestBody?: never;
@@ -5781,7 +13646,104 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["PayoutBankDetailsResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_payout_bank_details_referrals_payout_bank_delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MessageResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_payout_bank_details_referrals_payout_bank_patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PayoutBankDetailsUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayoutBankDetailsResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_influencer_earnings_referrals_earnings_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EarningsBreakdown"];
                 };
             };
             /** @description Validation Error */
@@ -5816,7 +13778,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["PaymentHistoryOut"];
                 };
             };
             /** @description Validation Error */
@@ -5849,7 +13811,69 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["PaymentDetailOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cancel_subscription_subscriptions_cancel_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CancelSubscriptionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_subscription_status_subscriptions_status_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubscriptionStatusOut"];
                 };
             };
             /** @description Validation Error */
@@ -5978,6 +14002,72 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    verify_tin_tax_profile_verify_tin_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VerificationResultOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    verify_cac_tax_profile_verify_cac_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CACVerifyIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VerificationResultOut"];
                 };
             };
             /** @description Validation Error */
@@ -6120,41 +14210,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    list_recent_alerts_tax_admin_alerts_get: {
-        parameters: {
-            query?: {
-                limit?: number;
-                category?: string | null;
-            };
-            header?: {
-                authorization?: string;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["app__api__routes_tax_misc__AlertEventOut"][];
+                    "application/json": components["schemas"]["TaxReportOut"];
                 };
             };
             /** @description Validation Error */
@@ -6187,7 +14243,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["ReportDownloadOut"];
                 };
             };
             /** @description Validation Error */
@@ -6221,7 +14277,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["ReportDownloadOut"];
                 };
             };
             /** @description Validation Error */
@@ -6256,7 +14312,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["ReportCsvOut"];
                 };
             };
             /** @description Validation Error */
@@ -6292,7 +14348,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["ReportCsvOut"];
                 };
             };
             /** @description Validation Error */
@@ -6404,6 +14460,38 @@ export interface operations {
             };
         };
     };
+    list_recent_alerts_tax_admin_alerts_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+                category?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertEventOut"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     fiscalize_invoice_tax_invoice__invoice_id__fiscalize_post: {
         parameters: {
             query?: never;
@@ -6424,6 +14512,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_activation_state_users_me_activation_state_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ActivationStateOut"];
                 };
             };
             /** @description Validation Error */
@@ -6503,6 +14622,41 @@ export interface operations {
             };
         };
     };
+    update_profile_users_me_patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateProfileRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UpdateProfileResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_feature_access_users_me_features_get: {
         parameters: {
             query?: never;
@@ -6520,7 +14674,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["FeatureAccessOut"];
                 };
             };
             /** @description Validation Error */
@@ -6537,9 +14691,7 @@ export interface operations {
     admin_delete_account_users_admin__user_id__delete: {
         parameters: {
             query?: never;
-            header?: {
-                authorization?: string;
-            };
+            header?: never;
             path: {
                 user_id: number;
             };
@@ -6637,7 +14789,7 @@ export interface operations {
             };
         };
     };
-    request_phone_otp_users_me_phone_request_post: {
+    upload_storefront_cover_users_me_storefront_cover_post: {
         parameters: {
             query?: never;
             header?: {
@@ -6648,7 +14800,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["PhoneVerificationRequest"];
+                "multipart/form-data": components["schemas"]["Body_upload_storefront_cover_users_me_storefront_cover_post"];
             };
         };
         responses: {
@@ -6672,7 +14824,69 @@ export interface operations {
             };
         };
     };
-    verify_phone_users_me_phone_verify_post: {
+    delete_storefront_cover_users_me_storefront_cover_delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MessageOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    request_phone_change_otp_users_me_phone_request_otp_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MessageOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_phone_number_users_me_phone_post: {
         parameters: {
             query?: never;
             header?: {
@@ -6683,7 +14897,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["PhoneVerificationVerify"];
+                "application/json": components["schemas"]["PhoneVerificationRequest"];
             };
         };
         responses: {
@@ -6725,6 +14939,41 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["MessageOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    resolve_bank_account_users_me_resolve_bank_account_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ResolveAccountIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ResolveAccountOut"];
                 };
             };
             /** @description Validation Error */
@@ -6870,6 +15119,37 @@ export interface operations {
             };
         };
     };
+    request_bank_change_otp_users_me_bank_details_request_otp_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MessageOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     metrics_endpoint_metrics_get: {
         parameters: {
             query?: never;
@@ -6904,12 +15184,12 @@ export interface operations {
         };
         responses: {
             /** @description Successful Response */
-            200: {
+            202: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["TelemetryAck"];
                 };
             };
             /** @description Validation Error */
@@ -7361,6 +15641,43 @@ export interface operations {
             };
         };
     };
+    upload_product_image_inventory_products__product_id__image_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                product_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_upload_product_image_inventory_products__product_id__image_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     adjust_stock_inventory_stock_adjust_post: {
         parameters: {
             query?: never;
@@ -7652,6 +15969,889 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["LowStockAlert"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    enable_storefront_inventory_storefront_enable_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StorefrontEnableIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_storefront_inventory_storefront_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_storefront_inventory_storefront_patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StorefrontUpdateIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_storefront_location_inventory_storefront_location_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StorefrontLocationIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    disable_storefront_inventory_storefront_disable_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    product_scan_to_pay_inventory_products__product_id__scan_to_pay_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                product_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScanToPayOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    storefront_qr_inventory_storefront_qr_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontQrOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    category_qr_inventory_categories__category_id__qr_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                category_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontQrOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_order_escrow_inventory_storefront_orders__invoice_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                invoice_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    mark_order_delivered_inventory_storefront_orders__invoice_id__mark_delivered_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                invoice_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_mark_order_delivered_inventory_storefront_orders__invoice_id__mark_delivered_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    mark_order_sent_inventory_storefront_orders__invoice_id__mark_sent_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                invoice_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_mark_order_sent_inventory_storefront_orders__invoice_id__mark_sent_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    seller_list_messages_inventory_storefront_orders__invoice_id__messages_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                invoice_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    seller_send_message_inventory_storefront_orders__invoice_id__messages_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                invoice_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SellerMessageIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_public_storefront_public_store__slug__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    ask_storefront_shopping_assistant_public_store__slug__shopping_assistant_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BuyerShoppingRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BuyerShoppingResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_public_stores_public_stores_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+                q?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    store_delivery_quote_public_store__slug__delivery_quote_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StoreOrderIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_store_order_public_store__slug__order_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StoreOrderIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    notify_when_in_stock_public_store__slug__notify_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StockNotifyIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_review_public_store__slug__review_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReviewIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_reviews_public_store__slug__reviews_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    confirm_delivery_public_store__slug__confirm_delivery_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConfirmDeliveryIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    report_order_problem_public_store__slug__report_problem_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OrderProblemIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    buyer_send_message_public_store__slug__messages_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BuyerMessageIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    buyer_list_messages_public_store__slug__messages_list_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BuyerThreadIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
             /** @description Validation Error */
@@ -7983,7 +17183,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["MessageOut"];
                 };
             };
             /** @description Validation Error */
@@ -8014,170 +17214,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    get_referral_code_referrals_code_get: {
-        parameters: {
-            query?: never;
-            header?: {
-                authorization?: string;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReferralCodeResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    get_referral_stats_referrals_stats_get: {
-        parameters: {
-            query?: never;
-            header?: {
-                authorization?: string;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReferralStatsResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    get_recent_referrals_referrals_recent_get: {
-        parameters: {
-            query?: {
-                limit?: number;
-            };
-            header?: {
-                authorization?: string;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["RecentReferralResponse"][];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    apply_reward_referrals_apply_reward_post: {
-        parameters: {
-            query?: never;
-            header?: {
-                authorization?: string;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ApplyRewardRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ApplyRewardResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    validate_referral_code_referrals_validate_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ValidateCodeRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ValidateCodeResponse"];
+                    "application/json": components["schemas"]["MessageOut"];
                 };
             };
             /** @description Validation Error */
@@ -8368,7 +17405,47 @@ export interface operations {
             };
         };
     };
-    admin_login_admin_auth_login_post: {
+    get_public_testimonials_public_testimonials_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TestimonialOut"][];
+                };
+            };
+        };
+    };
+    get_top_users_public_top_users_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopUserOut"][];
+                };
+            };
+        };
+    };
+    submit_feedback_via_token_public_feedback_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -8377,7 +17454,108 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["AdminLoginRequest"];
+                "application/json": components["schemas"]["FeedbackSubmit"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_testimonial_testimonials_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TestimonialCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TestimonialSubmitOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    admin_request_otp_admin_auth_request_otp_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AdminOTPRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SuccessMessageOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    admin_verify_otp_admin_auth_verify_otp_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AdminOTPVerify"];
             };
         };
         responses: {
@@ -8467,6 +17645,26 @@ export interface operations {
             };
         };
     };
+    admin_logout_admin_auth_logout_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
     get_current_admin_user_admin_auth_me_get: {
         parameters: {
             query?: never;
@@ -8482,7 +17680,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AdminUserOut"];
+                    "application/json": unknown;
                 };
             };
         };
@@ -8507,7 +17705,109 @@ export interface operations {
             };
         };
     };
-    change_password_admin_auth_change_password_post: {
+    remove_admin_admin_auth_admins__admin_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                admin_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SuccessMessageOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_login_audit_admin_auth_login_audit_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminLoginAuditOut"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    admin_ip_allowed_admin_auth_ip_allowed_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
+    list_ip_allowlist_admin_auth_ip_allowlist_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminIpAllowlistEntryOut"][];
+                };
+            };
+        };
+    };
+    add_ip_allowlist_entry_admin_auth_ip_allowlist_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -8516,7 +17816,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ChangePasswordRequest"];
+                "application/json": components["schemas"]["AdminIpAllowlistCreate"];
             };
         };
         responses: {
@@ -8526,7 +17826,104 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["AdminIpAllowlistEntryOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_ip_allowlist_entry_admin_auth_ip_allowlist__entry_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                entry_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SuccessMessageOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_ai_governance_admin_ai_governance_get: {
+        parameters: {
+            query?: {
+                days?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AIGovernanceOverviewOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    patch_ai_feature_control_admin_ai_governance_features__feature__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                feature: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AIFeatureControlUpdateIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AIFeatureControlOut"];
                 };
             };
             /** @description Validation Error */
@@ -8543,9 +17940,7 @@ export interface operations {
     admin_root_admin__get: {
         parameters: {
             query?: never;
-            header?: {
-                authorization?: string;
-            };
+            header?: never;
             path?: never;
             cookie?: never;
         };
@@ -8557,16 +17952,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
+                    "application/json": components["schemas"]["AdminRootOut"];
                 };
             };
         };
@@ -8574,9 +17960,7 @@ export interface operations {
     user_count_admin_users_count_get: {
         parameters: {
             query?: never;
-            header?: {
-                authorization?: string;
-            };
+            header?: never;
             path?: never;
             cookie?: never;
         };
@@ -8588,16 +17972,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
+                    "application/json": components["schemas"]["UserCountOut"];
                 };
             };
         };
@@ -8605,9 +17980,7 @@ export interface operations {
     get_user_stats_admin_users_stats_get: {
         parameters: {
             query?: never;
-            header?: {
-                authorization?: string;
-            };
+            header?: never;
             path?: never;
             cookie?: never;
         };
@@ -8622,15 +17995,6 @@ export interface operations {
                     "application/json": components["schemas"]["UserStats"];
                 };
             };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
         };
     };
     list_users_admin_users_get: {
@@ -8638,16 +18002,14 @@ export interface operations {
             query?: {
                 skip?: number;
                 limit?: number;
-                /** @description Filter by plan (free, starter, pro, business) */
+                /** @description Filter by plan (free, pro) */
                 plan?: string | null;
                 /** @description Show only verified users */
                 verified_only?: boolean;
                 /** @description Search by name, email, or phone */
                 search?: string | null;
             };
-            header?: {
-                authorization?: string;
-            };
+            header?: never;
             path?: never;
             cookie?: never;
         };
@@ -8676,9 +18038,7 @@ export interface operations {
     get_user_detail_admin_users__user_id__get: {
         parameters: {
             query?: never;
-            header?: {
-                authorization?: string;
-            };
+            header?: never;
             path: {
                 user_id: number;
             };
@@ -8692,7 +18052,1602 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
+                    "application/json": components["schemas"]["UserDetailOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    credit_user_wallet_admin_users__user_id__credit_wallet_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WalletCreditIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_referral_stats_admin_referrals_stats_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReferralStats"];
+                };
+            };
+        };
+    };
+    get_referral_payouts_admin_referrals_payouts_get: {
+        parameters: {
+            query?: {
+                /** @description Month (1-12), defaults to current */
+                month?: number | null;
+                /** @description Year, defaults to current */
+                year?: number | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayoutListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_influencers_admin_influencers_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InfluencerListResponse"];
+                };
+            };
+        };
+    };
+    create_influencer_admin_influencers_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InfluencerCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InfluencerInfo"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_influencer_admin_influencers__influencer_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                influencer_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InfluencerUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InfluencerInfo"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    onboard_sme_admin_sme_onboard_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SMEOnboardPayload"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SMEOnboardResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_platform_metrics_admin_metrics_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlatformMetrics"];
+                };
+            };
+        };
+    };
+    get_metrics_summary_admin_metrics_summary_get: {
+        parameters: {
+            query?: {
+                period?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MetricsSummary"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_growth_metrics_admin_metrics_growth_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GrowthMetrics"];
+                };
+            };
+        };
+    };
+    get_zero_invoice_diagnostic_admin_metrics_zero_invoice_diagnostic_get: {
+        parameters: {
+            query?: {
+                sample_limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ZeroInvoiceDiagnostic"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_activity_analytics_admin_metrics_activity_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ActivityAnalytics"];
+                };
+            };
+        };
+    };
+    get_business_intelligence_admin_businesses_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+                sort_by?: string;
+                sort_order?: string;
+                risk_filter?: string | null;
+                search?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BusinessListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_business_invoices_admin_businesses__user_id__invoices_get: {
+        parameters: {
+            query?: {
+                invoice_type?: string;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                user_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminInvoiceListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    verify_audit_chain_admin_audit_verify_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuditChainResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_inactive_users_admin_users_segments_inactive_get: {
+        parameters: {
+            query?: {
+                /** @description Days since last login to consider inactive */
+                days_inactive?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserSegmentExport"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_low_balance_users_admin_users_segments_low_balance_get: {
+        parameters: {
+            query?: {
+                /** @description Maximum invoice balance to include */
+                max_balance?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserSegmentExport"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_active_free_users_admin_users_segments_active_free_get: {
+        parameters: {
+            query?: {
+                /** @description Minimum invoices created */
+                min_invoices?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserSegmentExport"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_churned_users_admin_users_segments_churned_get: {
+        parameters: {
+            query?: {
+                /** @description Days since last login */
+                days_inactive?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserSegmentExport"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_starter_users_admin_users_segments_starter_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserSegmentExport"][];
+                };
+            };
+        };
+    };
+    get_pro_users_admin_users_segments_pro_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserSegmentExport"][];
+                };
+            };
+        };
+    };
+    sync_segment_to_brevo_admin_brevo_sync__segment__post: {
+        parameters: {
+            query: {
+                /** @description Brevo list ID to sync contacts to */
+                list_id: number;
+            };
+            header?: never;
+            path: {
+                segment: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BrevoSyncResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_brevo_lists_admin_brevo_lists_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    create_brevo_list_admin_brevo_create_list_post: {
+        parameters: {
+            query: {
+                /** @description Name for the new list */
+                name: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    export_users_csv_admin_users_export_csv_get: {
+        parameters: {
+            query?: {
+                segment?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    purge_inactive_accounts_admin_purge_inactive_accounts_post: {
+        parameters: {
+            query?: {
+                days?: number;
+                channel?: string;
+                max_invoices?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    purge_low_quality_accounts_admin_purge_low_quality_accounts_post: {
+        parameters: {
+            query?: {
+                dry_run?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    purge_no_bank_accounts_admin_purge_no_bank_accounts_post: {
+        parameters: {
+            query?: {
+                dry_run?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    sync_brevo_contacts_admin_sync_brevo_contacts_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    get_task_schedule_admin_tasks_schedule_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    trigger_task_admin_tasks__task_key__trigger_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                task_key: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_testimonials_admin_testimonials_get: {
+        parameters: {
+            query?: {
+                /** @description Filter: all, pending, approved */
+                status?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminTestimonialItem"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_testimonial_admin_testimonials__testimonial_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                testimonial_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_testimonial_admin_testimonials__testimonial_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                testimonial_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TestimonialUpdateIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    send_testimonial_requests_admin_testimonials_send_requests_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    list_storefronts_admin_storefronts_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+                status_filter?: string;
+                criteria?: string | null;
+                sort_by?: string;
+                sort_order?: string;
+                search?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_storefront_status_admin_storefronts__user_id__status_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StorefrontStatusUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_flagged_users_admin_fraud_flagged_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+                view?: string;
+                min_score?: number;
+                search?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RiskListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_linked_accounts_admin_fraud__user_id__linked_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_account_review_dossier_admin_fraud__user_id__dossier_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    review_flagged_user_admin_fraud__user_id__review_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RiskReviewAction"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_flagged_messages_admin_flagged_messages_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlaggedMessageListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_disputes_admin_disputes_get: {
+        parameters: {
+            query?: {
+                status_filter?: string;
+                search?: string | null;
+                skip?: number;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DisputeListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    disputes_by_business_admin_disputes_by_business_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DisputesByBusinessResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    request_dispute_stepup_otp_admin_disputes__escrow_id__step_up_otp_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                escrow_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    analyse_dispute_evidence_admin_disputes__escrow_id__assistant_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                escrow_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DisputeAssistantOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    request_money_stepup_otp_admin_money_step_up_otp_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    resolve_dispute_admin_disputes__escrow_id__resolve_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                escrow_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DisputeResolveAction"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    dispute_payout_status_admin_disputes__escrow_id__payout_status_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                escrow_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    retry_dispute_payout_admin_disputes__escrow_id__retry_payout_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                escrow_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["RetryPayoutIn"] | null;
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    retry_held_payouts_for_business_admin_businesses__user_id__retry_held_payouts_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["RetryPayoutIn"] | null;
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BulkRetryResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    force_confirm_invoice_admin_invoices__invoice_id__force_confirm_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                invoice_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
             /** @description Validation Error */
@@ -8721,9 +19676,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: string;
-                    };
+                    "application/json": components["schemas"]["HealthOut"];
                 };
             };
         };
@@ -8743,9 +19696,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: string;
-                    };
+                    "application/json": components["schemas"]["HealthOut"];
                 };
             };
         };
@@ -8765,7 +19716,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
+                    "application/json": components["schemas"]["ReadyOut"];
                 };
             };
         };
@@ -8786,6 +19737,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+        };
+    };
+    robots_txt_robots_txt_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/plain": string;
                 };
             };
         };

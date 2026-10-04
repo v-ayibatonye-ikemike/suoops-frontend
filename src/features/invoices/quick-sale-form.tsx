@@ -86,13 +86,13 @@ export function QuickSaleForm() {
           gate.currentCount != null && gate.limit != null
             ? `You have used ${gate.currentCount} of ${gate.limit}.`
             : null,
-          "Upgrade now to unlock more invoices and premium automation.",
+          "Top up your wallet to keep creating manual invoices.",
         ]
           .filter(Boolean)
           .join(" ");
         setQuotaError(composed);
         setCurrentPlan(gate.currentPlan || currentPlan);
-        setUpgradeUrl(gate.upgradeUrl || "/dashboard/upgrade");
+        setUpgradeUrl(gate.upgradeUrl || "/dashboard/billing/purchase");
         setShowUpgradeModal(true);
         return;
       }
@@ -250,7 +250,7 @@ export function QuickSaleForm() {
                 href={upgradeUrl}
                 className="inline-flex w-full items-center justify-center rounded-lg bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-amber-700 sm:w-auto"
               >
-                Upgrade Now
+                Top up wallet
               </a>
             )}
           </div>

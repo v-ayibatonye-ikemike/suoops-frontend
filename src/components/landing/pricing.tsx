@@ -55,9 +55,9 @@ export function Pricing() {
           <div className="text-4xl mb-2">🎉</div>
           <h3 className="text-xl font-bold text-white">All features, free.</h3>
           <p className="mt-2 text-brand-mint">
-            Custom branding, inventory, team, tax reports, insights, storefront,
-            courier delivery &amp; buyer protection — included for everyone. You
-            only pay when you invoice.
+            Custom branding, inventory, team, tax reports, insights, governed AI,
+            storefront, courier delivery &amp; buyer protection — included for
+            everyone. You only pay when you transact.
           </p>
           <Link
             href={registerHref}
@@ -84,7 +84,8 @@ export function Pricing() {
           👉 No forced banking. No accounting setup. No hidden stress.
         </p>
         <p className="mt-2 text-center text-xs text-brand-charcoal/40">
-          A small payment-processing fee applies to online payments.
+          A small payment-processing fee applies to online payments. Courier
+          prices are quoted separately based on route and availability.
         </p>
       </div>
     </section>

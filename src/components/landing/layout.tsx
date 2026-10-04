@@ -33,6 +33,12 @@ export function Navigation() {
               Features
             </a>
             <a
+              href="#ai-commerce"
+              className="hidden sm:block text-sm font-medium text-white/80 hover:text-white transition-colors"
+            >
+              AI Commerce
+            </a>
+            <a
               href="#pricing"
               className="hidden sm:block text-sm font-medium text-white/80 hover:text-white transition-colors"
             >
@@ -85,8 +91,9 @@ export function CTASection() {
           Ready to run your whole business in one place?
         </h2>
         <p className="mt-4 text-lg text-white/80">
-          Set up your storefront, take payments, manage orders and invoice — with
-          buyer protection built in. Free to start, in minutes.
+          Set up your storefront, take payments, manage stock and expenses,
+          recover overdue revenue, and get grounded AI guidance—with buyer
+          protection built in. Free to start, in minutes.
         </p>
         <Link
           href={registerHref}

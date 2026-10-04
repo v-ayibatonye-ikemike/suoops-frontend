@@ -10,8 +10,7 @@ import { FeatureDiscoveryTips } from "./feature-discovery-tips";
 import { LowBalanceBanner } from "./low-balance-banner";
 
 interface UserData {
-  plan?: string;
-  invoice_balance?: number;
+  wallet_balance_kobo?: number;
 }
 
 /**
@@ -26,8 +25,8 @@ interface UserData {
  * for unrelated operational alerts and lightweight feature discovery.
  *
  * The referral banner is rendered separately on the dashboard so every
- * user (free + Pro) always sees the earn-cash opportunity, not just
- * those past the activation funnel.
+ * user always sees the earn-cash opportunity, not just those past the
+ * activation funnel.
  */
 export function DashboardNudges() {
   const [hydrated, setHydrated] = useState(false);
@@ -48,14 +47,11 @@ export function DashboardNudges() {
   // a flash of the wrong banner before priority is established.
   if (!hydrated || isLoading || !user) return null;
 
-  const plan = (user.plan || "free").toLowerCase();
-  const isPro = plan === "pro";
-  const balance = user.invoice_balance ?? 2;
+  const balanceKobo = user.wallet_balance_kobo ?? 0;
   // Low balance remains visible because it can block ongoing operations.
   if (
-    !isPro &&
-    balance <= 2 &&
-    !isDismissed("low-balance-banner-dismissed", balance === 0 ? 0 : 1)
+    balanceKobo < 50_000 &&
+    !isDismissed("low-balance-banner-dismissed", balanceKobo === 0 ? 0 : 1)
   ) {
     return <LowBalanceBanner />;
   }
