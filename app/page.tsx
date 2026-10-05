@@ -28,12 +28,12 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-brand-evergreen">
       <Navigation />
+      <Marketplace />
       <Suspense>
         <Hero onWatchDemo={() => setShowVideoModal(true)} />
       </Suspense>
       <Features />
       <CommerceAI />
-      <Marketplace />
       <Protection />
       <Testimonials />
       <Suspense>

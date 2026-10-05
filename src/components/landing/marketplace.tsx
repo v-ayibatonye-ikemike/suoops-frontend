@@ -63,7 +63,10 @@ export function Marketplace() {
   };
 
   return (
-    <section className="relative overflow-hidden border-b border-brand-teal/10 bg-gradient-to-b from-white to-brand-mint px-4 py-12 sm:py-16">
+    <section
+      id="marketplace"
+      className="relative scroll-mt-16 overflow-hidden border-b border-brand-teal/10 bg-gradient-to-b from-white to-brand-mint px-4 py-12 sm:py-16"
+    >
       <div className="mx-auto max-w-5xl text-center">
         <span className="inline-flex items-center gap-2 rounded-full bg-brand-jade/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-brand-teal">
           <ShoppingBag className="h-3.5 w-3.5" />
@@ -78,8 +81,11 @@ export function Marketplace() {
         </p>
 
         {/* Search → /stores */}
-        <form onSubmit={submit} className="mx-auto mt-7 flex max-w-2xl items-center gap-2">
-          <div className="relative flex-1">
+        <form
+          onSubmit={submit}
+          className="mx-auto mt-7 flex max-w-2xl flex-col items-stretch gap-2 sm:flex-row sm:items-center"
+        >
+          <div className="relative min-w-0 flex-1">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -100,7 +106,7 @@ export function Marketplace() {
           </div>
           <button
             type="submit"
-            className="shrink-0 rounded-xl bg-brand-jade px-5 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-brand-jadeHover sm:px-7 sm:text-base"
+            className="w-full shrink-0 rounded-xl bg-brand-jade px-5 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-brand-jadeHover sm:w-auto sm:px-7 sm:text-base"
           >
             Search
           </button>
