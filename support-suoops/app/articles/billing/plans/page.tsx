@@ -91,7 +91,7 @@ export default function PlansArticle() {
         </div>
 
         {/* Free callout */}
-        <div className="mb-10 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 p-6">
+        <div className="mb-10 rounded-xl bg-linear-to-r from-emerald-50 to-teal-50 border border-emerald-200 p-6">
           <h3 className="font-bold text-slate-900 mb-1">
             No subscriptions. No feature tiers.
           </h3>
@@ -154,7 +154,7 @@ export default function PlansArticle() {
         </article>
 
         {/* CTA */}
-        <div className="mt-12 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 p-8 text-center">
+        <div className="mt-12 rounded-xl bg-linear-to-r from-emerald-50 to-teal-50 border border-emerald-200 p-8 text-center">
           <h3 className="text-xl font-bold text-slate-900 mb-2">Ready to get started?</h3>
           <p className="text-slate-600 mb-4">
             Access the full toolkit with no monthly subscription. Pay transaction-based fees when you transact.

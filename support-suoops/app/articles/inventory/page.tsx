@@ -58,12 +58,12 @@ export default function InventoryPage() {
               className="block rounded-xl border border-slate-200 bg-white p-6 hover:border-orange-300 hover:shadow-md transition-all"
             >
               <div className="flex items-start gap-4">
-                <Package className="h-5 w-5 text-orange-600 mt-0.5 flex-shrink-0" />
+                <Package className="h-5 w-5 text-orange-600 mt-0.5 shrink-0" />
                 <div>
                   <h3 className="font-semibold text-slate-900 mb-1">{article.title}</h3>
                   <p className="text-sm text-slate-600">{article.description}</p>
                 </div>
-                <ChevronRight className="h-5 w-5 text-slate-400 ml-auto flex-shrink-0" />
+                <ChevronRight className="h-5 w-5 text-slate-400 ml-auto shrink-0" />
               </div>
             </Link>
           ))}

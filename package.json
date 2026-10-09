@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint app src middleware.ts",
     "openapi": "openapi-typescript openapi.json --output src/api/types.generated.ts",
     "test": "vitest run"
   },
@@ -17,7 +17,7 @@
     "axios": "^1.20.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.554.0",
-    "next": "^15.5.24",
+    "next": "^15.5.27",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.6.0",
@@ -27,6 +27,9 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.4.1",
+    "@eslint/eslintrc": "^3.3.1",
+    "@next/eslint-plugin-next": "14.2.35",
     "@tailwindcss/postcss": "^4.1.0",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^6.9.1",
@@ -38,7 +41,7 @@
     "@vitejs/plugin-react": "^5.0.4",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.11.1",
-    "eslint-config-next": "^15.5.24",
+    "eslint-config-next": "^15.5.27",
     "jsdom": "^27.0.0",
     "openapi-typescript": "^7.6.1",
     "postcss": "^8.5.23",
@@ -48,9 +51,13 @@
     "vitest": "^4.1.11"
   },
   "overrides": {
+    "@next/eslint-plugin-next": {
+      ".": "14.2.35",
+      "glob": "^10.5.0"
+    },
     "postcss": "$postcss",
     "js-yaml": "^4.2.0",
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "fast-uri": "^3.1.8"
   }
 }

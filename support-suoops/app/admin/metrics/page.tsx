@@ -1224,8 +1224,8 @@ export default function MetricsPage() {
                           })}
                         </div>
                         <div className="flex gap-4 mt-3 text-xs text-slate-500">
-                          <div className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-green-500" /> WhatsApp</div>
-                          <div className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-blue-500" /> Dashboard</div>
+                          <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-green-500" /> WhatsApp</div>
+                          <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-blue-500" /> Dashboard</div>
                         </div>
                       </div>
                     );
@@ -1562,12 +1562,12 @@ export default function MetricsPage() {
                           <td className="py-2 px-3">
                             <div className="flex gap-1">
                               {u.has_business_name && (
-                                <span title="Business name" className="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-blue-50 text-blue-600">
+                                <span title="Business name" className="inline-flex items-center px-1.5 py-0.5 rounded-sm text-xs bg-blue-50 text-blue-600">
                                   <Building2 className="h-3 w-3" />
                                 </span>
                               )}
                               {u.has_bank_details && (
-                                <span title="Bank details" className="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-purple-50 text-purple-600">
+                                <span title="Bank details" className="inline-flex items-center px-1.5 py-0.5 rounded-sm text-xs bg-purple-50 text-purple-600">
                                   <Landmark className="h-3 w-3" />
                                 </span>
                               )}

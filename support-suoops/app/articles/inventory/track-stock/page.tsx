@@ -141,7 +141,7 @@ export default function TrackStockArticle() {
           <div className="not-prose space-y-3 my-6">
             <div className="rounded-lg bg-slate-50 border border-slate-200 p-4">
               <div className="flex items-start gap-3">
-                <div className="h-6 w-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                <div className="h-6 w-6 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
                   <Package className="h-4 w-4 text-emerald-700" />
                 </div>
                 <div>
@@ -155,7 +155,7 @@ export default function TrackStockArticle() {
 
             <div className="rounded-lg bg-slate-50 border border-slate-200 p-4">
               <div className="flex items-start gap-3">
-                <div className="h-6 w-6 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                <div className="h-6 w-6 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
                   <TrendingDown className="h-4 w-4 text-amber-700" />
                 </div>
                 <div>
@@ -169,7 +169,7 @@ export default function TrackStockArticle() {
 
             <div className="rounded-lg bg-slate-50 border border-slate-200 p-4">
               <div className="flex items-start gap-3">
-                <div className="h-6 w-6 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                <div className="h-6 w-6 rounded-full bg-red-100 flex items-center justify-center shrink-0">
                   <Bell className="h-4 w-4 text-red-700" />
                 </div>
                 <div>

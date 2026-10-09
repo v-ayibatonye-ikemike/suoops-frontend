@@ -340,7 +340,7 @@ function AdminContent({ children }: { children: React.ReactNode }) {
       {/* Main content */}
       <div className="lg:pl-64">
         {/* Top bar */}
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-slate-200 bg-white px-4 shadow-sm">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-slate-200 bg-white px-4 shadow-xs">
           <button
             onClick={() => setSidebarOpen(true)}
             className="lg:hidden text-slate-600 hover:text-slate-900"

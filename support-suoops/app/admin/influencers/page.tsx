@@ -297,7 +297,7 @@ export default function InfluencersPage() {
     return (
       <div className="p-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-slate-200 rounded w-48" />
+          <div className="h-8 bg-slate-200 rounded-sm w-48" />
           <div className="grid grid-cols-4 gap-4">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="h-24 bg-slate-100 rounded-xl" />
@@ -490,7 +490,7 @@ export default function InfluencersPage() {
                             </td>
                             <td className="px-4 py-3">
                               {p.has_bank_details ? (
-                                <code className="text-sm bg-slate-100 px-2 py-1 rounded text-slate-800">
+                                <code className="text-sm bg-slate-100 px-2 py-1 rounded-sm text-slate-800">
                                   {p.payout_account_number}
                                 </code>
                               ) : (
@@ -830,7 +830,7 @@ export default function InfluencersPage() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1">
-                        <code className="text-xs bg-slate-100 px-2 py-1 rounded text-emerald-700">
+                        <code className="text-xs bg-slate-100 px-2 py-1 rounded-sm text-emerald-700">
                           /join/{inf.custom_slug}
                         </code>
                         <button

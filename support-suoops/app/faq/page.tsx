@@ -263,7 +263,7 @@ export default function FAQPage() {
         </div>
 
         {/* Still Need Help */}
-        <div className="mt-16 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 p-8 text-center">
+        <div className="mt-16 rounded-2xl bg-linear-to-r from-emerald-50 to-teal-50 border border-emerald-200 p-8 text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-3">
             Still have questions?
           </h2>

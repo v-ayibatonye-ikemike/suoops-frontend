@@ -37,7 +37,7 @@ export default function WhatsAppSetupArticle() {
         </div>
 
         {/* Feature Highlight */}
-        <div className="mb-8 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 p-6">
+        <div className="mb-8 rounded-xl bg-linear-to-r from-green-50 to-emerald-50 border border-green-200 p-6">
           <h3 className="font-semibold text-green-900 mb-3">📱 What You Can Do with WhatsApp:</h3>
           <div className="grid sm:grid-cols-2 gap-3 text-sm">
             <div className="flex items-center gap-2">
@@ -90,7 +90,7 @@ export default function WhatsAppSetupArticle() {
           <div className="not-prose my-4 rounded-lg bg-amber-50 border border-amber-200 p-4">
             <p className="text-sm text-amber-800">
               <strong>Important:</strong> Include your country code. For Nigeria, use format: 
-              <code className="ml-1 bg-amber-100 px-1 rounded">+234XXXXXXXXXX</code>
+              <code className="ml-1 bg-amber-100 px-1 rounded-sm">+234XXXXXXXXXX</code>
             </p>
           </div>
 

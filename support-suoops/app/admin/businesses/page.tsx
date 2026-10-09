@@ -394,7 +394,7 @@ export default function BusinessesPage() {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search name, business, phone..."
-              className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm focus:border-emerald-500 focus:outline-hidden focus:ring-1 focus:ring-emerald-500"
             />
           </div>
         </form>
@@ -402,7 +402,7 @@ export default function BusinessesPage() {
         <select
           value={riskFilter}
           onChange={(e) => { setRiskFilter(e.target.value as RiskFilter); setPage(1); }}
-          className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none"
+          className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:outline-hidden"
         >
           <option value="">All Status</option>
           <option value="healthy">Healthy</option>

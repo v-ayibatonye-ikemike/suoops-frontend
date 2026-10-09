@@ -192,7 +192,7 @@ export default function TestimonialsPage() {
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className={`rounded-lg border bg-white p-5 shadow-sm ${
+              className={`rounded-lg border bg-white p-5 shadow-xs ${
                 t.approved
                   ? "border-emerald-200"
                   : "border-amber-200"

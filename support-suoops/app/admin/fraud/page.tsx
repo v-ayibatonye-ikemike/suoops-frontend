@@ -189,7 +189,7 @@ function Field({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div>
       <dt className="text-[10px] uppercase tracking-wide text-slate-400">{label}</dt>
-      <dd className="text-xs text-slate-800 break-words">{value ?? "—"}</dd>
+      <dd className="text-xs text-slate-800 wrap-break-word">{value ?? "—"}</dd>
     </div>
   );
 }
@@ -204,7 +204,7 @@ function DossierPanel({ d }: { d: Dossier }) {
           <dl className="space-y-1.5">
             <Field label="Business" value={d.identity.business_name || d.identity.name} />
             <Field label="Contact person" value={d.identity.name} />
-            <Field label="Phone" value={<span>{d.identity.phone || "—"}{d.identity.phone_verified && <span className="ml-1 rounded bg-emerald-100 px-1 text-[9px] text-emerald-700">verified</span>}</span>} />
+            <Field label="Phone" value={<span>{d.identity.phone || "—"}{d.identity.phone_verified && <span className="ml-1 rounded-sm bg-emerald-100 px-1 text-[9px] text-emerald-700">verified</span>}</span>} />
             <Field label="Email" value={d.identity.email} />
             <Field label="Store" value={<span className="inline-flex items-center gap-1"><span className={`rounded-full px-1.5 py-0.5 text-[10px] ${d.identity.store_status === "active" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}>{d.identity.store_status}</span>{d.identity.storefront_slug ? `/${d.identity.storefront_slug}` : ""}</span>} />
             {d.identity.store_status_reason && <Field label="Store status reason" value={d.identity.store_status_reason} />}
@@ -245,7 +245,7 @@ function DossierPanel({ d }: { d: Dossier }) {
             <Field label="Storefront orders" value={d.activity.storefront_orders} />
             <Field label="Unique customers" value={d.activity.unique_customers} />
             {d.buyer_reputation && (
-              <Field label="As a buyer" value={<span>{d.buyer_reputation.disputes} disputes · {d.buyer_reputation.false_disputes} false{d.buyer_reputation.flagged && <span className="ml-1 rounded bg-red-100 px-1 text-[9px] text-red-700">flagged buyer</span>}</span>} />
+              <Field label="As a buyer" value={<span>{d.buyer_reputation.disputes} disputes · {d.buyer_reputation.false_disputes} false{d.buyer_reputation.flagged && <span className="ml-1 rounded-sm bg-red-100 px-1 text-[9px] text-red-700">flagged buyer</span>}</span>} />
             )}
             <Field label="Escrow" value={<div className="flex flex-wrap gap-1">{Object.entries(d.activity.escrow_by_status).map(([s, v]) => <span key={s} className={`rounded-full px-1.5 py-0.5 text-[10px] ${orderBadge(s)}`}>{s} {v.count}</span>)}{Object.keys(d.activity.escrow_by_status).length === 0 && "—"}</div>} />
           </dl>
@@ -273,13 +273,13 @@ function DossierPanel({ d }: { d: Dossier }) {
                         {o.dispatch_proof_url && (
                           <a href={o.dispatch_proof_url} target="_blank" rel="noopener noreferrer" title="Packaged item (sent-out proof)">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={o.dispatch_proof_url} alt="sent-out proof" className="h-9 w-9 rounded object-cover ring-1 ring-slate-200 hover:ring-sky-400" />
+                            <img src={o.dispatch_proof_url} alt="sent-out proof" className="h-9 w-9 rounded-sm object-cover ring-1 ring-slate-200 hover:ring-sky-400" />
                           </a>
                         )}
                         {o.delivery_proof_url && (
                           <a href={o.delivery_proof_url} target="_blank" rel="noopener noreferrer" title="Delivery proof">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={o.delivery_proof_url} alt="delivery proof" className="h-9 w-9 rounded object-cover ring-1 ring-emerald-200 hover:ring-emerald-400" />
+                            <img src={o.delivery_proof_url} alt="delivery proof" className="h-9 w-9 rounded-sm object-cover ring-1 ring-emerald-200 hover:ring-emerald-400" />
                           </a>
                         )}
                         {!o.dispatch_proof_url && !o.delivery_proof_url && <span className="text-[10px] text-slate-300">—</span>}
@@ -478,7 +478,7 @@ export default function FraudPage() {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search name, phone, email, IP or device…"
-          className="w-full rounded-lg border border-slate-200 py-2 pl-9 pr-3 text-sm focus:border-emerald-400 focus:outline-none"
+          className="w-full rounded-lg border border-slate-200 py-2 pl-9 pr-3 text-sm focus:border-emerald-400 focus:outline-hidden"
         />
       </form>
 

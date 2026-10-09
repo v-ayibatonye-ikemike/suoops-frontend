@@ -608,14 +608,14 @@ export default function SettingsPage() {
                 value={newCidr}
                 onChange={(e) => setNewCidr(e.target.value)}
                 placeholder="203.0.113.10 or 203.0.113.0/24"
-                className="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-sm font-mono focus:outline-hidden focus:ring-2 focus:ring-emerald-500"
               />
               <input
                 type="text"
                 value={newLabel}
                 onChange={(e) => setNewLabel(e.target.value)}
                 placeholder="Label (optional)"
-                className="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500"
               />
               <button
                 type="submit"
@@ -662,7 +662,7 @@ export default function SettingsPage() {
                   value={inviteEmail}
                   onChange={(e) => setInviteEmail(e.target.value)}
                   required
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500"
                   placeholder="admin@example.com"
                 />
               </div>
@@ -676,7 +676,7 @@ export default function SettingsPage() {
                   value={inviteName}
                   onChange={(e) => setInviteName(e.target.value)}
                   required
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500"
                   placeholder="John Doe"
                 />
               </div>
@@ -705,7 +705,7 @@ export default function SettingsPage() {
                             [perm.key]: e.target.checked,
                           })
                         }
-                        className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                        className="h-4 w-4 rounded-sm border-slate-300 text-emerald-600 focus:ring-emerald-500"
                       />
                       <span className="text-sm text-slate-600">{perm.label}</span>
                     </label>

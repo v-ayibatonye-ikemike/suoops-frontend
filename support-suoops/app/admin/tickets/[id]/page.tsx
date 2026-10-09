@@ -263,7 +263,7 @@ export default function TicketDetailPage() {
                 onChange={(e) => setResponse(e.target.value)}
                 placeholder="Type your response to the customer..."
                 rows={6}
-                className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none"
+                className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none"
               />
             </div>
           </div>
@@ -282,7 +282,7 @@ export default function TicketDetailPage() {
                 onChange={(e) => setInternalNotes(e.target.value)}
                 placeholder="Add internal notes..."
                 rows={4}
-                className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none bg-yellow-50"
+                className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none bg-yellow-50"
               />
             </div>
           </div>
@@ -304,7 +304,7 @@ export default function TicketDetailPage() {
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 >
                   {statusOptions.map((opt) => (
                     <option key={opt.value} value={opt.value}>
@@ -322,7 +322,7 @@ export default function TicketDetailPage() {
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 >
                   {priorityOptions.map((opt) => (
                     <option key={opt.value} value={opt.value}>

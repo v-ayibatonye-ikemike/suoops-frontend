@@ -44,19 +44,19 @@ export default function WhatsAppPage() {
               className="block rounded-xl border border-slate-200 bg-white p-6 hover:border-emerald-300 hover:shadow-md transition-all"
             >
               <div className="flex items-start gap-4">
-                <FileText className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <FileText className="h-5 w-5 text-emerald-600 mt-0.5 shrink-0" />
                 <div>
                   <h3 className="font-semibold text-slate-900 mb-1">{article.title}</h3>
                   <p className="text-sm text-slate-600">{article.description}</p>
                 </div>
-                <ChevronRight className="h-5 w-5 text-slate-400 ml-auto flex-shrink-0" />
+                <ChevronRight className="h-5 w-5 text-slate-400 ml-auto shrink-0" />
               </div>
             </Link>
           ))}
         </div>
 
         {/* WhatsApp CTA */}
-        <div className="mt-10 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 p-6 text-center">
+        <div className="mt-10 rounded-xl bg-linear-to-r from-green-50 to-emerald-50 border border-green-200 p-6 text-center">
           <h3 className="font-bold text-slate-900 mb-2">Ready to get started?</h3>
           <p className="text-slate-600 mb-4">Message our WhatsApp bot to start invoicing.</p>
           <a

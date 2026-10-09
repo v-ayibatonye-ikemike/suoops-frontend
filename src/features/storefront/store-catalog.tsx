@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { storefrontFee } from "@/constants/pricing";
 import { getConfig } from "@/lib/config";
@@ -56,6 +56,7 @@ export function StoreCatalog({
   const [location, setLocation] = useState<CapturedLocation | null>(null);
   const [deliveryNote, setDeliveryNote] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const submittingRef = useRef(false);
   const [error, setError] = useState<string | null>(null);
 
   // Courier delivery options (buyer-pays-delivery). Empty/disabled → no fee.
@@ -72,6 +73,8 @@ export function StoreCatalog({
   const [deliveryOptions, setDeliveryOptions] = useState<CourierOption[]>([]);
   const [deliveryEnabled, setDeliveryEnabled] = useState(false);
   const [deliveryLoading, setDeliveryLoading] = useState(false);
+  const [deliveryError, setDeliveryError] = useState<string | null>(null);
+  const [deliveryRetry, setDeliveryRetry] = useState(0);
   const [selectedCourier, setSelectedCourier] = useState<CourierOption | null>(null);
   // Buyer explicitly opted out of courier delivery (service order / self-pickup).
   // When true, no courier is sent and no delivery fee is charged.
@@ -136,7 +139,7 @@ export function StoreCatalog({
   // Deep link from a product's scan-to-pay QR: /store/{slug}?p={id}. Pre-add
   // that product and open checkout so a customer who scanned just pays.
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || !onlinePaymentsEnabled) return;
     const pid = Number(new URLSearchParams(window.location.search).get("p"));
     if (!pid) return;
     const product = productById.get(pid);
@@ -144,7 +147,7 @@ export function StoreCatalog({
       setCart((c) => (c[pid] ? c : { ...c, [pid]: 1 }));
       setCheckoutOpen(true);
     }
-  }, [productById]);
+  }, [productById, onlinePaymentsEnabled]);
 
   // Deep link from a category QR: /store/{slug}?category_id={id} (rename-proof)
   // — resolve the category's CURRENT name from its id. Falls back to a legacy
@@ -177,6 +180,12 @@ export function StoreCatalog({
         .join(","),
     [cart],
   );
+  const noDelivery =
+    cartEntries.length > 0 &&
+    cartEntries.every(([id]) => {
+      const ft = productById.get(Number(id))?.fulfilment_type ?? "physical";
+      return ft === "service" || ft === "digital";
+    });
 
   // Fetch live courier options once the buyer has a phone + location + items.
   // Debounced; refetched when the cart or location changes. When the store's
@@ -184,6 +193,7 @@ export function StoreCatalog({
   useEffect(() => {
     if (
       !checkoutOpen ||
+      noDelivery ||
       customerPhone.trim().length < 6 ||
       !location ||
       cartSig === ""
@@ -192,11 +202,14 @@ export function StoreCatalog({
       setSelectedCourier(null);
       setDeclinedDelivery(false);
       setDeliveryEnabled(false);
+      setDeliveryLoading(false);
+      setDeliveryError(null);
       return;
     }
     const ctrl = new AbortController();
+    setDeliveryLoading(true);
+    setDeliveryError(null);
     const timer = setTimeout(async () => {
-      setDeliveryLoading(true);
       try {
         const res = await fetch(`${apiBaseUrl}/public/store/${slug}/delivery-quote`, {
           method: "POST",
@@ -214,10 +227,14 @@ export function StoreCatalog({
             })),
           }),
         });
+        if (!res.ok) {
+          throw new Error("Could not load delivery options. Please retry or choose self-pickup.");
+        }
         const data = (await res.json()) as {
           enabled?: boolean;
           options?: CourierOption[];
         };
+        if (ctrl.signal.aborted) return;
         setDeliveryEnabled(Boolean(data.enabled));
         const opts = data.options ?? [];
         setDeliveryOptions(opts);
@@ -225,19 +242,21 @@ export function StoreCatalog({
         // it unselected so they consciously pick a courier (we only *advise*
         // the cheapest via a badge — we never choose for them).
         setSelectedCourier((prev) =>
-          prev &&
-          opts.some(
+          prev
+            ? opts.find(
             (o) =>
               o.courier_id === prev.courier_id &&
               o.service_code === prev.service_code,
-          )
-            ? prev
+          ) ?? null
             : null,
         );
       } catch {
-        /* aborted or offline — leave delivery unset, order can still proceed */
+        if (ctrl.signal.aborted) return;
+        setDeliveryOptions([]);
+        setSelectedCourier(null);
+        setDeliveryError("Could not load delivery options. Please retry or choose self-pickup.");
       } finally {
-        setDeliveryLoading(false);
+        if (!ctrl.signal.aborted) setDeliveryLoading(false);
       }
     }, 500);
     return () => {
@@ -245,7 +264,7 @@ export function StoreCatalog({
       ctrl.abort();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checkoutOpen, customerPhone, location, cartSig, slug, apiBaseUrl]);
+  }, [checkoutOpen, customerPhone, location, cartSig, slug, apiBaseUrl, noDelivery, deliveryRetry]);
 
   const deliveryFee = selectedCourier?.amount ?? 0;
   // Automatic packaging: ONE flat pack per order — the highest pack price among
@@ -260,19 +279,12 @@ export function StoreCatalog({
   // the full listed price. Mirrors the backend charge (3%, min ₦20, capped).
   const serviceFee = storefrontFee(total + packFee);
   const grandTotal = total + packFee + serviceFee + deliveryFee;
-  // A cart made up ENTIRELY of service/digital items isn't shipped, so we skip
-  // the delivery address, GPS and courier picker for it.
-  const noDelivery =
-    cartEntries.length > 0 &&
-    cartEntries.every(([id]) => {
-      const ft = productById.get(Number(id))?.fulfilment_type ?? "physical";
-      return ft === "service" || ft === "digital";
-    });
   const cheapestAmount = deliveryOptions.length
     ? Math.min(...deliveryOptions.map((o) => o.amount))
     : 0;
 
   const canSubmit =
+    onlinePaymentsEnabled &&
     customerName.trim().length > 0 &&
     customerPhone.trim().length >= 6 &&
     count > 0 &&
@@ -280,18 +292,21 @@ export function StoreCatalog({
     // Service/digital orders need no delivery details; physical orders do.
     (noDelivery ||
       (location != null &&
+        !deliveryLoading &&
         // A delivery address / landmark is required (the GPS pin may not be
         // where the buyer wants delivery).
         deliveryNote.trim().length >= 4 &&
         // If the store offers couriers, the buyer must either pick one or
         // explicitly opt out of delivery (self-pickup).
-        (!deliveryEnabled ||
-          deliveryOptions.length === 0 ||
-          selectedCourier != null ||
-          declinedDelivery)));
+        (declinedDelivery ||
+          (!deliveryError &&
+            (!deliveryEnabled ||
+              deliveryOptions.length === 0 ||
+              selectedCourier != null)))));
 
   const submitOrder = async () => {
-    if (!canSubmit) return;
+    if (!canSubmit || submittingRef.current) return;
+    submittingRef.current = true;
     setSubmitting(true);
     setError(null);
     try {
@@ -346,6 +361,7 @@ export function StoreCatalog({
       throw new Error("Could not start payment. Please try again.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
+      submittingRef.current = false;
       setSubmitting(false);
     }
   };
@@ -642,12 +658,13 @@ export function StoreCatalog({
 
               {location &&
                 customerPhone.trim().length >= 6 &&
-                (deliveryLoading || deliveryOptions.length > 0) && (
+                (deliveryLoading || deliveryError || deliveryOptions.length > 0) && (
                   <div className="rounded-lg border border-slate-200 bg-white p-3">
                     <p className="text-xs font-medium text-slate-700">
                       Choose your courier
                     </p>
                     {!deliveryLoading &&
+                      !deliveryError &&
                       !selectedCourier &&
                       !declinedDelivery &&
                       deliveryOptions.length > 0 && (
@@ -662,6 +679,20 @@ export function StoreCatalog({
                       </p>
                     ) : (
                       <div className="mt-2 space-y-2">
+                        {deliveryError && (
+                          <div>
+                            <p role="alert" className="text-xs text-rose-700">
+                              {deliveryError}
+                            </p>
+                            <button
+                              type="button"
+                              onClick={() => setDeliveryRetry((value) => value + 1)}
+                              className="mt-2 text-xs font-semibold text-brand-jade underline"
+                            >
+                              Retry delivery options
+                            </button>
+                          </div>
+                        )}
                         {deliveryOptions.map((o) => {
                           const sel =
                             selectedCourier?.courier_id === o.courier_id &&

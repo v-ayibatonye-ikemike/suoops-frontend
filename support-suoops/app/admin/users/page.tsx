@@ -266,7 +266,7 @@ export default function UsersPage() {
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search by email, name, or phone..."
-            className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
         </div>
         <p className="text-xs text-slate-400 mt-2">
@@ -356,7 +356,7 @@ export default function UsersPage() {
               <div className="rounded-xl border border-slate-200 bg-white">
                 <div className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="h-16 w-16 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-xl font-bold">
+                    <div className="h-16 w-16 rounded-full bg-linear-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-xl font-bold">
                       {(selectedUser.name || selectedUser.email || selectedUser.phone || "U")
                         .charAt(0)
                         .toUpperCase()}
@@ -557,7 +557,7 @@ export default function UsersPage() {
                         </div>
 
                         {/* Wallet & Invoices */}
-                        <div className="mt-4 p-4 rounded-lg bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-100">
+                        <div className="mt-4 p-4 rounded-lg bg-linear-to-r from-purple-50 to-blue-50 border border-purple-100">
                           <div className="flex items-center justify-between mb-3">
                             <h4 className="text-sm font-semibold text-slate-700">Invoice Wallet</h4>
                             <div className="flex items-center gap-2">
@@ -673,14 +673,14 @@ export default function UsersPage() {
 
             <div className="mb-4">
               <label className="block text-sm font-medium text-slate-700 mb-2">
-                Type <span className="font-mono bg-slate-100 px-1 rounded">DELETE MY ACCOUNT</span> to confirm:
+                Type <span className="font-mono bg-slate-100 px-1 rounded-sm">DELETE MY ACCOUNT</span> to confirm:
               </label>
               <input
                 type="text"
                 value={deleteConfirmation}
                 onChange={(e) => setDeleteConfirmation(e.target.value)}
                 placeholder="DELETE MY ACCOUNT"
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-slate-300 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:border-transparent"
               />
             </div>
 

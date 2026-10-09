@@ -73,7 +73,7 @@ export default function SupportHomePage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-emerald-600 to-emerald-700 py-16 sm:py-24">
+      <section className="bg-linear-to-br from-emerald-600 to-emerald-700 py-16 sm:py-24">
         <div className="mx-auto max-w-4xl px-4 text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
             Get started in under 90 seconds
@@ -91,7 +91,7 @@ export default function SupportHomePage() {
                 placeholder="Search for articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-xl border-0 bg-white py-4 pl-12 pr-4 text-slate-900 shadow-lg placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-white/50"
+                className="w-full rounded-xl border-0 bg-white py-4 pl-12 pr-4 text-slate-900 shadow-lg placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-white/50"
               />
             </div>
           </div>
@@ -115,7 +115,7 @@ export default function SupportHomePage() {
                 <Link
                   key={category.title}
                   href={category.href}
-                  className="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-emerald-200 hover:shadow-md"
+                  className="group rounded-xl border border-slate-200 bg-white p-6 shadow-xs transition hover:border-emerald-200 hover:shadow-md"
                 >
                   <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${category.color} text-white`}>
                     <Icon className="h-6 w-6" />
@@ -151,7 +151,7 @@ export default function SupportHomePage() {
               <Link
                 key={article.title}
                 href={article.href}
-                className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-4 transition hover:border-emerald-200 hover:shadow-sm"
+                className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-4 transition hover:border-emerald-200 hover:shadow-xs"
               >
                 <FileText className="h-5 w-5 shrink-0 text-slate-400" />
                 <span className="text-sm font-medium text-slate-700 hover:text-emerald-600">

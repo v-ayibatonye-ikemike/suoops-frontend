@@ -52,7 +52,7 @@ function AcceptInviteForm() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 to-slate-800 px-4">
         <div className="w-full max-w-md text-center">
           <div className="bg-white rounded-2xl shadow-xl p-8">
             <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100 mb-4">
@@ -71,7 +71,7 @@ function AcceptInviteForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 to-slate-800 px-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -109,7 +109,7 @@ function AcceptInviteForm() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="mt-6 w-full flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="mt-6 w-full flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-700 focus:outline-hidden focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {isLoading ? (
                   <>
@@ -135,7 +135,7 @@ export default function AcceptInvitePage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 to-slate-800">
           <Loader2 className="h-8 w-8 animate-spin text-white" />
         </div>
       }

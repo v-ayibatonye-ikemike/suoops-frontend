@@ -512,7 +512,7 @@ export default function DisputesPage() {
             groups.map((g) => (
               <div
                 key={g.seller_id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-xs"
               >
                 <div className="min-w-0">
                   <p className="font-semibold text-slate-800">
@@ -613,7 +613,7 @@ export default function DisputesPage() {
           {disputes.map((d) => (
             <div
               key={d.escrow_id}
-              className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+              className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs"
             >
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="min-w-0">
