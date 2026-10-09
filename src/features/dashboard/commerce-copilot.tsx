@@ -21,6 +21,7 @@ import {
   type CopilotAnswer,
 } from "@/api/copilot";
 import { submitAIFeedback } from "@/api/ai-governance";
+import { getApiErrorMessage } from "@/api/errors";
 
 export function CommerceCopilot() {
   const queryClient = useQueryClient();
@@ -75,20 +76,30 @@ export function CommerceCopilot() {
     );
   }
 
-  if (briefing.error || !briefing.data) return null;
+  if (!briefing.data) {
+    return (
+      <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700" role="alert">
+        Commerce Copilot could not be loaded.
+        <button type="button" onClick={() => void briefing.refetch()} disabled={briefing.isFetching} className="ml-2 font-semibold underline">
+          Retry briefing
+        </button>
+      </div>
+    );
+  }
   const data = briefing.data;
 
   const submitQuestion = (value: string) => {
     const trimmed = value.trim();
     if (!trimmed || ask.isPending) return;
     setQuestion(trimmed);
+    setAnswer(null);
     ask.mutate(trimmed);
   };
 
   return (
-    <section className="overflow-hidden rounded-xl border border-brand-jade/30 bg-white shadow-card">
+    <section className="overflow-hidden rounded-xl border border-brand-jade/30 bg-white shadow-card [overflow-wrap:anywhere]">
       <div className="bg-gradient-to-r from-brand-evergreen to-brand-teal px-4 py-4 text-white sm:px-6">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-brand-citrus" aria-hidden />
@@ -137,13 +148,29 @@ export function CommerceCopilot() {
                 </button>
               </>
             )}
+            {feedback.error && (
+              <p className="mt-2 text-xs text-white" role="alert">
+                Your feedback could not be saved. Please try again.
+              </p>
+            )}
           </div>
         )}
       </div>
 
       <div className="grid gap-5 p-4 sm:p-6 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <h3 className="text-sm font-semibold text-brand-dark">
+          {decide.error && (
+            <p className="mb-3 text-sm text-red-700" role="alert">
+              {getApiErrorMessage(decide.error, "The action could not be updated. Please try again.")}
+            </p>
+          )}
+          {briefing.error && (
+            <p className="mb-3 text-sm text-amber-700" role="alert">
+              The briefing could not be refreshed. Showing the last available facts.
+              <button type="button" onClick={() => void briefing.refetch()} disabled={briefing.isFetching} className="ml-2 underline">Retry briefing</button>
+            </p>
+          )}
+          <h3 className="text-sm font-semibold text-brand-text">
             Recommended next steps
           </h3>
           {data.actions.length ? (
@@ -153,10 +180,10 @@ export function CommerceCopilot() {
                   key={action.id}
                   className="rounded-lg border border-brand-border bg-brand-background/50 p-3"
                 >
-                  <p className="text-sm font-semibold text-brand-dark">
+                  <p className="text-sm font-semibold text-brand-text">
                     {action.title}
                   </p>
-                  <p className="mt-1 text-xs leading-relaxed text-brand-muted">
+                  <p className="mt-1 text-xs leading-relaxed text-brand-text/75">
                     {action.reason}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -166,7 +193,7 @@ export function CommerceCopilot() {
                       onClick={() =>
                         decide.mutate({ action, decision: "accepted" })
                       }
-                      className="inline-flex items-center gap-1.5 rounded-lg bg-brand-jade px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-brand-teal disabled:opacity-60"
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-brand-evergreen px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-brand-teal disabled:opacity-60"
                     >
                       <CheckCircle2 className="h-3.5 w-3.5" aria-hidden />
                       Review action
@@ -178,7 +205,7 @@ export function CommerceCopilot() {
                       onClick={() =>
                         decide.mutate({ action, decision: "dismissed" })
                       }
-                      className="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium text-brand-muted transition hover:bg-white hover:text-brand-dark disabled:opacity-60"
+                      className="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium text-brand-text/75 transition hover:bg-white hover:text-brand-text disabled:opacity-60"
                     >
                       <X className="h-3.5 w-3.5" aria-hidden />
                       Dismiss
@@ -195,8 +222,8 @@ export function CommerceCopilot() {
         </div>
 
         <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold text-brand-dark">
-            <MessageCircle className="h-4 w-4 text-brand-jade" aria-hidden />
+          <h3 className="flex items-center gap-2 text-sm font-semibold text-brand-text">
+            <MessageCircle className="h-4 w-4 text-brand-teal" aria-hidden />
             Ask about your business
           </h3>
           <div className="mt-3 flex gap-2">
@@ -209,7 +236,7 @@ export function CommerceCopilot() {
               }}
               placeholder="Who owes me money?"
               aria-label="Ask Commerce Copilot"
-              className="min-w-0 flex-1 rounded-lg border border-brand-border px-3 py-2 text-sm text-brand-dark outline-none transition focus:border-brand-jade focus:ring-2 focus:ring-brand-jade/20"
+              className="min-w-0 flex-1 rounded-lg border border-brand-border px-3 py-2 text-sm text-brand-text outline-none transition focus:border-brand-jade focus:ring-2 focus:ring-brand-jade/20"
             />
             <button
               type="button"
@@ -230,8 +257,9 @@ export function CommerceCopilot() {
               <button
                 key={suggestion}
                 type="button"
+                disabled={ask.isPending}
                 onClick={() => submitQuestion(suggestion)}
-                className="rounded-full border border-brand-border px-2.5 py-1 text-[11px] text-brand-muted transition hover:border-brand-jade hover:text-brand-dark"
+                className="rounded-full border border-brand-border px-2.5 py-1 text-[11px] text-brand-text/75 transition hover:border-brand-jade hover:text-brand-text"
               >
                 {suggestion}
               </button>
@@ -243,11 +271,11 @@ export function CommerceCopilot() {
               className="mt-4 rounded-lg border border-brand-jade/20 bg-brand-mint/40 p-3"
               aria-live="polite"
             >
-              <p className="text-sm leading-relaxed text-brand-dark">
+              <p className="text-sm leading-relaxed text-brand-text">
                 {answer.answer}
               </p>
               {answer.evidence.length > 0 && (
-                <p className="mt-2 text-[11px] text-brand-muted">
+                <p className="mt-2 text-[11px] text-brand-text/75">
                   Based on: {answer.evidence.join(", ")}.
                 </p>
               )}
@@ -256,7 +284,7 @@ export function CommerceCopilot() {
 
           {ask.error && (
             <p className="mt-3 text-xs text-red-600" role="alert">
-              Commerce Copilot could not answer right now. Please try again.
+              {getApiErrorMessage(ask.error, "Commerce Copilot could not answer right now. Please try again.")}
             </p>
           )}
         </div>

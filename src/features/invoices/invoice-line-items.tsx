@@ -27,7 +27,7 @@ function fmtInvoice(amount: number, cur: string): string {
   const sym = cur === "USD" ? "$" : "₦";
   return `${sym}${amount.toLocaleString("en-US", {
     minimumFractionDigits: 0,
-    maximumFractionDigits: cur === "USD" ? 2 : 0,
+    maximumFractionDigits: 2,
   })}`;
 }
 
@@ -116,11 +116,18 @@ export function InvoiceLineItems({
 }: InvoiceLineItemsProps) {
   const symbol = currency === "USD" ? "$" : "₦";
   const { exchangeRate } = useCurrency();
+  const usdExchangeRate =
+    exchangeRate != null && Number.isFinite(exchangeRate) && exchangeRate > 0
+      ? exchangeRate
+      : null;
 
   /** Convert an NGN product price to the invoice currency. */
   const convertPrice = (ngnPrice: number): number => {
-    if (currency !== "USD" || !exchangeRate) return ngnPrice;
-    return Math.round((ngnPrice / exchangeRate) * 100) / 100;
+    if (currency !== "USD") return ngnPrice;
+    if (usdExchangeRate === null) {
+      throw new Error("A valid exchange rate is required to select a product for a USD invoice.");
+    }
+    return Math.round((ngnPrice / usdExchangeRate) * 100) / 100;
   };
 
   const handleProductSelect = (lineId: string, product: Product | null) => {
@@ -148,6 +155,11 @@ export function InvoiceLineItems({
           Add line
         </Button>
       </header>
+      {showProductPicker && currency === "USD" && usdExchangeRate === null && (
+        <p role="status" className="mb-3 text-sm text-amber-700">
+          The exchange rate is unavailable. Enter the USD price manually or switch to NGN.
+        </p>
+      )}
       <div className="space-y-3">
         {lines.map((line) => (
           <div
@@ -155,7 +167,7 @@ export function InvoiceLineItems({
             className="space-y-2"
           >
             {/* Product Picker Row (when enabled) */}
-            {showProductPicker && (
+            {showProductPicker && (currency !== "USD" || usdExchangeRate !== null) && (
               <div className="grid gap-2 grid-cols-1 sm:grid-cols-[1fr_auto]">
                 <ProductSelector
                   value={line.product_id}
@@ -171,8 +183,9 @@ export function InvoiceLineItems({
             {/* Line Details Row */}
             <div className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-[1fr_auto] md:grid-cols-[2fr_repeat(3,_minmax(80px,_1fr))_auto]">
               <div className="sm:col-span-2 md:col-span-1">
-                <label className="mb-1 block text-xs font-medium text-brand-textMuted">Description</label>
+                <label htmlFor={`line-${line.id}-description`} className="mb-1 block text-xs font-medium text-brand-textMuted">Description</label>
                 <input
+                  id={`line-${line.id}-description`}
                   value={line.description}
                   onChange={(e) => onUpdateLine(line.id, { description: e.target.value })}
                   placeholder="What are you charging for?"
@@ -181,8 +194,9 @@ export function InvoiceLineItems({
               </div>
               <div className="grid grid-cols-3 gap-2 sm:col-span-2 md:col-span-3 md:grid-cols-3">
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-brand-textMuted">Qty</label>
+                  <label htmlFor={`line-${line.id}-quantity`} className="mb-1 block text-xs font-medium text-brand-textMuted">Qty</label>
                   <input
+                    id={`line-${line.id}-quantity`}
                     type="number"
                     min="1"
                     value={line.quantity}
@@ -192,8 +206,9 @@ export function InvoiceLineItems({
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-brand-textMuted">Unit Price ({symbol})</label>
+                  <label htmlFor={`line-${line.id}-price`} className="mb-1 block text-xs font-medium text-brand-textMuted">Unit Price ({symbol})</label>
                   <input
+                    id={`line-${line.id}-price`}
                     type="number"
                     min="0.01"
                     step="0.01"

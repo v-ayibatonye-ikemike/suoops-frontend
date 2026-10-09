@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -43,11 +43,12 @@ function renderAssistant() {
       mutations: { retry: false },
     },
   });
-  return render(
+  const view = render(
     <QueryClientProvider client={client}>
       <CollectionsAssistant />
     </QueryClientProvider>,
   );
+  return { ...view, client };
 }
 
 describe("CollectionsAssistant", () => {
@@ -110,5 +111,64 @@ describe("CollectionsAssistant", () => {
         },
       );
     });
+  });
+
+  it("preserves unsaved reminder edits when priority facts refresh", async () => {
+    const user = userEvent.setup();
+    const { client } = renderAssistant();
+    const message = await screen.findByLabelText("Reminder message");
+    await user.clear(message);
+    await user.type(message, "My carefully reviewed reminder.");
+    act(() => {
+      client.setQueryData(["collection-priorities"], {
+        generated_at: "2026-10-04T20:00:00Z",
+        cooldown_days: 3,
+        eligible_count: 1,
+        total_overdue_amount: 45000,
+        drafts: [{ ...draft, days_overdue: 12 }],
+      });
+    });
+    await screen.findByText(/12 days overdue/);
+    expect(message).toHaveValue("My carefully reviewed reminder.");
+  });
+
+  it("does not enable sending messages shorter than the API minimum", async () => {
+    const user = userEvent.setup();
+    renderAssistant();
+    const message = await screen.findByLabelText("Reminder message");
+    await user.clear(message);
+    await user.type(message, "Hi");
+    expect(screen.getByRole("button", { name: "Send reminder" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Save edits" })).toBeDisabled();
+    expect(screen.getByLabelText("Subject")).toHaveAttribute("maxlength", "180");
+  });
+
+  it("does not present failed metrics as zero recovery", async () => {
+    vi.mocked(apiClient.get).mockImplementation(async (url: string) => {
+      if (url.endsWith("/metrics")) throw new Error("offline");
+      return { data: { eligible_count: 1, total_overdue_amount: 45000, drafts: [draft] } };
+    });
+    renderAssistant();
+    await screen.findByText("Ada Customer");
+    expect(await screen.findByRole("alert")).toHaveTextContent(/recovery metrics/i);
+    expect(screen.queryByText("0.0%")).not.toBeInTheDocument();
+  });
+
+  it("locks reviewed fields while saving and displays fractional amounts", async () => {
+    vi.mocked(apiClient.patch).mockReturnValue(new Promise(() => {}));
+    const user = userEvent.setup();
+    const { client } = renderAssistant();
+    await screen.findByText("Ada Customer");
+    act(() => {
+      client.setQueryData(["collection-priorities"], {
+        eligible_count: 1,
+        total_overdue_amount: 45000.5,
+        drafts: [{ ...draft, amount: 45000.5 }],
+      });
+    });
+    expect(await screen.findByText("₦45,000.50")).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "Save edits" }));
+    expect(screen.getByLabelText("Reminder message")).toBeDisabled();
+    expect(screen.getByLabelText("Subject")).toBeDisabled();
   });
 });

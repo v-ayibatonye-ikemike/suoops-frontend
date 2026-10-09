@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   CheckCircle2,
@@ -21,12 +21,14 @@ import {
   type CollectionDraft,
   type CollectionDraftUpdate,
 } from "@/api/collections-assistant";
+import { getApiErrorMessage } from "@/api/errors";
 
 const currency = (amount: number, code = "NGN") =>
   new Intl.NumberFormat("en-NG", {
     style: "currency",
     currency: code,
-    maximumFractionDigits: 0,
+    minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+    maximumFractionDigits: 2,
   }).format(amount);
 
 function DraftCard({
@@ -39,19 +41,29 @@ function DraftCard({
   const [subject, setSubject] = useState(draft.subject ?? "");
   const [message, setMessage] = useState(draft.message);
   const [confirming, setConfirming] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+  const edited = useRef(false);
   const update: CollectionDraftUpdate = {
     subject: draft.channel === "email" ? subject.trim() || null : null,
     message: message.trim(),
   };
 
   useEffect(() => {
+    if (edited.current) return;
     setSubject(draft.subject ?? "");
     setMessage(draft.message);
+    setConfirming(false);
   }, [draft]);
 
   const save = useMutation({
     mutationFn: () => updateCollectionDraft(draft.id, update),
-    onSuccess: onChanged,
+    onSuccess: (result) => {
+      edited.current = false;
+      setSubject(result.subject ?? "");
+      setMessage(result.message);
+      setNotice("Edits saved.");
+      onChanged();
+    },
   });
   const improve = useMutation({
     mutationFn: async () => {
@@ -59,8 +71,10 @@ function DraftCard({
       return improveCollectionDraft(draft.id);
     },
     onSuccess: (result) => {
+      edited.current = false;
       setSubject(result.subject ?? "");
       setMessage(result.message);
+      setNotice("Draft updated. Review it before sending.");
       onChanged();
     },
   });
@@ -68,22 +82,32 @@ function DraftCard({
     mutationFn: () => sendCollectionDraft(draft.id, update),
     onSuccess: () => {
       setConfirming(false);
+      setNotice("Reminder sent.");
       onChanged();
     },
+    onError: onChanged,
   });
   const dismiss = useMutation({
     mutationFn: () => dismissCollectionDraft(draft.id),
     onSuccess: onChanged,
   });
-  const pending = save.isPending || improve.isPending || send.isPending || dismiss.isPending;
+  const pending = save.isPending || improve.isPending || send.isPending || dismiss.isPending || send.isSuccess || dismiss.isSuccess;
   const error = save.error || improve.error || send.error || dismiss.error;
+  const validMessage = update.message.length >= 10;
+  const beginAction = () => {
+    save.reset();
+    improve.reset();
+    send.reset();
+    dismiss.reset();
+    setNotice(null);
+  };
 
   return (
-    <article className="rounded-xl border border-brand-border bg-white p-4 shadow-sm sm:p-5">
+    <article className="rounded-xl border border-brand-border bg-white p-4 shadow-sm sm:p-5 [overflow-wrap:anywhere]">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <h2 className="font-semibold text-brand-dark">{draft.customer_name}</h2>
+            <h2 className="font-semibold text-brand-text">{draft.customer_name}</h2>
             <span
               className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
                 draft.priority_level === "critical" || draft.priority_level === "high"
@@ -96,24 +120,24 @@ function DraftCard({
               {draft.priority_level} priority · {draft.priority_score}/100
             </span>
           </div>
-          <p className="mt-1 text-sm text-brand-muted">
+          <p className="mt-1 text-sm text-brand-text/75">
             Invoice {draft.invoice_id} · {draft.days_overdue} days overdue
           </p>
         </div>
-        <p className="text-lg font-bold text-brand-dark">
+        <p className="text-lg font-bold text-brand-text">
           {currency(draft.amount, draft.currency)}
         </p>
       </div>
 
-      <p className="mt-3 rounded-lg bg-brand-background px-3 py-2 text-xs leading-relaxed text-brand-muted">
+      <p className="mt-3 rounded-lg bg-brand-background px-3 py-2 text-xs leading-relaxed text-brand-text/75">
         {draft.explanation}
       </p>
 
-      <div className="mt-4 flex items-center gap-2 text-xs text-brand-muted">
+      <div className="mt-4 flex items-center gap-2 text-xs text-brand-text/75">
         {draft.channel === "whatsapp" ? (
           <MessageCircle className="h-4 w-4 text-[#25D366]" aria-hidden />
         ) : draft.channel === "email" ? (
-          <Mail className="h-4 w-4 text-brand-jade" aria-hidden />
+          <Mail className="h-4 w-4 text-brand-teal" aria-hidden />
         ) : (
           <X className="h-4 w-4 text-amber-600" aria-hidden />
         )}
@@ -122,12 +146,14 @@ function DraftCard({
       </div>
 
       {draft.channel === "email" && (
-        <label className="mt-4 block text-xs font-medium text-brand-dark">
+        <label className="mt-4 block text-xs font-medium text-brand-text">
           Subject
           <input
             value={subject}
-            maxLength={200}
+            maxLength={180}
+            disabled={pending}
             onChange={(event) => {
+              edited.current = true;
               setSubject(event.target.value);
               setConfirming(false);
             }}
@@ -135,28 +161,41 @@ function DraftCard({
           />
         </label>
       )}
-      <label className="mt-3 block text-xs font-medium text-brand-dark">
+      <label className="mt-3 block text-xs font-medium text-brand-text">
         Reminder message
         <textarea
           value={message}
+          disabled={pending}
           maxLength={2000}
           rows={7}
           onChange={(event) => {
+            edited.current = true;
             setMessage(event.target.value);
             setConfirming(false);
           }}
           className="mt-1 w-full resize-y rounded-lg border border-brand-border px-3 py-2 text-sm font-normal leading-relaxed outline-none focus:border-brand-jade focus:ring-2 focus:ring-brand-jade/20"
         />
       </label>
+      {!validMessage && (
+        <p className="mt-2 text-xs text-amber-700">Enter at least 10 characters for the reminder.</p>
+      )}
+      {draft.status === "failed" && (
+        <p className="mt-2 text-xs text-amber-700">
+          The previous delivery failed. Review and save this draft before trying again.
+        </p>
+      )}
+      {notice && <p className="mt-2 text-xs text-emerald-700" role="status">{notice}</p>}
 
       {draft.ai_generated && (
-        <p className="mt-2 text-[11px] text-brand-muted">
+        <p className="mt-2 text-[11px] text-brand-text/75">
           AI adjusted the tone. Invoice facts remain verified from SuoOps.
         </p>
       )}
       {error && (
         <p className="mt-2 text-xs text-red-600" role="alert">
-          The reminder could not be updated. Please try again.
+          {getApiErrorMessage(error, send.error
+            ? "The reminder was not sent. Review and save the draft before trying again."
+            : "The reminder could not be updated. Please try again.")}
         </p>
       )}
 
@@ -169,9 +208,9 @@ function DraftCard({
           <div className="mt-3 flex gap-2">
             <button
               type="button"
-              disabled={pending || !message.trim()}
-              onClick={() => send.mutate()}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-brand-jade px-3 py-2 text-xs font-semibold text-white disabled:opacity-50"
+              disabled={pending || !validMessage}
+              onClick={() => { beginAction(); send.mutate(); }}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-brand-evergreen px-3 py-2 text-xs font-semibold text-white disabled:opacity-50"
             >
               {send.isPending ? (
                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
@@ -184,7 +223,7 @@ function DraftCard({
               type="button"
               disabled={pending}
               onClick={() => setConfirming(false)}
-              className="rounded-lg px-3 py-2 text-xs font-medium text-brand-muted"
+              className="rounded-lg px-3 py-2 text-xs font-medium text-brand-text/75"
             >
               Cancel
             </button>
@@ -194,17 +233,17 @@ function DraftCard({
         <div className="mt-4 flex flex-wrap gap-2">
           <button
             type="button"
-            disabled={pending || !message.trim()}
-            onClick={() => save.mutate()}
-            className="rounded-lg border border-brand-border px-3 py-2 text-xs font-semibold text-brand-dark disabled:opacity-50"
+            disabled={pending || !validMessage}
+            onClick={() => { beginAction(); save.mutate(); }}
+            className="rounded-lg border border-brand-border px-3 py-2 text-xs font-semibold text-brand-text disabled:opacity-50"
           >
             Save edits
           </button>
           <button
             type="button"
-            disabled={pending || !message.trim()}
-            onClick={() => improve.mutate()}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-brand-jade px-3 py-2 text-xs font-semibold text-brand-jade disabled:opacity-50"
+            disabled={pending || !validMessage || draft.status === "failed"}
+            onClick={() => { beginAction(); improve.mutate(); }}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-brand-jade px-3 py-2 text-xs font-semibold text-brand-teal disabled:opacity-50"
           >
             <Sparkles className="h-4 w-4" aria-hidden />
             Improve with AI
@@ -212,7 +251,7 @@ function DraftCard({
           {draft.can_send ? (
             <button
               type="button"
-              disabled={pending || !message.trim()}
+              disabled={pending || !validMessage}
               onClick={() => setConfirming(true)}
               className="rounded-lg bg-brand-evergreen px-3 py-2 text-xs font-semibold text-white disabled:opacity-50"
             >
@@ -220,14 +259,16 @@ function DraftCard({
             </button>
           ) : (
             <span className="self-center text-xs text-amber-700">
-              Add a permitted customer contact channel before sending.
+              {draft.status === "failed"
+                ? "Save reviewed edits to enable another send."
+                : "A permitted customer contact channel is required before sending."}
             </span>
           )}
           <button
             type="button"
             disabled={pending}
-            onClick={() => dismiss.mutate()}
-            className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-xs font-medium text-brand-muted disabled:opacity-50"
+            onClick={() => { beginAction(); dismiss.mutate(); }}
+            className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-xs font-medium text-brand-text/75 disabled:opacity-50"
           >
             <X className="h-4 w-4" aria-hidden />
             Dismiss
@@ -256,40 +297,53 @@ export function CollectionsAssistant() {
   if (priorities.isLoading) {
     return <div className="h-64 animate-pulse rounded-xl bg-white" aria-label="Loading collections" />;
   }
-  if (priorities.error || !priorities.data) {
+  if (!priorities.data) {
     return (
       <p className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700" role="alert">
         Collections could not be loaded. Please try again.
+        <button type="button" disabled={priorities.isFetching} onClick={() => void priorities.refetch()} className="ml-2 font-semibold underline">Retry collections</button>
       </p>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 [overflow-wrap:anywhere]">
+      {priorities.error && (
+        <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-800" role="alert">
+          Collections could not be refreshed. Your edits have been kept.
+          <button type="button" disabled={priorities.isFetching} onClick={() => void priorities.refetch()} className="ml-2 underline">Retry collections</button>
+        </p>
+      )}
+      {metrics.error && (
+        <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-800" role="alert">
+          Recovery metrics could not be loaded. Any displayed metrics may be out of date.
+          <button type="button" disabled={metrics.isFetching} onClick={() => void metrics.refetch()} className="ml-2 underline">Retry metrics</button>
+        </p>
+      )}
       <div className="grid gap-3 sm:grid-cols-3">
         <div className="rounded-xl border border-brand-border bg-white p-4">
-          <p className="text-xs text-brand-muted">Ready to review</p>
-          <p className="mt-1 text-2xl font-bold text-brand-dark">{priorities.data.eligible_count}</p>
-          <p className="mt-1 text-xs text-brand-muted">
+          <p className="text-xs text-brand-text/75">Ready to review</p>
+          <p className="mt-1 text-2xl font-bold text-brand-text">{priorities.data.eligible_count}</p>
+          <p className="mt-1 text-xs text-brand-text/75">
             {currency(priorities.data.total_overdue_amount)} overdue
           </p>
         </div>
         <div className="rounded-xl border border-brand-border bg-white p-4">
-          <p className="text-xs text-brand-muted">Recovered after reminders</p>
-          <p className="mt-1 text-2xl font-bold text-brand-dark">
-            {currency(metrics.data?.recovered_amount ?? 0)}
+          <p className="text-xs text-brand-text/75">Recovered after reminders</p>
+          <p className="mt-1 text-2xl font-bold text-brand-text">
+            {metrics.data ? currency(metrics.data.recovered_amount) : metrics.isLoading ? "Loading..." : "Unavailable"}
           </p>
-          <p className="mt-1 text-xs text-brand-muted">
-            {metrics.data?.recovered_invoices ?? 0} paid invoices
+          <p className="mt-1 text-xs text-brand-text/75">
+            {metrics.data ? `${metrics.data.recovered_invoices} paid invoices` : "Waiting for verified recovery data"}
           </p>
         </div>
         <div className="rounded-xl border border-brand-border bg-white p-4">
-          <p className="text-xs text-brand-muted">Recovery rate</p>
-          <p className="mt-1 text-2xl font-bold text-brand-dark">
-            {(metrics.data?.recovery_rate ?? 0).toFixed(1)}%
+          <p className="text-xs text-brand-text/75">Recovery rate</p>
+          <p className="mt-1 text-2xl font-bold text-brand-text">
+            {metrics.data ? `${metrics.data.recovery_rate.toFixed(1)}%` : metrics.isLoading ? "Loading..." : "Unavailable"}
           </p>
-          <p className="mt-1 text-xs text-brand-muted">
-            From {metrics.data?.sent_reminders ?? 0} sent reminders
+          <p className="mt-1 text-xs text-brand-text/75">
+            {metrics.data ? `From ${metrics.data.sent_reminders} sent reminders` : "Waiting for verified reminder data"}
           </p>
         </div>
       </div>

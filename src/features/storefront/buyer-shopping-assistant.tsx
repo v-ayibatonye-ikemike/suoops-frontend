@@ -1,9 +1,10 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Sparkles } from "lucide-react";
 
 import type { StoreProduct } from "./store-catalog";
+import { getResponseErrorMessage } from "@/api/errors";
 
 type ProductMatch = {
   product_id: number;
@@ -54,16 +55,35 @@ export function BuyerShoppingAssistant({
   const [result, setResult] = useState<AssistantResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const inputId = useId();
+  const request = useRef<AbortController | null>(null);
   const productById = useMemo(
     () => new Map(products.map((product) => [product.id, product])),
     [products],
   );
+  const reset = useCallback(() => {
+    request.current?.abort();
+    request.current = null;
+    setQuery("");
+    setResult(null);
+    setLoading(false);
+    setError(null);
+  }, []);
+
+  useEffect(() => {
+    reset();
+    return () => request.current?.abort();
+  }, [apiBaseUrl, slug, reset]);
 
   const ask = async (question: string) => {
     const clean = question.trim();
-    if (clean.length < 2 || loading) return;
+    if (clean.length < 2 || request.current) return;
+    const controller = new AbortController();
+    request.current = controller;
+    setQuery(clean);
     setLoading(true);
     setError(null);
+    setResult(null);
     try {
       const response = await fetch(
         `${apiBaseUrl}/public/store/${encodeURIComponent(slug)}/shopping-assistant`,
@@ -71,21 +91,34 @@ export function BuyerShoppingAssistant({
           method: "POST",
           headers: { "Content-Type": "application/json" },
           cache: "no-store",
+          signal: controller.signal,
           body: JSON.stringify({
             query: clean,
             cart_product_ids: cartProductIds,
           }),
         },
       );
+      if (controller.signal.aborted) return;
       if (!response.ok) {
-        const payload = (await response.json().catch(() => ({}))) as { detail?: string };
-        throw new Error(payload.detail || "The shopping assistant is unavailable right now.");
+        const payload: unknown = await response.json();
+        if (!controller.signal.aborted) {
+          setError(getResponseErrorMessage(payload, response.status === 429
+            ? "Too many questions at once. Please wait a moment and try again."
+            : "The shopping assistant is unavailable right now. Please try again."));
+        }
+        return;
       }
-      setResult((await response.json()) as AssistantResponse);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "The shopping assistant is unavailable right now.");
+      const data: AssistantResponse = await response.json();
+      if (!controller.signal.aborted) setResult(data);
+    } catch {
+      if (!controller.signal.aborted) {
+        setError("The shopping assistant is unavailable right now. Please try again.");
+      }
     } finally {
-      setLoading(false);
+      if (request.current === controller) {
+        request.current = null;
+        setLoading(false);
+      }
     }
   };
 
@@ -95,7 +128,7 @@ export function BuyerShoppingAssistant({
   };
 
   return (
-    <section className="mb-5 overflow-hidden rounded-2xl border border-brand-jade/20 bg-white shadow-sm">
+    <section className="mb-5 overflow-hidden rounded-2xl border border-brand-jade/20 bg-white shadow-sm [overflow-wrap:anywhere]">
       <div className="bg-brand-evergreen px-4 py-3 text-white">
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-brand-citrus" aria-hidden="true" />
@@ -107,12 +140,13 @@ export function BuyerShoppingAssistant({
       </div>
       <div className="space-y-3 p-4">
         <form onSubmit={submit} className="flex gap-2">
-          <label htmlFor="buyer-shopping-question" className="sr-only">
+          <label htmlFor={inputId} className="sr-only">
             What are you looking for?
           </label>
           <input
-            id="buyer-shopping-question"
+            id={inputId}
             value={query}
+            disabled={loading}
             onChange={(event) => setQuery(event.target.value.slice(0, 300))}
             placeholder="e.g. I need a gift under ₦15,000"
             className="min-w-0 flex-1 rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:border-brand-jade focus:outline-none focus:ring-2 focus:ring-brand-jade/20"
@@ -120,29 +154,36 @@ export function BuyerShoppingAssistant({
           <button
             type="submit"
             disabled={query.trim().length < 2 || loading}
-            className="rounded-xl bg-brand-jade px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
+            className="rounded-xl bg-brand-evergreen px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
           >
             {loading ? "Checking…" : "Ask"}
           </button>
         </form>
+        {loading && (
+          <div className="flex items-center justify-between gap-2 text-xs text-slate-600">
+            <span role="status">Checking this store&apos;s catalog...</span>
+            <button type="button" onClick={reset} className="font-semibold underline">Cancel search</button>
+          </div>
+        )}
         {!result && (
           <div className="flex gap-2 overflow-x-auto pb-1">
             {prompts.map((prompt) => (
               <button
                 key={prompt}
                 type="button"
+                disabled={loading}
                 onClick={() => {
                   setQuery(prompt);
                   void ask(prompt);
                 }}
-                className="whitespace-nowrap rounded-full bg-brand-jade/10 px-3 py-1.5 text-xs font-medium text-brand-jade"
+                className="whitespace-nowrap rounded-full bg-brand-jade/10 px-3 py-1.5 text-xs font-medium text-brand-evergreen disabled:opacity-50"
               >
                 {prompt}
               </button>
             ))}
           </div>
         )}
-        {error && <p className="rounded-lg bg-rose-50 px-3 py-2 text-xs text-rose-700">{error}</p>}
+        {error && <p role="alert" className="rounded-lg bg-rose-50 px-3 py-2 text-xs text-rose-700">{error}</p>}
         {result && (
           <div className="space-y-3" aria-live="polite">
             <div>
@@ -171,17 +212,18 @@ export function BuyerShoppingAssistant({
                     />
                   ) : null}
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-slate-900">{match.name}</p>
-                    <p className="text-xs font-bold text-brand-evergreen">{formatCurrency(match.price)}</p>
+                    <p className="truncate text-sm font-semibold text-slate-900">{product.name}</p>
+                    <p className="text-xs font-bold text-brand-evergreen">{product.price === null ? "Price unavailable" : formatCurrency(product.price)}</p>
                     <p className="mt-0.5 text-[11px] text-slate-500">{match.reason}</p>
                   </div>
                   {canAddToCart && (
                     <button
                       type="button"
+                      disabled={!product.in_stock || product.price === null || product.price <= 0 || cartProductIds.includes(product.id)}
                       onClick={() => onAdd(match.product_id)}
-                      className="shrink-0 rounded-lg bg-brand-jade px-3 py-2 text-xs font-semibold text-white"
+                      className="shrink-0 rounded-lg bg-brand-evergreen px-3 py-2 text-xs font-semibold text-white disabled:opacity-50"
                     >
-                      Add
+                      {!product.in_stock ? "Out of stock" : product.price === null || product.price <= 0 ? "Unavailable" : cartProductIds.includes(product.id) ? "In cart" : "Add"}
                     </button>
                   )}
                 </article>
@@ -189,11 +231,8 @@ export function BuyerShoppingAssistant({
             })}
             <button
               type="button"
-              onClick={() => {
-                setResult(null);
-                setQuery("");
-              }}
-              className="text-xs font-medium text-brand-jade"
+              onClick={reset}
+              className="text-xs font-medium text-brand-evergreen"
             >
               Ask another question
             </button>

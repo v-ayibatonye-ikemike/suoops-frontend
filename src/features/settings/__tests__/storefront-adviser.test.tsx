@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -54,11 +54,12 @@ function renderAdviser() {
       mutations: { retry: false },
     },
   });
-  return render(
+  const view = render(
     <QueryClientProvider client={client}>
       <StorefrontAdviser />
     </QueryClientProvider>,
   );
+  return { ...view, client };
 }
 
 describe("StorefrontAdviser", () => {
@@ -132,5 +133,41 @@ describe("StorefrontAdviser", () => {
         { discount_percent: 5 },
       );
     });
+  });
+
+  it("preserves unsaved featured selections during background refresh", async () => {
+    const user = userEvent.setup();
+    const { client } = renderAdviser();
+    const checkbox = await screen.findByRole("checkbox", { name: "Feature Fast Soap" });
+    await user.click(checkbox);
+    act(() => {
+      client.setQueryData(["storefront-advice"], { ...advice, headline: "Fresh advice" });
+    });
+    await screen.findByText("Fresh advice");
+    expect(checkbox).toBeChecked();
+  });
+
+  it("requires renewed confirmation after featured selections change", async () => {
+    const user = userEvent.setup();
+    renderAdviser();
+    const checkbox = await screen.findByRole("checkbox", { name: "Feature Fast Soap" });
+    await user.click(screen.getByRole("button", { name: "Save featured products" }));
+    expect(screen.getByRole("button", { name: "Confirm change" })).toBeVisible();
+    await user.click(checkbox);
+    expect(screen.queryByRole("button", { name: "Confirm change" })).not.toBeInTheDocument();
+  });
+
+  it("locks other actions while reviewed copy is being applied", async () => {
+    vi.mocked(apiClient.post).mockResolvedValueOnce({
+      data: { product_id: 10, description: "A verified product description for Fast Soap.", generation_notice: null },
+    });
+    vi.mocked(apiClient.patch).mockReturnValue(new Promise(() => {}));
+    const user = userEvent.setup();
+    renderAdviser();
+    await user.click(await screen.findByRole("button", { name: "Draft verified copy" }));
+    await user.click(await screen.findByRole("button", { name: "Apply this description" }));
+    expect(screen.getByLabelText("Review exact product description")).toBeDisabled();
+    expect(screen.getByRole("checkbox", { name: "Feature Fast Soap" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Cancel", exact: true })).toBeDisabled();
   });
 });

@@ -127,4 +127,22 @@ describe("CommerceCopilot", () => {
     });
     expect(await screen.findByText("Thanks for the feedback.")).toBeVisible();
   });
+
+  it("offers retry instead of disappearing after a briefing failure", async () => {
+    vi.mocked(apiClient.get).mockRejectedValueOnce(new Error("offline"));
+    const user = userEvent.setup();
+    renderCopilot();
+    expect(await screen.findByRole("alert")).toHaveTextContent(/could not be loaded/i);
+    await user.click(screen.getByRole("button", { name: /retry/i }));
+    expect(await screen.findByText(briefing.headline)).toBeVisible();
+  });
+
+  it("reports failed action decisions", async () => {
+    vi.mocked(apiClient.post).mockRejectedValueOnce(new Error("offline"));
+    const user = userEvent.setup();
+    renderCopilot();
+    await user.click(await screen.findByRole("button", { name: "Dismiss" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(/action/i);
+    expect(screen.getByText("Review 1 overdue invoice")).toBeVisible();
+  });
 });

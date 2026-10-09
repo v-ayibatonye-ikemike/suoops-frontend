@@ -131,4 +131,34 @@ describe("InventoryAdviser", () => {
     });
     expect(await screen.findByText("Draft PO-100")).toBeVisible();
   });
+
+  it("preserves deselected products when AI explanations arrive", async () => {
+    const user = userEvent.setup();
+    renderAdviser();
+    const checkbox = await screen.findByRole("checkbox", { name: /Select Fast Soap/ });
+    await user.click(checkbox);
+    vi.mocked(apiClient.get).mockResolvedValue({
+      data: { ...advice, headline: "Updated explanation", ai_generated: true },
+    });
+    await user.click(screen.getByRole("button", { name: "Explain with AI" }));
+    await screen.findByText("Updated explanation");
+    expect(checkbox).not.toBeChecked();
+    expect(screen.queryByRole("button", { name: "Review draft purchase order" })).not.toBeInTheDocument();
+  });
+
+  it("reports an explanation failure without removing verified advice", async () => {
+    const user = userEvent.setup();
+    renderAdviser();
+    await screen.findByText("Fast Soap");
+    vi.mocked(apiClient.get).mockRejectedValue(new Error("offline"));
+    await user.click(screen.getByRole("button", { name: "Explain with AI" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(/explanation/i);
+    expect(screen.getByText("Fast Soap")).toBeVisible();
+  });
+
+  it("preserves fractional naira in reorder estimates", async () => {
+    vi.mocked(apiClient.get).mockResolvedValue({ data: { ...advice, estimated_reorder_cost: 14000.5 } });
+    renderAdviser();
+    expect(await screen.findByText("₦14,000.50")).toBeVisible();
+  });
 });

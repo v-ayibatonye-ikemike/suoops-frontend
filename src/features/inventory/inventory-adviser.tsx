@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   AlertTriangle,
@@ -19,12 +19,14 @@ import {
   type InventoryPurchaseOrder,
   type InventoryRecommendation,
 } from "@/api/inventory-adviser";
+import { getApiErrorMessage } from "@/api/errors";
 
 const formatCurrency = (amount: number) =>
   new Intl.NumberFormat("en-NG", {
     style: "currency",
     currency: "NGN",
-    maximumFractionDigits: 0,
+    minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+    maximumFractionDigits: 2,
   }).format(amount);
 
 const label = (recommendation: InventoryRecommendation["recommendation"]) =>
@@ -39,10 +41,12 @@ const label = (recommendation: InventoryRecommendation["recommendation"]) =>
 function RecommendationCard({
   item,
   selected,
+  disabled,
   onSelected,
 }: {
   item: InventoryRecommendation;
   selected: boolean;
+  disabled: boolean;
   onSelected: (selected: boolean) => void;
 }) {
   const actionable = item.recommendation === "reorder_now";
@@ -62,16 +66,17 @@ function RecommendationCard({
           <input
             type="checkbox"
             checked={selected}
+            disabled={disabled}
             onChange={(event) => onSelected(event.target.checked)}
             aria-label={`Select ${item.product_name} for purchase order`}
-            className="mt-1 h-4 w-4 rounded border-brand-border text-brand-jade focus:ring-brand-jade"
+            className="mt-1 h-4 w-4 rounded border-brand-border text-brand-teal focus:ring-brand-jade"
           />
         )}
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
-              <h3 className="font-semibold text-brand-dark">{item.product_name}</h3>
-              <p className="text-xs text-brand-muted">SKU: {item.sku}</p>
+              <h3 className="font-semibold text-brand-text">{item.product_name}</h3>
+              <p className="text-xs text-brand-text/75">SKU: {item.sku}</p>
             </div>
             <span className={`rounded-full px-2 py-1 text-[10px] font-bold uppercase ${badge}`}>
               {label(item.recommendation)}
@@ -80,26 +85,26 @@ function RecommendationCard({
 
           <div className="mt-3 grid grid-cols-2 gap-2 text-xs sm:grid-cols-4">
             <div>
-              <p className="text-brand-muted">In stock</p>
-              <p className="font-semibold text-brand-dark">
+              <p className="text-brand-text/75">In stock</p>
+              <p className="font-semibold text-brand-text">
                 {item.current_stock} {item.unit}
               </p>
             </div>
             <div>
-              <p className="text-brand-muted">Sold in 30 days</p>
-              <p className="font-semibold text-brand-dark">
+              <p className="text-brand-text/75">Sold in 30 days</p>
+              <p className="font-semibold text-brand-text">
                 {item.units_sold_30_days} {item.unit}
               </p>
             </div>
             <div>
-              <p className="text-brand-muted">Stock cover</p>
-              <p className="font-semibold text-brand-dark">
+              <p className="text-brand-text/75">Stock cover</p>
+              <p className="font-semibold text-brand-text">
                 {item.days_of_stock === null ? "Not enough data" : `${item.days_of_stock} days`}
               </p>
             </div>
             <div>
-              <p className="text-brand-muted">Demand</p>
-              <p className="flex items-center gap-1 font-semibold capitalize text-brand-dark">
+              <p className="text-brand-text/75">Demand</p>
+              <p className="flex items-center gap-1 font-semibold capitalize text-brand-text">
                 {item.demand_trend === "rising" && (
                   <TrendingUp className="h-3.5 w-3.5 text-emerald-600" aria-hidden />
                 )}
@@ -111,14 +116,14 @@ function RecommendationCard({
             </div>
           </div>
 
-          <p className="mt-3 rounded-lg bg-brand-background px-3 py-2 text-xs leading-relaxed text-brand-muted">
+          <p className="mt-3 rounded-lg bg-brand-background px-3 py-2 text-xs leading-relaxed text-brand-text/75">
             {item.explanation}
           </p>
           {actionable && (
-            <p className="mt-3 text-sm font-semibold text-brand-dark">
+            <p className="mt-3 text-sm font-semibold text-brand-text">
               Suggested order: {item.recommended_order_quantity} {item.unit}
               {item.estimated_order_cost !== null && (
-                <span className="font-normal text-brand-muted">
+                <span className="font-normal text-brand-text/75">
                   {" "}
                   · about {formatCurrency(item.estimated_order_cost)}
                 </span>
@@ -133,7 +138,7 @@ function RecommendationCard({
 
 export function InventoryAdviser() {
   const queryClient = useQueryClient();
-  const [selected, setSelected] = useState<number[]>([]);
+  const [selection, setSelected] = useState<number[] | null>(null);
   const [confirming, setConfirming] = useState(false);
   const [purchaseOrder, setPurchaseOrder] = useState<InventoryPurchaseOrder | null>(null);
   const advice = useQuery({
@@ -141,18 +146,15 @@ export function InventoryAdviser() {
     queryFn: () => getInventoryAdvice(false),
   });
 
-  useEffect(() => {
-    if (!advice.data) return;
-    setSelected(
-      advice.data.recommendations
-        .filter((item) => item.recommendation === "reorder_now")
-        .map((item) => item.product_id),
-    );
-  }, [advice.data]);
+  const eligibleIds = (advice.data?.recommendations ?? [])
+    .filter((item) => item.recommendation === "reorder_now")
+    .map((item) => item.product_id);
+  const selected = selection === null ? eligibleIds : selection.filter((id) => eligibleIds.includes(id));
 
   const explain = useMutation({
     mutationFn: () => getInventoryAdvice(true),
     onSuccess: (result) => {
+      setConfirming(false);
       queryClient.setQueryData(["inventory-advice"], result);
     },
   });
@@ -161,6 +163,7 @@ export function InventoryAdviser() {
     onSuccess: (result) => {
       setPurchaseOrder(result);
       setConfirming(false);
+      setSelected([]);
       void queryClient.invalidateQueries({ queryKey: ["inventory-advice"] });
     },
   });
@@ -168,10 +171,11 @@ export function InventoryAdviser() {
   if (advice.isLoading) {
     return <div className="h-56 animate-pulse rounded-xl bg-white" aria-label="Loading inventory advice" />;
   }
-  if (advice.error || !advice.data) {
+  if (!advice.data) {
     return (
       <p className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700" role="alert">
         Inventory advice could not be loaded. Please try again.
+        <button type="button" disabled={advice.isFetching} onClick={() => void advice.refetch()} className="ml-2 font-semibold underline">Retry advice</button>
       </p>
     );
   }
@@ -192,7 +196,7 @@ export function InventoryAdviser() {
   );
 
   return (
-    <section className="overflow-hidden rounded-xl border border-brand-jade/30 bg-white shadow-card">
+    <section className="overflow-hidden rounded-xl border border-brand-jade/30 bg-white shadow-card [overflow-wrap:anywhere]">
       <div className="bg-gradient-to-r from-brand-evergreen to-brand-teal p-4 text-white sm:p-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
@@ -208,7 +212,7 @@ export function InventoryAdviser() {
           </div>
           <button
             type="button"
-            disabled={explain.isPending}
+            disabled={explain.isPending || approve.isPending}
             onClick={() => explain.mutate()}
             className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 disabled:opacity-50"
           >
@@ -237,14 +241,14 @@ export function InventoryAdviser() {
             <p className="mt-1 text-xl font-bold text-amber-900">{data.slow_stock_count}</p>
           </div>
           <div className="rounded-lg bg-brand-mint p-3">
-            <p className="text-xs text-brand-muted">Estimated reorder cost</p>
-            <p className="mt-1 text-xl font-bold text-brand-dark">
+            <p className="text-xs text-brand-text/75">Estimated reorder cost</p>
+            <p className="mt-1 text-xl font-bold text-brand-text">
               {hasUnknownReorderCost && data.estimated_reorder_cost === 0
                 ? "Cost data needed"
                 : formatCurrency(data.estimated_reorder_cost)}
             </p>
             {hasUnknownReorderCost && data.estimated_reorder_cost > 0 && (
-              <p className="mt-1 text-[11px] text-brand-muted">Some product costs are missing</p>
+              <p className="mt-1 text-[11px] text-brand-text/75">Some product costs are missing</p>
             )}
           </div>
         </div>
@@ -259,9 +263,17 @@ export function InventoryAdviser() {
           </div>
         )}
 
-        {approve.error && (
+        {(approve.error || explain.error || advice.error) && (
           <p className="rounded-lg bg-red-50 p-3 text-xs text-red-700" role="alert">
-            The draft could not be created. Refresh the recommendations and try again.
+            {getApiErrorMessage(
+              approve.error || explain.error || advice.error,
+              approve.error
+                ? "The draft could not be created. Refresh the recommendations and try again."
+                : explain.error
+                  ? "The AI explanation could not be loaded. Verified recommendations are still available."
+                  : "Recommendations could not be refreshed. Showing the last available facts.",
+            )}
+            <button type="button" disabled={advice.isFetching || approve.isPending} onClick={() => { setConfirming(false); approve.reset(); explain.reset(); void advice.refetch(); }} className="ml-2 underline">Refresh recommendations</button>
           </p>
         )}
 
@@ -272,19 +284,20 @@ export function InventoryAdviser() {
                 key={item.product_id}
                 item={item}
                 selected={selected.includes(item.product_id)}
+                disabled={approve.isPending}
                 onSelected={(checked) => {
                   setConfirming(false);
-                  setSelected((current) =>
+                  setSelected(
                     checked
-                      ? [...new Set([...current, item.product_id])]
-                      : current.filter((id) => id !== item.product_id),
+                      ? [...new Set([...selected, item.product_id])]
+                      : selected.filter((id) => id !== item.product_id),
                   );
                 }}
               />
             ))}
           </div>
         ) : (
-          <p className="rounded-lg bg-brand-background p-4 text-sm text-brand-muted">
+          <p className="rounded-lg bg-brand-background p-4 text-sm text-brand-text/75">
             Add tracked physical products and record sales to receive inventory advice.
           </p>
         )}
@@ -308,9 +321,9 @@ export function InventoryAdviser() {
               <div className="mt-3 flex gap-2">
                 <button
                   type="button"
-                  disabled={approve.isPending}
+                  disabled={approve.isPending || explain.isPending || advice.isFetching}
                   onClick={() => approve.mutate()}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-brand-jade px-3 py-2 text-xs font-semibold text-white disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-brand-evergreen px-3 py-2 text-xs font-semibold text-white disabled:opacity-50"
                 >
                   {approve.isPending && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
                   Confirm draft
@@ -319,7 +332,7 @@ export function InventoryAdviser() {
                   type="button"
                   disabled={approve.isPending}
                   onClick={() => setConfirming(false)}
-                  className="px-3 py-2 text-xs font-medium text-brand-muted"
+                  className="px-3 py-2 text-xs font-medium text-brand-text/75"
                 >
                   Cancel
                 </button>
@@ -329,6 +342,7 @@ export function InventoryAdviser() {
             <button
               type="button"
               onClick={() => setConfirming(true)}
+              disabled={approve.isPending || explain.isPending || advice.isFetching}
               className="inline-flex items-center gap-2 rounded-lg bg-brand-evergreen px-4 py-2.5 text-sm font-semibold text-white"
             >
               <ClipboardCheck className="h-4 w-4" aria-hidden />

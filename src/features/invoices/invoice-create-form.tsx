@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   useCreateInvoice,
@@ -38,7 +38,6 @@ export function InvoiceCreateForm() {
   const [customerEmail, setCustomerEmail] = useState("");
 
   // Shared Fields
-  const [amount, setAmount] = useState("");
   const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
   const [dueDate, setDueDate] = useState("");
   const [lines, setLines] = useState<LineDraft[]>([emptyLine()]);
@@ -79,20 +78,10 @@ export function InvoiceCreateForm() {
     setLines((current) => [...current, emptyLine()]);
   }
 
-  // Auto-calculate total amount from line items
-  useEffect(() => {
-    const total = lines.reduce((sum, line) => {
-      const lineTotal = (Number(line.quantity) || 0) * (Number(line.unit_price) || 0);
-      return sum + lineTotal;
-    }, 0);
-    setAmount(total.toString());
-  }, [lines]);
-
   function resetForm() {
     setCustomerName("");
     setCustomerPhone("");
     setCustomerEmail("");
-    setAmount("");
     setCurrency("NGN");
     setDueDate("");
     setLines([emptyLine()]);
@@ -105,28 +94,33 @@ export function InvoiceCreateForm() {
     setError(null);
     setShowBankDetailsError(false);
     setLastPdfUrl(null);
-    const parsedAmount = Number(amount);
-
-    // Validation
-    if (!customerName || Number.isNaN(parsedAmount) || parsedAmount <= 0) {
-      setError("Customer name and a positive amount are required.");
+    if (!customerName.trim()) {
+      setError("Customer name is required.");
       return;
     }
 
-    const preparedLines = lines
-      .filter((line) => line.description.trim())
-      .map<InvoiceLineInput>((line) => ({
-        description: line.description.trim(),
-        quantity: Number(line.quantity) || 1,
-        unit_price: Number(line.unit_price) || 0,
-        product_id: line.product_id || null,  // Include product_id for inventory tracking
-      }));
+    const preparedLines = lines.map<InvoiceLineInput>((line) => ({
+      description: line.description.trim() || "Item",
+      quantity: line.quantity,
+      unit_price: line.unit_price,
+      product_id: line.product_id ?? null,
+    }));
 
-    // Every listed item must have a positive price — otherwise the earlier
-    // "positive amount" check can pass on the grand total while a ₦0 line slips
-    // through silently. Give explicit per-line feedback instead.
-    if (preparedLines.some((line) => !(Number(line.unit_price) > 0))) {
+    if (preparedLines.some((line) => !Number.isSafeInteger(line.quantity) || line.quantity <= 0)) {
+      setError("Each item's quantity must be a positive whole number.");
+      return;
+    }
+
+    if (preparedLines.some((line) => !Number.isFinite(Number(line.unit_price)) || Number(line.unit_price) <= 0)) {
       setError("Each item's price must be greater than 0. Remove the item or set a price.");
+      return;
+    }
+
+    const parsedAmount = Math.round(
+      preparedLines.reduce((sum, line) => sum + line.quantity * Number(line.unit_price), 0) * 100,
+    ) / 100;
+    if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+      setError("A positive invoice amount is required.");
       return;
     }
 
@@ -135,20 +129,11 @@ export function InvoiceCreateForm() {
         invoice_type: "revenue",
         amount: parsedAmount,
         currency,
-        customer_name: customerName,
-        customer_phone: customerPhone || undefined,
-        customer_email: customerEmail || undefined,
+        customer_name: customerName.trim(),
+        customer_phone: customerPhone.trim() || undefined,
+        customer_email: customerEmail.trim() || undefined,
         due_date: dueDate || undefined,
-        lines:
-          preparedLines.length > 0
-            ? preparedLines
-            : [
-                {
-                  description: "Item",
-                  quantity: 1,
-                  unit_price: parsedAmount,
-                },
-              ],
+        lines: preparedLines,
       };
 
       submittingRef.current = true;
@@ -277,6 +262,9 @@ export function InvoiceCreateForm() {
             </button>
           ))}
         </div>
+        <p className="text-xs text-brand-textMuted">
+          Changing currency does not convert prices already entered. Review each price before sending.
+        </p>
       </div>
 
       {/* Line Items with Inventory Product Picker (free for all — flat 3% model) */}
@@ -297,7 +285,7 @@ export function InvoiceCreateForm() {
         >
           Due Date{" "}
           <span className="text-xs font-normal text-brand-textMuted">
-            (optional — defaults to 3 days)
+            (optional — leave blank for no due date)
           </span>
         </label>
         <input

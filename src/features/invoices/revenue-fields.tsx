@@ -15,11 +15,13 @@ export function RevenueFields({
   onCustomerPhoneChange,
   onCustomerEmailChange,
 }: RevenueFieldsProps) {
+  const id = useId();
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       <div className="sm:col-span-2 md:col-span-1">
-        <label className="mb-1 block text-xs font-medium text-brand-textMuted">Customer name</label>
+        <label htmlFor={`${id}-name`} className="mb-1 block text-xs font-medium text-brand-textMuted">Customer name</label>
         <input
+          id={`${id}-name`}
           value={customerName}
           onChange={(e) => onCustomerNameChange(e.target.value)}
           required
@@ -27,8 +29,9 @@ export function RevenueFields({
         />
       </div>
       <div>
-        <label className="mb-1 block text-xs font-medium text-brand-textMuted">Customer phone</label>
+        <label htmlFor={`${id}-phone`} className="mb-1 block text-xs font-medium text-brand-textMuted">Customer phone</label>
         <input
+          id={`${id}-phone`}
           value={customerPhone}
           onChange={(e) => onCustomerPhoneChange(e.target.value)}
           placeholder="Optional (e.g., +2348012345678 or +14155551234)"
@@ -36,8 +39,9 @@ export function RevenueFields({
         />
       </div>
       <div>
-        <label className="mb-1 block text-xs font-medium text-brand-textMuted">Customer email</label>
+        <label htmlFor={`${id}-email`} className="mb-1 block text-xs font-medium text-brand-textMuted">Customer email</label>
         <input
+          id={`${id}-email`}
           type="email"
           value={customerEmail}
           onChange={(e) => onCustomerEmailChange(e.target.value)}
@@ -48,3 +52,4 @@ export function RevenueFields({
     </div>
   );
 }
+import { useId } from "react";
