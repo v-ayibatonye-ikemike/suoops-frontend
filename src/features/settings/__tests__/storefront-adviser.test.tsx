@@ -168,6 +168,6 @@ describe("StorefrontAdviser", () => {
     await user.click(await screen.findByRole("button", { name: "Apply this description" }));
     expect(screen.getByLabelText("Review exact product description")).toBeDisabled();
     expect(screen.getByRole("checkbox", { name: "Feature Fast Soap" })).toBeDisabled();
-    expect(screen.getByRole("button", { name: "Cancel", exact: true })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeDisabled();
   });
 });

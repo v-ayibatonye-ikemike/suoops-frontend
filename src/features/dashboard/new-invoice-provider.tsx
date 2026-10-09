@@ -1,16 +1,19 @@
 "use client";
 
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
 import { MessageCircle, ExternalLink } from "lucide-react";
 
 import { Drawer } from "@/components/ui/drawer";
 import { InvoiceCreateForm } from "@/features/invoices/invoice-create-form";
 import { QuickSaleForm } from "@/features/invoices/quick-sale-form";
 import { WhatsAppQuickCreate } from "@/features/dashboard/whatsapp-quick-create";
+import type { AssistantInvoiceDraft } from "@/api/web-assistant";
 
 interface NewInvoiceContext {
   open: () => void;
   close: () => void;
+  isOpen: boolean;
+  openDraft: (draft: AssistantInvoiceDraft) => boolean;
 }
 
 const Ctx = createContext<NewInvoiceContext | null>(null);
@@ -33,16 +36,33 @@ type DrawerTab = "invoice" | "quick-sale";
 export function NewInvoiceProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState<DrawerTab>("invoice");
+  const [initialDraft, setInitialDraft] = useState<AssistantInvoiceDraft | undefined>();
+  const openRef = useRef(false);
+  const handleClose = useCallback(() => {
+    openRef.current = false;
+    setOpen(false);
+  }, []);
 
   const value = useMemo<NewInvoiceContext>(
     () => ({
-      open: () => setOpen(true),
-      close: () => setOpen(false),
+      open: () => {
+        if (!openRef.current) setInitialDraft(undefined);
+        openRef.current = true;
+        setOpen(true);
+      },
+      close: handleClose,
+      isOpen: open,
+      openDraft: (draft) => {
+        if (openRef.current) return false;
+        openRef.current = true;
+        setInitialDraft(draft);
+        setTab("invoice");
+        setOpen(true);
+        return true;
+      },
     }),
-    [],
+    [open, handleClose],
   );
-
-  const handleClose = useCallback(() => setOpen(false), []);
 
   return (
     <Ctx.Provider value={value}>
@@ -52,13 +72,15 @@ export function NewInvoiceProvider({ children }: { children: React.ReactNode }) 
         onClose={handleClose}
         title={tab === "invoice" ? "Create invoice" : "Record a sale"}
         description={
-          tab === "invoice"
+          initialDraft
+            ? "Review every detail. Nothing is created or sent until you submit the form."
+            : tab === "invoice"
             ? "Send a new invoice to your customer in seconds."
             : "Log a walk-in sale that's already been paid — no customer needed."
         }
       >
         {/* Tab switch: bill a customer vs. record an already-paid walk-in sale */}
-        <div className="mb-5 flex gap-2 rounded-lg bg-slate-100 p-1">
+        {!initialDraft && <div className="mb-5 flex gap-2 rounded-lg bg-slate-100 p-1">
           <button
             type="button"
             onClick={() => setTab("invoice")}
@@ -81,11 +103,11 @@ export function NewInvoiceProvider({ children }: { children: React.ReactNode }) 
           >
             Walk-in sale (paid)
           </button>
-        </div>
+        </div>}
 
         {tab === "invoice" ? (
           <>
-            <WhatsAppQuickCreate>
+            {!initialDraft && <WhatsAppQuickCreate>
               {({ onClick, href, target, rel }) => {
                 const inner = (
                   <>
@@ -110,7 +132,7 @@ export function NewInvoiceProvider({ children }: { children: React.ReactNode }) 
                     href={href}
                     target={target}
                     rel={rel}
-                    onClick={() => setOpen(false)}
+                    onClick={handleClose}
                     className={cls}
                   >
                     {inner}
@@ -120,7 +142,7 @@ export function NewInvoiceProvider({ children }: { children: React.ReactNode }) 
                     type="button"
                     onClick={() => {
                       onClick();
-                      setOpen(false);
+                      handleClose();
                     }}
                     className={cls}
                   >
@@ -128,11 +150,11 @@ export function NewInvoiceProvider({ children }: { children: React.ReactNode }) 
                   </button>
                 );
               }}
-            </WhatsAppQuickCreate>
-            <p className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-500">
+            </WhatsAppQuickCreate>}
+            {!initialDraft && <p className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-500">
               Or use the web form
-            </p>
-            <InvoiceCreateForm />
+            </p>}
+            <InvoiceCreateForm initialDraft={initialDraft} />
           </>
         ) : (
           <QuickSaleForm />
@@ -147,8 +169,7 @@ export function useNewInvoiceDrawer(): NewInvoiceContext {
   if (!ctx) {
     // Fail soft so call-sites outside the dashboard layout don't crash;
     // the button simply becomes a no-op rather than throwing in render.
-    return { open: () => {}, close: () => {} };
+    return { open: () => {}, close: () => {}, isOpen: false, openDraft: () => false };
   }
   return ctx;
 }
-

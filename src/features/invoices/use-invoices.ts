@@ -19,6 +19,8 @@ export interface PaginatedResponse<T> {
 export interface InvoiceListParams {
   status?: string;
   search?: string;
+  start_date?: string;
+  end_date?: string;
 }
 
 async function fetchInvoices(
@@ -38,6 +40,8 @@ async function fetchInvoices(
           ? { status: params.status }
           : {}),
         ...(params?.search?.trim() ? { search: params.search.trim() } : {}),
+        ...(params?.start_date ? { start_date: params.start_date } : {}),
+        ...(params?.end_date ? { end_date: params.end_date } : {}),
       },
     }
   );
@@ -52,6 +56,8 @@ export function useInvoices(skip = 0, limit = 50, params?: InvoiceListParams) {
       limit,
       params?.status ?? "",
       params?.search?.trim() ?? "",
+      params?.start_date ?? "",
+      params?.end_date ?? "",
     ],
     queryFn: () => fetchInvoices(skip, limit, params),
     placeholderData: keepPreviousData,

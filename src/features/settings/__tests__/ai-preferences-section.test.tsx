@@ -69,5 +69,23 @@ describe("AIPreferencesSection", () => {
         feature_overrides: {},
       });
     });
+
+  });
+
+  it("keeps the AI controls anchor available while loading and after loading", async () => {
+    renderSection();
+    expect(document.getElementById("ai-controls")).not.toBeNull();
+    await screen.findByText("Commerce Copilot narratives");
+    expect(document.getElementById("ai-controls")).not.toBeNull();
+  });
+
+  it("shows failed controls loading explicitly and lets the user retry", async () => {
+    vi.mocked(apiClient.get).mockRejectedValueOnce(new Error("Network unavailable"));
+    const user = userEvent.setup();
+    renderSection();
+    expect(await screen.findByRole("alert")).toHaveTextContent(/could not load AI controls/i);
+    expect(document.getElementById("ai-controls")).not.toBeNull();
+    await user.click(screen.getByRole("button", { name: "Retry" }));
+    expect(await screen.findByText("Commerce Copilot narratives")).toBeVisible();
   });
 });

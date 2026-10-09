@@ -11,6 +11,7 @@ import {
   type AIPreferences,
 } from "@/api/ai-governance";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { getApiErrorMessage } from "@/api/errors";
 
 export function AIPreferencesSection() {
   const queryClient = useQueryClient();
@@ -43,9 +44,24 @@ export function AIPreferencesSection() {
     },
   });
 
+  if (preferences.isError && !draft) {
+    return (
+      <Card id="ai-controls" className="scroll-mt-20">
+        <CardContent className="space-y-3 p-6">
+          <p role="alert" className="text-sm text-red-700">
+            {getApiErrorMessage(preferences.error, "We could not load AI controls. Please try again.")}
+          </p>
+          <button type="button" disabled={preferences.isFetching} onClick={() => void preferences.refetch()} className="text-sm font-semibold text-brand-teal underline disabled:opacity-50">
+            Retry
+          </button>
+        </CardContent>
+      </Card>
+    );
+  }
+
   if (preferences.isLoading || !draft) {
     return (
-      <Card>
+      <Card id="ai-controls" className="scroll-mt-20">
         <CardContent className="flex items-center gap-2 p-6 text-sm text-brand-textMuted">
           <Loader2 className="h-4 w-4 animate-spin" />
           Loading AI controls…
@@ -55,7 +71,7 @@ export function AIPreferencesSection() {
   }
 
   return (
-    <Card>
+    <Card id="ai-controls" className="scroll-mt-20">
       <CardHeader className="border-b border-brand-border/60 px-4 sm:px-6">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-100 text-violet-700">
@@ -64,7 +80,7 @@ export function AIPreferencesSection() {
           <div>
             <h2 className="text-lg font-semibold text-brand-text sm:text-[22px]">AI controls</h2>
             <p className="text-xs text-brand-textMuted">
-              Choose whether optional AI wording and explanations may use your verified records
+              Control optional AI interpretation, wording and explanations
             </p>
           </div>
         </div>
@@ -75,7 +91,7 @@ export function AIPreferencesSection() {
             <span className="block text-sm font-semibold text-brand-text">Enable optional AI assistance</span>
             <span className="mt-1 block text-xs leading-relaxed text-brand-textMuted">
               Turning this off keeps deterministic calculations available but stops provider-generated
-              narratives, copy, ranking, and tone adjustments.
+              navigation interpretation, narratives, copy, ranking, and tone adjustments.
             </span>
           </span>
           <input

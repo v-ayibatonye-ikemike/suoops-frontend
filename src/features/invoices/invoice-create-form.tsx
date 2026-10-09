@@ -16,6 +16,7 @@ import { WhatsAppTip } from "./whatsapp-tip";
 import { RevenueFields } from "./revenue-fields";
 import { InvoiceLineItems, type LineDraft } from "./invoice-line-items";
 import { InvoiceFormMessages } from "./invoice-form-messages";
+import type { AssistantInvoiceDraft } from "@/api/web-assistant";
 
 const makeId = () => {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
@@ -31,16 +32,21 @@ const emptyLine = (): LineDraft => ({
   unit_price: 0,
 });
 
-export function InvoiceCreateForm() {
+export function InvoiceCreateForm({ initialDraft }: { initialDraft?: AssistantInvoiceDraft }) {
   // Customer Fields
-  const [customerName, setCustomerName] = useState("");
+  const [customerName, setCustomerName] = useState(initialDraft?.customer_name ?? "");
   const [customerPhone, setCustomerPhone] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
 
   // Shared Fields
-  const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
+  const [currency, setCurrency] = useState<"NGN" | "USD">(initialDraft?.currency ?? "NGN");
   const [dueDate, setDueDate] = useState("");
-  const [lines, setLines] = useState<LineDraft[]>([emptyLine()]);
+  const [lines, setLines] = useState<LineDraft[]>(() =>
+    initialDraft?.lines.length
+      ? initialDraft.lines.map((line) => ({ ...line, id: makeId() }))
+      : [emptyLine()],
+  );
+  const [reviewingDraft, setReviewingDraft] = useState(Boolean(initialDraft));
 
   // UI State
   const [lastPdfUrl, setLastPdfUrl] = useState<string | null>(null);
@@ -79,6 +85,7 @@ export function InvoiceCreateForm() {
   }
 
   function resetForm() {
+    setReviewingDraft(false);
     setCustomerName("");
     setCustomerPhone("");
     setCustomerEmail("");
@@ -218,6 +225,12 @@ export function InvoiceCreateForm() {
 
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+      {reviewingDraft && (
+        <p role="status" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          Prepared from your request. Review the customer, currency and every line before creating.
+          No invoice has been saved or sent. Add contact details only if you want delivery to that customer.
+        </p>
+      )}
       {/* Header */}
       <div className="space-y-2">
         <h2 className="text-[22px] font-semibold text-brand-text">
@@ -229,7 +242,7 @@ export function InvoiceCreateForm() {
       </div>
 
       {/* WhatsApp Tip */}
-      <WhatsAppTip />
+      {!reviewingDraft && <WhatsAppTip />}
 
       {/* Customer Fields */}
       <RevenueFields

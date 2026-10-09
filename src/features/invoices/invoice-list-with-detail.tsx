@@ -9,6 +9,13 @@ import { type Invoice, useInvoices } from "./use-invoices";
 import { useNewInvoiceDrawer } from "@/features/dashboard/new-invoice-provider";
 import { WhatsAppQuickCreate } from "@/features/dashboard/whatsapp-quick-create";
 import { MessageCircle, Plus } from "lucide-react";
+import { getApiErrorMessage } from "@/api/errors";
+
+function initialStatus(value: string | null, invoiceId: string | null): string {
+  return value && ["all", "unpaid", "pending", "awaiting_confirmation", "paid"].includes(value)
+    ? value
+    : invoiceId ? "all" : "awaiting_confirmation";
+}
 
 /** Format an amount using the invoice's own currency (no conversion). */
 function formatInvoiceAmount(amount: number, currency: string): string {
@@ -22,16 +29,29 @@ export function InvoiceListWithDetail() {
   const newInvoice = useNewInvoiceDrawer();
   const searchParams = useSearchParams();
   const invoiceIdFromUrl = searchParams.get("invoice");
+  const statusFromUrl = searchParams.get("status");
+  const searchFromUrl = searchParams.get("search") ?? "";
+  const startFromUrl = searchParams.get("start_date") ?? "";
+  const endFromUrl = searchParams.get("end_date") ?? "";
 
   const [selectedInvoiceId, setSelectedInvoiceId] = useState<string | null>(
     null
   );
-  const [statusFilter, setStatusFilter] = useState<string>("awaiting_confirmation");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState(() => initialStatus(statusFromUrl, invoiceIdFromUrl));
+  const [searchQuery, setSearchQuery] = useState(searchFromUrl);
+  const [debouncedSearch, setDebouncedSearch] = useState(searchFromUrl);
+  const [startDate, setStartDate] = useState(startFromUrl);
+  const [endDate, setEndDate] = useState(endFromUrl);
   // Load 50 at a time; "Load more" grows the window. Status + search run
   // SERVER-SIDE so they span every invoice, not just the loaded page.
   const [limit, setLimit] = useState(50);
+
+  useEffect(() => {
+    setStatusFilter(initialStatus(statusFromUrl, invoiceIdFromUrl));
+    setSearchQuery(searchFromUrl);
+    setStartDate(startFromUrl);
+    setEndDate(endFromUrl);
+  }, [statusFromUrl, invoiceIdFromUrl, searchFromUrl, startFromUrl, endFromUrl]);
 
   // Debounce the search box so we don't fire a request per keystroke.
   useEffect(() => {
@@ -42,11 +62,13 @@ export function InvoiceListWithDetail() {
   // Reset paging when the filters change so we start from the first page.
   useEffect(() => {
     setLimit(50);
-  }, [statusFilter, debouncedSearch]);
+  }, [statusFilter, debouncedSearch, startDate, endDate]);
 
   const { data, isLoading, error, isFetching } = useInvoices(0, limit, {
     status: statusFilter,
     search: debouncedSearch,
+    start_date: startDate,
+    end_date: endDate,
   });
 
   const invoices = useMemo(() => (Array.isArray(data?.items) ? data.items : []), [data]);
@@ -66,6 +88,7 @@ export function InvoiceListWithDetail() {
     if (sc) {
       return {
         all: sc.all ?? 0,
+        unpaid: (sc.pending ?? 0) + (sc.awaiting_confirmation ?? 0),
         pending: sc.pending ?? 0,
         awaiting_confirmation: sc.awaiting_confirmation ?? 0,
         paid: sc.paid ?? 0,
@@ -73,6 +96,7 @@ export function InvoiceListWithDetail() {
     }
     return {
       all: invoices.length,
+      unpaid: invoices.filter((inv) => ["pending", "awaiting_confirmation"].includes(inv.status)).length,
       pending: invoices.filter((inv) => inv.status === "pending").length,
       awaiting_confirmation: invoices.filter(
         (inv) => inv.status === "awaiting_confirmation"
@@ -122,9 +146,12 @@ export function InvoiceListWithDetail() {
   if (error) {
     return (
       <div className="rounded-lg border border-rose-200 bg-rose-50 p-6 shadow-card">
-        <p className="text-sm text-rose-800">
-          Failed to load invoices. Please refresh.
+        <p className="text-sm text-rose-800" role="alert">
+          {getApiErrorMessage(error, "Failed to load invoices. Please refresh.")}
         </p>
+        <button type="button" onClick={() => { setStartDate(""); setEndDate(""); setSearchQuery(""); setStatusFilter("all"); }} className="mt-3 text-sm font-semibold text-brand-teal underline">
+          Clear filters
+        </button>
       </div>
     );
   }
@@ -168,11 +195,28 @@ export function InvoiceListWithDetail() {
         />
 
         {/* Filter Buttons */}
+        <div className="mb-4 grid gap-3 sm:grid-cols-2">
+          <label className="text-xs font-medium text-brand-text">
+            From date
+            <input type="date" value={startDate} max={endDate || undefined} onChange={(event) => setStartDate(event.target.value)} className="mt-1 block w-full rounded-lg border border-brand-border px-3 py-2" />
+          </label>
+          <label className="text-xs font-medium text-brand-text">
+            To date
+            <input type="date" value={endDate} min={startDate || undefined} onChange={(event) => setEndDate(event.target.value)} className="mt-1 block w-full rounded-lg border border-brand-border px-3 py-2" />
+          </label>
+        </div>
+        {(startDate || endDate) && (
+          <p className="mb-3 text-xs text-slate-600">
+            Dates filter by due date, or creation date if no due date exists.
+            <button type="button" onClick={() => { setStartDate(""); setEndDate(""); }} className="ml-2 underline">Clear dates</button>
+          </p>
+        )}
         <div className="mb-4 flex flex-wrap gap-2">
           {(
             [
               { key: "awaiting_confirmation", label: "Awaiting" },
               { key: "pending", label: "Pending" },
+              { key: "unpaid", label: "Unpaid" },
               { key: "paid", label: "Paid" },
               { key: "all", label: "All" },
             ] as const

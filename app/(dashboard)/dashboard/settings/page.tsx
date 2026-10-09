@@ -58,6 +58,7 @@ export default function SettingsPage() {
       "online-payments": "business",
       subscription: "billing",
       team: "team",
+      "ai-controls": "advanced",
     };
     const apply = () => {
       const hash = window.location.hash.replace("#", "");
@@ -67,6 +68,11 @@ export default function SettingsPage() {
     window.addEventListener("hashchange", apply);
     return () => window.removeEventListener("hashchange", apply);
   }, []);
+
+  useEffect(() => {
+    const target = window.location.hash.slice(1);
+    if (target) document.getElementById(target)?.scrollIntoView({ block: "start" });
+  }, [activeTab]);
 
   const { data: user } = useQuery<CurrentUser>({
     queryKey: ["currentUser"],
@@ -333,7 +339,7 @@ export default function SettingsPage() {
 
         {/* ─── Team Tab ─── */}
         {activeTab === "team" && (
-          <div className="space-y-6">
+          <div id="team" className="scroll-mt-20 space-y-6">
             <TeamManagementSection />
           </div>
         )}

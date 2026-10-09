@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -6,9 +6,10 @@ import { InvoiceListWithDetail } from "../invoice-list-with-detail";
 import { useInvoices } from "../use-invoices";
 
 const openInvoiceDrawer = vi.fn();
+const location = vi.hoisted(() => ({ query: "" }));
 
 vi.mock("next/navigation", () => ({
-  useSearchParams: () => new URLSearchParams(),
+  useSearchParams: () => new URLSearchParams(location.query),
 }));
 
 vi.mock("../use-invoices", () => ({
@@ -46,6 +47,7 @@ const mockUseInvoices = vi.mocked(useInvoices);
 describe("InvoiceListWithDetail empty state", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    location.query = "";
     mockUseInvoices.mockReturnValue({
       data: {
         items: [],
@@ -79,5 +81,20 @@ describe("InvoiceListWithDetail empty state", () => {
 
     await user.click(createButton);
     expect(openInvoiceDrawer).toHaveBeenCalledOnce();
+  });
+
+  it("applies assistant status and date filters to the server query", async () => {
+    location.query = "status=unpaid&start_date=2026-09-01&end_date=2026-09-30";
+    const view = render(<InvoiceListWithDetail />);
+    expect(mockUseInvoices).toHaveBeenLastCalledWith(0, 50, {
+      status: "unpaid", search: "", start_date: "2026-09-01", end_date: "2026-09-30",
+    });
+    expect(screen.getByLabelText("From date")).toHaveValue("2026-09-01");
+    expect(screen.getByLabelText("To date")).toHaveValue("2026-09-30");
+    location.query = "status=paid";
+    view.rerender(<InvoiceListWithDetail />);
+    await waitFor(() => expect(mockUseInvoices).toHaveBeenLastCalledWith(0, 50, {
+      status: "paid", search: "", start_date: "", end_date: "",
+    }));
   });
 });
