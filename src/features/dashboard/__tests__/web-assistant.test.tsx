@@ -20,6 +20,7 @@ vi.mock("../new-invoice-provider", () => ({
   useNewInvoiceDrawer: () => ({ isOpen: state.invoiceOpen, openDraft: state.openDraft }),
 }));
 vi.mock("@/api/client", () => ({ apiClient: { get: vi.fn(), post: vi.fn() } }));
+vi.mock("react-hot-toast", () => ({ default: vi.fn() }));
 
 const context: WebAssistantResponse = {
   message: "Pending is unpaid; awaiting confirmation needs verification.",
@@ -105,6 +106,54 @@ describe("WebAssistant", () => {
     expect(apiClient.post).not.toHaveBeenCalled();
   });
 
+  it("automatically opens the guided product form for a clear matched request", async () => {
+    vi.mocked(apiClient.post).mockResolvedValue({ data: {
+      message: "I found the right workflow.", ai_assisted: false, notice: null,
+      auto_action_id: "new_product",
+      actions: [{
+        kind: "navigate", id: "new_product", title: "Add product", description: "Review before saving.",
+        href: "/dashboard/inventory?create=1&assistant=product",
+      }],
+    } satisfies WebAssistantResponse });
+    const user = userEvent.setup();
+    setup();
+    await user.click(screen.getByRole("button", { name: "Ask SuoOps" }));
+    await user.type(screen.getByRole("textbox"), "I want to add produccts");
+    await user.click(screen.getByRole("button", { name: "Find a next step" }));
+    await waitFor(() => expect(state.push).toHaveBeenCalledWith("/dashboard/inventory?create=1&assistant=product"));
+    expect(screen.queryByRole("dialog", { name: "Ask SuoOps" })).not.toBeInTheDocument();
+    expect(apiClient.post).toHaveBeenCalledOnce();
+    expect(state.openDraft).not.toHaveBeenCalled();
+  });
+
+  it("opens an explicitly requested invoice form automatically but never saves it", async () => {
+    vi.mocked(apiClient.post).mockResolvedValue({ data: { ...invoiceAnswer, auto_action_id: "new_invoice" } });
+    const user = userEvent.setup();
+    setup();
+    await user.click(screen.getByRole("button", { name: "Ask SuoOps" }));
+    await user.type(screen.getByRole("textbox"), "Create an invoice for Ada");
+    await user.click(screen.getByRole("button", { name: "Find a next step" }));
+    await waitFor(() => expect(state.openDraft).toHaveBeenCalledOnce());
+    expect(apiClient.post).toHaveBeenCalledOnce();
+  });
+
+  it.each([
+    { ...context, auto_action_id: "invoices" },
+    { ...context, actions: [context.actions[0]], ai_assisted: true, auto_action_id: "invoices" },
+    { ...context, actions: [context.actions[0]], auto_action_id: "unknown" },
+  ])("leaves ambiguous or AI-selected destinations for the user to choose", async (response) => {
+    vi.mocked(apiClient.post).mockResolvedValue({ data: response });
+    const user = userEvent.setup();
+    setup();
+    await user.click(screen.getByRole("button", { name: "Ask SuoOps" }));
+    await user.type(screen.getByRole("textbox"), "Help me find something");
+    await user.click(screen.getByRole("button", { name: "Find a next step" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Find a next step" })).toBeEnabled());
+    expect(state.push).not.toHaveBeenCalled();
+    expect(state.openDraft).not.toHaveBeenCalled();
+    expect(screen.getByRole("dialog", { name: "Ask SuoOps" })).toBeVisible();
+  });
+
   it("only opens a prefilled form after the user reviews the proposed draft", async () => {
     const user = userEvent.setup();
     const view = setup();
@@ -187,7 +236,9 @@ describe("WebAssistant", () => {
     const signal = vi.mocked(apiClient.post).mock.calls[0][2]?.signal;
     await user.keyboard("{Escape}");
     expect(signal?.aborted).toBe(true);
-    await act(async () => resolve({ data: invoiceAnswer }));
+    await act(async () => resolve({ data: { ...invoiceAnswer, auto_action_id: "new_invoice" } }));
+    expect(state.openDraft).not.toHaveBeenCalled();
+    expect(state.push).not.toHaveBeenCalled();
     await user.click(screen.getByRole("button", { name: "Ask SuoOps" }));
     expect(screen.queryByRole("button", { name: "Review invoice draft" })).not.toBeInTheDocument();
   });

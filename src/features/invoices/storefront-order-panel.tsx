@@ -10,6 +10,7 @@ import { apiClient } from "@/api/client";
 import { OrderMessageThread } from "./order-message-thread";
 
 export interface OrderEscrow {
+  next_step?: string;
   status: string;
   held: boolean;
   release_due_at: string | null;
@@ -229,6 +230,11 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
     (escrow.held || ["disputed", "refund_pending", "refunded", "released"].includes(escrow.status)) ? (
       <OrderMessageThread invoiceId={invoiceId} unread={escrow.unread_messages ?? 0} readOnly={!escrow.held} />
     ) : null;
+    const nextStep = escrow.next_step ? (
+      <div role="status" className="mt-3 rounded-md border border-brand-jade/20 bg-white/70 px-3 py-2 text-sm text-brand-text">
+        <span className="font-semibold">Next step: </span>{escrow.next_step}
+      </div>
+    ) : null;
 
   // Service/digital orders don't ship — no dispatch/delivery workflow. Buyer
   // protection is still on: paid automatically after the window, or when the
@@ -245,6 +251,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
           </span>
         </div>
         <p className="mt-2 text-sm text-brand-text">{statusLine}</p>
+        {nextStep}
         <div className="mt-2 rounded-md bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
           🛠️ This is a service order — nothing to deliver. You&apos;ll be paid your
           full amount after protection clears and the settlement date is reached.
@@ -287,6 +294,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
         </span>
       </div>
       <p className="mt-2 text-sm text-brand-text">{statusLine}</p>
+      {nextStep}
 
       {escrow.delivery_status &&
         escrow.delivery_status_label &&
@@ -443,7 +451,11 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
                   disabled={markSent.isPending || (!sentFile && !escrow.dispatch_proof_url)}
                   className="rounded-md bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-sky-700 disabled:opacity-60"
                 >
-                  {markSent.isPending ? "Saving…" : courierBooking ? "Request courier booking" : "Save & notify buyer"}
+                  {markSent.isPending ? "Saving…" : courierBooking
+                    ? escrow.delivery_service_type === "dropoff"
+                      ? "Package ready — book drop-off"
+                      : "Ready for pickup — book courier"
+                    : "Save & notify buyer"}
                 </button>
                 <button
                   type="button"

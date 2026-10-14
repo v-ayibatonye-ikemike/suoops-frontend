@@ -19,6 +19,7 @@ export interface WebAssistantResponse {
   actions: AssistantAction[];
   ai_assisted: boolean;
   notice: string | null;
+  auto_action_id?: string | null;
 }
 
 export function assistantPage(pathname: string): AssistantPage {

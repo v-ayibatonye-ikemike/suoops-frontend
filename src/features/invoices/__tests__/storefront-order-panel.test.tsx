@@ -62,7 +62,7 @@ describe("Storefront courier booking", () => {
     vi.mocked(apiClient.post).mockResolvedValue({
       data: { escrow: { ...base, delivery_status: "booking_pending" } },
     });
-    fireEvent.click(screen.getByRole("button", { name: "Request courier booking" }));
+    fireEvent.click(screen.getByRole("button", { name: "Ready for pickup — book courier" }));
     await waitFor(() => expect(toast).toHaveBeenCalledWith("Courier booking requested — wait for confirmation."));
     expect(toast.success).not.toHaveBeenCalled();
     expect(apiClient.post).toHaveBeenCalledTimes(1);
@@ -88,7 +88,7 @@ describe("Storefront courier booking", () => {
     expect(await screen.findByRole("button", { name: "Book courier pickup" })).toBeVisible();
     expect(screen.getByText(/The courier did not accept this booking/)).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: "Book courier pickup" }));
-    expect(screen.getByRole("button", { name: "Request courier booking" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Ready for pickup — book courier" })).toBeEnabled();
     expect(screen.getByText(/Your saved package photo will be reused/)).toBeVisible();
   });
 
@@ -112,9 +112,9 @@ describe("Storefront courier booking", () => {
     vi.mocked(apiClient.get).mockResolvedValue({
       data: { escrow: { ...base, delivery_status: "booking_pending", delivery_status_label: "Checking courier booking" } },
     });
-    fireEvent.click(screen.getByRole("button", { name: "Request courier booking" }));
+    fireEvent.click(screen.getByRole("button", { name: "Ready for pickup — book courier" }));
     expect(await screen.findByText("Checking courier booking")).toBeVisible();
-    expect(screen.queryByRole("button", { name: "Request courier booking" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Ready for pickup — book courier" })).not.toBeInTheDocument();
     expect(apiClient.post).toHaveBeenCalledTimes(1);
     expect(toast.error).toHaveBeenCalled();
   });
@@ -142,6 +142,15 @@ describe("Storefront courier booking", () => {
     expect(screen.getByText(/After booking is confirmed, drop this package off/)).toBeVisible();
     expect(screen.getByText(/Ikeja station/)).toBeVisible();
     expect(screen.queryByText(/pickup from your store address/)).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Package ready — book drop-off" })).toBeDisabled();
+  });
+
+  it("shows the server-owned next step without automatically requesting pickup", async () => {
+    setup({ next_step: "Pack the order, add a package photo, then confirm it is ready to book the selected courier." });
+    expect(await screen.findByRole("status")).toHaveTextContent("Next step: Pack the order");
+    fireEvent.click(screen.getByRole("button", { name: "Book courier pickup" }));
+    expect(screen.getByRole("button", { name: "Ready for pickup — book courier" })).toBeDisabled();
+    expect(apiClient.post).not.toHaveBeenCalled();
   });
 
   it("preserves manual dispatch without promising a courier", async () => {

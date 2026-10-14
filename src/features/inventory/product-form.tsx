@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { X, Image as ImageIcon, QrCode } from "lucide-react";
+import { Image as ImageIcon, QrCode } from "lucide-react";
+import { Drawer } from "@/components/ui/drawer";
+import { getApiErrorMessage } from "@/api/errors";
 import {
   useCreateProduct,
   useUpdateProduct,
@@ -18,11 +20,22 @@ interface ProductFormProps {
   product?: Product | null;
   onClose: () => void;
   onSuccess?: () => void;
+  guided?: boolean;
+  initialType?: "physical" | "service";
 }
 
-export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
+export function ProductForm({
+  product, onClose, onSuccess, guided = false, initialType = "physical",
+}: ProductFormProps) {
   const isEditing = !!product;
   const { symbol } = useCurrency();
+  const formId = useId();
+  const nameRef = useRef<HTMLInputElement>(null);
+  const priceRef = useRef<HTMLInputElement>(null);
+  const quantityRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const photoRef = useRef<HTMLInputElement>(null);
+  const saveRef = useRef<HTMLButtonElement>(null);
   
   const { data: categories } = useCategories();
   const createProduct = useCreateProduct();
@@ -30,7 +43,9 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
   const uploadImage = useUploadProductImage();
   // When the business runs a storefront, every listed item must carry a
   // description AND a photo (buyer protection: know what was ordered).
-  const { data: storefront } = useQuery({
+  const {
+    data: storefront, isLoading: storefrontLoading, isError: storefrontError, refetch: retryStorefront,
+  } = useQuery({
     queryKey: ["storefront"],
     queryFn: getStorefront,
   });
@@ -48,8 +63,8 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
     reorder_level: product?.reorder_level ?? 10,
     reorder_quantity: product?.reorder_quantity ?? 20,
     unit: product?.unit ?? "pcs",
-    track_stock: product?.track_stock ?? true,
-    fulfilment_type: product?.fulfilment_type ?? "physical",
+    track_stock: product?.track_stock ?? initialType === "physical",
+    fulfilment_type: product?.fulfilment_type ?? initialType,
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -80,6 +95,10 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    if (storefrontLoading || storefrontError) {
+      setError("Please wait for storefront requirements to load, or retry the check before saving.");
+      return;
+    }
 
     // Storefront items must show buyers a description and a real photo.
     if (storefrontEnabled) {
@@ -117,40 +136,79 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
         onClose();
       }
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "An error occurred";
-      // Try to extract detail from axios error
-      if (typeof err === "object" && err !== null && "response" in err) {
-        const axiosErr = err as { response?: { data?: { detail?: string } } };
-        setError(axiosErr.response?.data?.detail ?? message);
-      } else {
-        setError(message);
-      }
+      setError(getApiErrorMessage(err, "Could not save this item. Please review the details and try again."));
     }
   };
 
   const isLoading =
     createProduct.isPending || updateProduct.isPending || uploadImage.isPending;
+  const physical = formData.fulfilment_type === "physical";
+  const guidance = !formData.name.trim()
+    ? {
+        title: physical ? "Name your product" : "Name your service",
+        text: "Use the name customers recognise. Include the size or variant if it matters.",
+        button: "Go to name", target: nameRef,
+      }
+    : !Number.isFinite(formData.selling_price) || formData.selling_price <= 0
+      ? {
+          title: "Set your selling price",
+          text: `Enter what the customer pays in ${symbol}, not what it costs you.`,
+          button: "Go to selling price", target: priceRef,
+        }
+      : storefrontEnabled && !(formData.description ?? "").trim()
+        ? {
+            title: "Describe what the buyer gets",
+            text: "Your storefront needs a description. Explain what is included, the size or how the service works.",
+            button: "Go to description", target: descriptionRef,
+          }
+        : storefrontEnabled && !imagePreview
+          ? {
+              title: "Add a photo for your storefront",
+              text: "Choose a clear photo representing this item. PNG, JPEG or WebP, under 5MB.",
+              button: "Go to photo", target: photoRef,
+            }
+          : {
+              title: "Review before saving",
+              text: physical
+                ? "Check your opening stock: 0 means out of stock. Review the details, then choose Add item to save."
+                : "Leave availability blank for an unlimited service, or enter a limit. Review the details, then choose Add item to save.",
+              button: physical ? "Review opening stock" : "Review and save",
+              target: physical ? quantityRef : saveRef,
+            };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="w-full max-w-lg rounded-2xl bg-white dark:bg-gray-800 shadow-xl max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 px-6 py-4">
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
-            {isEditing ? "Edit item" : "Add item"}
-          </h2>
-          <button
-            onClick={onClose}
-            className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-
+    <>
+      <Drawer open={!savedProductId} onClose={onClose} title={isEditing ? "Edit item" : "Add item"} size="max-w-lg" initialFocusRef={nameRef}>
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {guided && !isEditing && (
+            <section aria-label="Product setup guide" className="rounded-xl border border-brand-jade/20 bg-brand-jade/5 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-brand-evergreen">Ask SuoOps guide</p>
+              <p className="mt-1 text-xs text-slate-600">Nothing is saved until you choose Add item.</p>
+              <div aria-live="polite">
+                <h3 className="mt-3 text-sm font-semibold text-brand-text">{guidance.title}</h3>
+                <p className="mt-1 text-sm text-slate-600">{guidance.text}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => guidance.target.current?.focus()}
+                className="mt-3 rounded-lg bg-brand-evergreen px-3 py-2 text-xs font-semibold text-white"
+              >
+                {guidance.button}
+              </button>
+            </section>
+          )}
+          {storefrontLoading && <p role="status" className="text-xs text-slate-600">Checking storefront requirements...</p>}
+          {storefrontError && (
+            <div role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-800">
+              Could not check storefront requirements.{" "}
+              <button type="button" onClick={() => void retryStorefront()} className="font-semibold underline">
+                Retry requirements
+              </button>
+            </div>
+          )}
           {error && (
-            <div className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3 text-sm text-red-600 dark:text-red-400">
+            <div role="alert" className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3 text-sm text-red-600 dark:text-red-400">
               {error}
             </div>
           )}
@@ -165,6 +223,7 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
+                aria-pressed={physical}
                 onClick={() =>
                   setFormData({
                     ...formData,
@@ -173,7 +232,7 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
                   })
                 }
                 className={`rounded-xl border-2 p-3 text-left transition ${
-                  formData.track_stock
+                  physical
                     ? "border-brand-jade bg-emerald-50 dark:bg-emerald-900/20"
                     : "border-gray-200 dark:border-gray-600 hover:border-gray-300"
                 }`}
@@ -184,6 +243,7 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
               </button>
               <button
                 type="button"
+                aria-pressed={!physical}
                 onClick={() =>
                   setFormData({
                     ...formData,
@@ -192,7 +252,7 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
                   })
                 }
                 className={`rounded-xl border-2 p-3 text-left transition ${
-                  !formData.track_stock
+                  !physical
                     ? "border-brand-jade bg-emerald-50 dark:bg-emerald-900/20"
                     : "border-gray-200 dark:border-gray-600 hover:border-gray-300"
                 }`}
@@ -212,18 +272,20 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
 
           {/* Name — the essential */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              {formData.track_stock ? "Product name" : "Service name"}{" "}
+            <label htmlFor={`${formId}-name`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              {physical ? "Product name" : "Service name"}{" "}
               <span className="text-red-500">*</span>
             </label>
             <input
+              id={`${formId}-name`}
+              ref={nameRef}
               type="text"
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 text-sm focus:border-brand-jade focus:outline-none focus:ring-1 focus:ring-brand-jade"
               placeholder={
-                formData.track_stock
+                physical
                   ? "e.g. Bag of rice, Red handbag"
                   : "e.g. Logo design, Consulting (per hour), Website build"
               }
@@ -232,10 +294,12 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
 
           {/* Price — the essential */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor={`${formId}-price`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Price ({symbol}) <span className="text-red-500">*</span>
             </label>
             <input
+              id={`${formId}-price`}
+              ref={priceRef}
               type="number"
               required
               min="0.01"
@@ -251,7 +315,7 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
 
           {/* Description — required for storefront items (buyer protection) */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor={`${formId}-description`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Description{" "}
               {storefrontEnabled ? (
                 <span className="text-red-500">*</span>
@@ -260,6 +324,8 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
               )}
             </label>
             <textarea
+              id={`${formId}-description`}
+              ref={descriptionRef}
               value={formData.description ?? ""}
               onChange={(e) => setFormData({ ...formData, description: e.target.value || null })}
               rows={2}
@@ -301,12 +367,14 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
                   </div>
                 )}
               </div>
-              <label className="cursor-pointer rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
+              <label className="cursor-pointer rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus-within:ring-2 focus-within:ring-brand-jade">
                 {imagePreview ? "Change photo" : "Add photo"}
                 <input
+                  ref={photoRef}
+                  aria-label="Item photo"
                   type="file"
                   accept="image/png,image/jpeg,image/webp"
-                  className="hidden"
+                  className="sr-only"
                   onChange={handleImageChange}
                 />
               </label>
@@ -337,7 +405,7 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
           {(formData.track_stock || formData.fulfilment_type !== "physical") && (
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label htmlFor={`${formId}-quantity`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   {formData.fulfilment_type !== "physical"
                     ? "Available quantity "
                     : "How many in stock?"}
@@ -346,6 +414,8 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
                   )}
                 </label>
                 <input
+                  id={`${formId}-quantity`}
+                  ref={quantityRef}
                   type="number"
                   min="0"
                   value={formData.quantity_in_stock || ""}
@@ -495,15 +565,16 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
               Cancel
             </button>
             <button
+              ref={saveRef}
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || storefrontLoading || storefrontError}
               className="px-4 py-2 rounded-lg bg-brand-jade text-sm font-semibold text-white hover:bg-brand-jadeHover transition-colors disabled:opacity-50"
             >
               {isLoading ? "Saving..." : isEditing ? "Update item" : "Add item"}
             </button>
           </div>
         </form>
-      </div>
+      </Drawer>
 
       {savedProductId && (
         <ScanToPayModal
@@ -515,6 +586,6 @@ export function ProductForm({ product, onClose, onSuccess }: ProductFormProps) {
           }}
         />
       )}
-    </div>
+    </>
   );
 }

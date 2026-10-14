@@ -4,6 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Loader2, Sparkles } from "lucide-react";
+import toast from "react-hot-toast";
 
 import {
   askWebAssistant, assistantPage, getWebAssistantContext,
@@ -101,7 +102,15 @@ export function WebAssistant() {
     setShowAll(false);
     try {
       const result = await askWebAssistant(message, page, allowAI, controller.signal);
-      if (!controller.signal.aborted) setAnswer(result);
+      if (!controller.signal.aborted) {
+        setAnswer(result);
+        const action = !result.ai_assisted && result.actions.length === 1
+          ? result.actions.find((item) => item.id === result.auto_action_id)
+          : undefined;
+        if (action && follow(action)) {
+          toast(`${result.notice ? `${result.notice} ` : ""}Opening: ${action.title}. Nothing has been saved.`);
+        }
+      }
     } catch (failure) {
       if (!controller.signal.aborted) {
         setError(getApiErrorMessage(failure, "I could not process that request. Please try again or use a shortcut."));
@@ -118,16 +127,16 @@ export function WebAssistant() {
     if (action.kind === "invoice_draft") {
       if (!invoiceDrawer.openDraft(action.draft)) {
         setError("Close the current invoice form before opening another draft.");
-        return;
+        return false;
       }
       returningFromDraft.current = true;
       close();
-      return;
+      return true;
     }
     const destination = new URL(action.href, window.location.origin);
     if (destination.origin !== window.location.origin || !/^\/dashboard(?:\/|$)/.test(destination.pathname)) {
       setError("That destination is not supported. Please try another request.");
-      return;
+      return false;
     }
     close();
     if (destination.pathname === pathname && destination.hash && !destination.search) {
@@ -135,6 +144,7 @@ export function WebAssistant() {
     } else {
       router.push(action.href);
     }
+    return true;
   };
 
   const response = answer ?? context.data;
@@ -161,7 +171,7 @@ export function WebAssistant() {
         open={open}
         onClose={close}
         title="Ask SuoOps"
-        description="Find your way, understand this page, or prepare an invoice for review."
+        description="Find a feature, add products with guidance, or prepare an invoice for review."
         size="max-w-lg"
         initialFocusRef={inputRef}
       >
@@ -178,7 +188,7 @@ export function WebAssistant() {
                 onChange={(event) => setQuestion(event.target.value)}
                 disabled={pending}
                 maxLength={500}
-                placeholder="e.g. Create an invoice for Ada"
+                placeholder="e.g. I want to add products"
                 className="mt-2 w-full rounded-xl border border-slate-300 px-3 py-3 text-sm font-normal outline-none focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20"
               />
             </label>
@@ -193,7 +203,8 @@ export function WebAssistant() {
               </button>
             </div>
             <p className="text-xs leading-relaxed text-slate-600">
-              Common requests use no AI allowance. Optional AI interprets only your request and this page name, not your business records. Your workspace AI controls and allowance still apply.
+              Clear requests open the right screen or form. Unclear requests show choices.
+              Common requests and spelling fixes use no AI allowance. Optional AI interprets only your request and this page name, not your business records. Your workspace AI controls and allowance still apply.
             </p>
           </form>
 
