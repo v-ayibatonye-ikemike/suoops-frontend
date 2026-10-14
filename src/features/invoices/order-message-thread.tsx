@@ -16,11 +16,13 @@ import {
  * contact/account/link the seller tries to share and blocks off-platform payment
  * pushes, and repeated attempts flag the store. Kept intentionally minimal.
  */
-export function OrderMessageThread({ invoiceId, unread = 0 }: { invoiceId: string; unread?: number }) {
+export function OrderMessageThread({
+  invoiceId, unread = 0, readOnly = false,
+}: { invoiceId: string; unread?: number; readOnly?: boolean }) {
   const qc = useQueryClient();
   const [body, setBody] = useState("");
 
-  const { data: messages = [], isLoading } = useQuery({
+  const { data: messages = [], isLoading, isError, refetch } = useQuery({
     queryKey: ["orderMessages", invoiceId],
     queryFn: () => getOrderMessages(invoiceId),
     refetchInterval: 20000,
@@ -45,7 +47,7 @@ export function OrderMessageThread({ invoiceId, unread = 0 }: { invoiceId: strin
     onError: () => toast.error("Could not send. Please try again."),
   });
 
-  const canSend = body.trim().length > 0 && !send.isPending;
+  const canSend = !readOnly && !isError && body.trim().length > 0 && !send.isPending;
 
   return (
     <div className="mt-3 border-t border-brand-jade/20 pt-3">
@@ -60,6 +62,13 @@ export function OrderMessageThread({ invoiceId, unread = 0 }: { invoiceId: strin
       <div className="mt-2 max-h-56 space-y-2 overflow-y-auto">
         {isLoading ? (
           <p className="text-xs text-brand-textMuted">Loading…</p>
+        ) : isError ? (
+          <div role="alert" className="text-xs text-rose-700">
+            <p>Could not load order messages.</p>
+            <button type="button" onClick={() => void refetch()} className="mt-1 font-semibold underline">
+              Retry messages
+            </button>
+          </div>
         ) : messages.length === 0 ? (
           <p className="text-xs text-brand-textMuted">
             No messages yet. Coordinate delivery here — never share contact or bank details.
@@ -91,8 +100,17 @@ export function OrderMessageThread({ invoiceId, unread = 0 }: { invoiceId: strin
           ))
         )}
       </div>
+      {readOnly ? (
+        <p className="mt-2 text-xs text-brand-textMuted">
+          Messaging is closed for this order. Your conversation is still available for reference.{" "}
+          <a href="https://support.suoops.com" className="font-semibold text-brand-jade underline">
+            Contact SuoOps support
+          </a>
+        </p>
+      ) : (
       <div className="mt-2 flex items-end gap-2">
         <textarea
+          aria-label="Message the buyer"
           value={body}
           onChange={(e) => setBody(e.target.value.slice(0, 1000))}
           rows={2}
@@ -108,6 +126,7 @@ export function OrderMessageThread({ invoiceId, unread = 0 }: { invoiceId: strin
           {send.isPending ? "Sending…" : "Send"}
         </button>
       </div>
+      )}
     </div>
   );
 }

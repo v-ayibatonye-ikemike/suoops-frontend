@@ -74,6 +74,8 @@ export function InvoiceClient({ initialInvoice, invoiceId, apiBaseUrl }: Props) 
   const [error, setError] = useState<string | null>(null);
   const [isPolling, setIsPolling] = useState(false);
   const [payLoading, setPayLoading] = useState(false);
+  const [verificationError, setVerificationError] = useState(false);
+  const [verificationAttempt, setVerificationAttempt] = useState(0);
   // Buyer-only escrow RELEASE code for held storefront orders. It's stashed in
   // this tab's sessionStorage at checkout (keyed by invoice) and revealed here
   // AFTER payment. sessionStorage is deliberate: it survives the payment redirect
@@ -172,11 +174,10 @@ export function InvoiceClient({ initialInvoice, invoiceId, apiBaseUrl }: Props) 
     }
   }, [apiBaseUrl, invoiceId, isClosed, isPaid, payLoading]);
 
-  // Verify on return from Paystack checkout: the callback URL carries ?ref=…,
-  // so confirm the payment directly (independent of the webhook) to avoid the
-  // customer being stuck on "pending" if the webhook is delayed or missed.
+  // A paid invoice may still need escrow activation after a partial webhook.
+  // The backend verifies on the original collecting provider.
   useEffect(() => {
-    if (isPaid || isClosed) return;
+    if (isClosed) return;
     let reference: string | null = null;
     try {
       reference = new URLSearchParams(window.location.search).get("ref");
@@ -185,26 +186,30 @@ export function InvoiceClient({ initialInvoice, invoiceId, apiBaseUrl }: Props) 
     }
     if (!reference) return;
     let cancelled = false;
+    setVerificationError(false);
     (async () => {
       try {
         const res = await fetch(
           `${apiBaseUrl}/public/invoices/${invoiceId}/verify?reference=${encodeURIComponent(reference)}`,
           { method: "POST" },
         );
-        if (!res.ok || cancelled) return;
+        if (cancelled) return;
+        if (!res.ok) throw new Error("Payment verification unavailable");
         const data = (await res.json()) as { status?: string };
         if (data.status === "paid") {
           const fresh = await fetch(`${apiBaseUrl}/public/invoices/${invoiceId}`, { cache: "no-store" });
-          if (fresh.ok && !cancelled) setInvoice((await fresh.json()) as InvoicePublic);
+          if (!fresh.ok) throw new Error("Could not refresh payment receipt");
+          if (!cancelled) setInvoice((await fresh.json()) as InvoicePublic);
         }
       } catch (err) {
         console.warn("[verify] failed:", err);
+        if (!cancelled) setVerificationError(true);
       }
     })();
     return () => {
       cancelled = true;
     };
-  }, [apiBaseUrl, invoiceId, isPaid, isClosed]);
+  }, [apiBaseUrl, invoiceId, isClosed, verificationAttempt]);
 
   // Poll for status updates with exponential backoff
   useEffect(() => {
@@ -212,6 +217,7 @@ export function InvoiceClient({ initialInvoice, invoiceId, apiBaseUrl }: Props) 
     setIsPolling(true);
     let delay = 8_000;
     let timer: ReturnType<typeof setTimeout>;
+    let cancelled = false;
 
     const poll = async () => {
       try {
@@ -219,8 +225,9 @@ export function InvoiceClient({ initialInvoice, invoiceId, apiBaseUrl }: Props) 
           `${apiBaseUrl}/public/invoices/${invoiceId}`,
           { cache: "no-store" },
         );
-        if (!res.ok) return;
+        if (!res.ok) throw new Error("Could not refresh invoice status");
         const data = (await res.json()) as InvoicePublic;
+        if (cancelled) return;
         setInvoice(data);
         if (data.status === "paid" || data.status === "cancelled") {
           setIsPolling(false);
@@ -230,11 +237,14 @@ export function InvoiceClient({ initialInvoice, invoiceId, apiBaseUrl }: Props) 
         console.warn("[poll] status fetch failed:", err);
       }
       delay = Math.min(delay * 1.5, 30_000);
-      timer = setTimeout(poll, delay);
+      if (!cancelled) timer = setTimeout(poll, delay);
     };
 
     timer = setTimeout(poll, delay);
-    return () => clearTimeout(timer);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [apiBaseUrl, invoiceId, isPaid, isClosed]);
 
   const copyField = useCallback(
@@ -524,6 +534,20 @@ export function InvoiceClient({ initialInvoice, invoiceId, apiBaseUrl }: Props) 
             )}
 
             {/* Feedback Messages */}
+            {verificationError && (
+              <div role="alert" className="mx-6 mt-4 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                <p>We couldn&apos;t finish checking this payment. If you were debited, don&apos;t pay again.</p>
+                <button
+                  type="button"
+                  onClick={() => setVerificationAttempt((attempt) => attempt + 1)}
+                  className="mt-2 font-semibold underline"
+                >
+                  Check payment again
+                </button>
+                {" · "}
+                <a href="https://support.suoops.com" className="font-semibold underline">Contact support</a>
+              </div>
+            )}
             {error && (
               <div
                 className="mx-6 mt-4 rounded-lg bg-rose-50 px-4 py-3 text-sm text-rose-700"

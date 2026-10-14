@@ -1,9 +1,7 @@
 /**
  * Buyer-protection notice shown on the public storefront + marketplace.
  *
- * Deliberately non-technical: it reassures shoppers that paying online is safe
- * and tells them what to do if a paid order never arrives. Backed by support
- * today and by the automated hold-&-refund flow once that ships.
+ * Explain time-limited protection without promising delivery or an instant refund.
  */
 export function BuyerProtectionNotice({ className = "" }: { className?: string }) {
   return (
@@ -28,23 +26,23 @@ export function BuyerProtectionNotice({ className = "" }: { className?: string }
           Shop safely — you&apos;re protected
         </p>
         <p className="mt-0.5 text-emerald-800">
-          When you pay online here, your payment is protected until your order
-          reaches you. If it doesn&apos;t arrive,{" "}
+          Online payments are held during your buyer-protection window.
+          If your order doesn&apos;t arrive or isn&apos;t as agreed,{" "}
           <a
             href="mailto:support@suoops.com?subject=I%20didn%27t%20receive%20my%20order"
             className="font-semibold underline underline-offset-2 hover:text-emerald-900"
           >
             report it
           </a>{" "}
-          and we&apos;ll help you get your money back.
+          promptly so SuoOps can review the issue before funds are released.
         </p>
         <p className="mt-1 text-emerald-800">
-          Pick a courier at checkout and get your order delivered nationwide.
+          Choose an available courier at checkout. The seller prepares your order
+          and books dispatch through SuoOps — you don&apos;t need to call a rider.
         </p>
         <p className="mt-1 text-xs text-emerald-700">
-          Report within about <span className="font-semibold">12 hours</span> for
-          orders in your state, or <span className="font-semibold">3 days</span> for
-          orders from another state.
+          Protection timing depends on your order and delivery route. Only confirm
+          receipt after you&apos;ve received what you paid for. Confirmation ends buyer protection.
         </p>
       </div>
     </div>

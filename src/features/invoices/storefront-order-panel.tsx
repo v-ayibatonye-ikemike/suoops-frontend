@@ -225,6 +225,10 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
     !escrow.held_for_review && !escrow.confirmed_at &&
     (!escrow.delivery_status || escrow.delivery_status === "booking_failed")
   );
+  const messageThread = invoiceId &&
+    (escrow.held || ["disputed", "refund_pending", "refunded", "released"].includes(escrow.status)) ? (
+      <OrderMessageThread invoiceId={invoiceId} unread={escrow.unread_messages ?? 0} readOnly={!escrow.held} />
+    ) : null;
 
   // Service/digital orders don't ship — no dispatch/delivery workflow. Buyer
   // protection is still on: paid automatically after the window, or when the
@@ -267,9 +271,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
             {markRendered.isPending ? "Saving…" : "Mark service as done"}
           </button>
         ) : null}
-        {invoiceId && escrow.held ? (
-          <OrderMessageThread invoiceId={invoiceId} unread={escrow.unread_messages ?? 0} />
-        ) : null}
+        {messageThread}
       </div>
     );
   }
@@ -532,9 +534,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
           )}
         </div>
       ) : null}
-      {invoiceId && escrow.held ? (
-        <OrderMessageThread invoiceId={invoiceId} unread={escrow.unread_messages ?? 0} />
-      ) : null}
+      {messageThread}
     </div>
   );
 }

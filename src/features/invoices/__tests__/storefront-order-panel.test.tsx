@@ -7,7 +7,11 @@ import { apiClient } from "@/api/client";
 import { StorefrontOrderPanel, type OrderEscrow } from "../storefront-order-panel";
 
 vi.mock("@/api/client", () => ({ apiClient: { get: vi.fn(), post: vi.fn() } }));
-vi.mock("../order-message-thread", () => ({ OrderMessageThread: () => null }));
+vi.mock("../order-message-thread", () => ({
+  OrderMessageThread: ({ readOnly }: { readOnly?: boolean }) => (
+    <div>{readOnly ? "Read-only conversation" : "Active conversation"}</div>
+  ),
+}));
 vi.mock("react-hot-toast", () => ({
   default: Object.assign(vi.fn(), { success: vi.fn(), error: vi.fn() }),
 }));
@@ -33,6 +37,19 @@ function setup(overrides: Partial<OrderEscrow> = {}) {
 
 describe("Storefront courier booking", () => {
   beforeEach(() => vi.resetAllMocks());
+
+  it.each(
+    ["disputed", "refund_pending", "refunded", "released"].flatMap((status) =>
+      [true, false].map((requires_delivery) => ({ status, requires_delivery })),
+    ),
+  )(
+    "keeps the conversation read-only for $status, delivery=$requires_delivery",
+    async ({ status, requires_delivery }) => {
+      setup({ status, held: false, requires_delivery });
+      expect(await screen.findByText("Read-only conversation")).toBeVisible();
+      expect(screen.queryByText("Active conversation")).not.toBeInTheDocument();
+    },
+  );
 
   it("requests a booking without claiming the order was sent", async () => {
     setup();

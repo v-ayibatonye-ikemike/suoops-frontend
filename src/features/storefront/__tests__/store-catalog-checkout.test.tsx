@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { StoreCatalog, type StoreProduct } from "../store-catalog";
@@ -218,6 +218,7 @@ describe("StoreCatalog checkout quotes", () => {
       ([url]) => String(url).endsWith("/order"),
     );
     expect(orderCalls).toHaveLength(1);
+    expect(JSON.parse(orderCalls[0][1].body)).toMatchObject({ expected_total_kobo: 153000 });
     await act(async () => rejectOrder(new Error("Order unavailable")));
     expect(screen.getByRole("button", { name: /^Pay/ })).toBeEnabled();
     expect(screen.getByText("Order unavailable")).toBeVisible();
@@ -234,5 +235,93 @@ describe("StoreCatalog checkout quotes", () => {
       />,
     );
     expect(screen.queryByText("Your order")).not.toBeInTheDocument();
+  });
+
+  it("keeps keyboard focus inside checkout and restores it on Escape", () => {
+    vi.stubGlobal("fetch", vi.fn());
+    render(<StoreCatalog slug="test" storeName="Test" products={[product]} onlinePaymentsEnabled />);
+    fireEvent.click(screen.getByRole("button", { name: "Add" }));
+    const opener = screen.getByRole("button", { name: /Checkout/ });
+    opener.focus();
+    fireEvent.click(opener);
+    const dialog = screen.getByRole("dialog", { name: "Your order" });
+    expect(dialog.contains(document.activeElement)).toBe(true);
+    const first = within(dialog).getByRole("button", { name: "Close" });
+    first.focus();
+    fireEvent.keyDown(document, { key: "Tab", shiftKey: true });
+    expect(dialog.contains(document.activeElement)).toBe(true);
+    expect(first).not.toHaveFocus();
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Checkout/ })).toHaveFocus();
+  });
+
+  it("edits quantities and removes products without leaving checkout", () => {
+    checkout();
+    fireEvent.click(within(screen.getByRole("dialog")).getByRole("button", { name: "Add one Soap" }));
+    expect(screen.getByRole("button", { name: "Pay ₦2,060" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Remove Soap from order" }));
+    expect(screen.getByText("Your cart is empty")).toBeVisible();
+    expect(screen.getByRole("button", { name: /^Pay/ })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: "Continue shopping" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("does not allow more than the API's 50 units per product", () => {
+    render(<StoreCatalog slug="test" storeName="Test" products={[product]} onlinePaymentsEnabled />);
+    fireEvent.click(screen.getByRole("button", { name: "Add" }));
+    for (let i = 1; i < 50; i++) fireEvent.click(screen.getByRole("button", { name: "Add one Soap" }));
+    expect(screen.getByRole("button", { name: "Add one Soap" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /Checkout/ })).toHaveTextContent("50 items");
+  });
+
+  it("shows category filters for small stores and recovers from empty searches", () => {
+    render(
+      <StoreCatalog
+        slug="test" storeName="Test" onlinePaymentsEnabled
+        products={[{ ...product, category: "Beauty" }, { ...product, id: 2, name: "Bag", category: "Clothing" }]}
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Beauty" }));
+    expect(screen.queryByRole("heading", { name: "Bag" })).not.toBeInTheDocument();
+    fireEvent.change(screen.getByRole("searchbox"), { target: { value: "missing" } });
+    expect(screen.getByText("No products match your search")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+    expect(screen.getByRole("heading", { name: "Bag" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Soap" })).toBeVisible();
+  });
+
+  it("limits distinct products and prevents oversized bundles from bypassing that limit", () => {
+    const products = Array.from({ length: 21 }, (_, index) => ({
+      ...product, id: index + 1, name: `Product ${index + 1}`, bundle_label: "Essentials",
+    }));
+    render(<StoreCatalog slug="test" storeName="Test" products={products} onlinePaymentsEnabled />);
+    expect(screen.getByRole("button", { name: "Add all" })).toBeDisabled();
+    for (let i = 0; i < 20; i++) fireEvent.click(screen.getAllByRole("button", { name: "Add" })[0]);
+    expect(screen.getByRole("button", { name: "Add" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /Checkout/ })).toHaveTextContent("20 items");
+  });
+
+  it("explains why payment is disabled instead of leaving the buyer guessing", () => {
+    render(<StoreCatalog slug="test" storeName="Test" products={[product]} onlinePaymentsEnabled />);
+    fireEvent.click(screen.getByRole("button", { name: "Add" }));
+    fireEvent.click(screen.getByRole("button", { name: /Checkout/ }));
+    expect(screen.getByText("Enter your name to continue.")).toBeVisible();
+    expect(screen.getByLabelText("Your name")).toBeVisible();
+    expect(screen.getByLabelText("Phone number")).toBeVisible();
+  });
+
+  it("shows structured validation errors as readable text", async () => {
+    vi.stubGlobal("fetch", vi.fn()
+      .mockResolvedValueOnce(quote())
+      .mockResolvedValueOnce(new Response(JSON.stringify({
+        detail: [{ loc: ["body", "customer_phone"], msg: "Enter a valid phone number" }],
+      }), { status: 422 })));
+    checkout();
+    await fetchQuote();
+    fireEvent.click(screen.getByRole("button", { name: /Test courier/ }));
+    await act(async () => fireEvent.click(screen.getByRole("button", { name: /^Pay/ })));
+    expect(screen.getByRole("alert")).toHaveTextContent("Enter a valid phone number");
+    expect(screen.queryByText("[object Object]")).not.toBeInTheDocument();
   });
 });

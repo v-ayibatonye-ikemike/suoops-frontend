@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 
+import { Drawer } from "@/components/ui/drawer";
 import { storefrontFee } from "@/constants/pricing";
 import { getConfig } from "@/lib/config";
 import { BuyerShoppingAssistant } from "./buyer-shopping-assistant";
@@ -32,6 +33,9 @@ type Props = {
   onlinePaymentsEnabled: boolean;
 };
 
+const MAX_CART_PRODUCTS = 20;
+const MAX_PRODUCT_QUANTITY = 50;
+
 const formatCurrency = (value: number | null) => {
   if (value == null) return "—";
   return new Intl.NumberFormat("en-NG", {
@@ -51,6 +55,8 @@ export function StoreCatalog({
 
   const [cart, setCart] = useState<Record<number, number>>({});
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const closeCheckout = useCallback(() => setCheckoutOpen(false), []);
+  const checkoutId = useId();
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [location, setLocation] = useState<CapturedLocation | null>(null);
@@ -116,9 +122,21 @@ export function StoreCatalog({
     0,
   );
 
-  const add = (id: number) => setCart((c) => ({ ...c, [id]: (c[id] ?? 0) + 1 }));
+  const canAdd = (id: number) =>
+    !submitting &&
+    Boolean(productById.get(id)?.in_stock) &&
+    (cart[id] ?? 0) < MAX_PRODUCT_QUANTITY &&
+    ((cart[id] ?? 0) > 0 || cartEntries.length < MAX_CART_PRODUCTS);
+  const add = (id: number) => {
+    if (!canAdd(id)) return;
+    setCart((c) => {
+      if (!c[id] && Object.values(c).filter((q) => q > 0).length >= MAX_CART_PRODUCTS) return c;
+      return { ...c, [id]: Math.min(MAX_PRODUCT_QUANTITY, (c[id] ?? 0) + 1) };
+    });
+  };
   const dec = (id: number) =>
     setCart((c) => ({ ...c, [id]: Math.max(0, (c[id] ?? 0) - 1) }));
+  const remove = (id: number) => setCart((c) => ({ ...c, [id]: 0 }));
   const bundles = useMemo(() => {
     const grouped = new Map<string, StoreProduct[]>();
     products.forEach((product) => {
@@ -131,9 +149,9 @@ export function StoreCatalog({
     setCart((current) => {
       const next = { ...current };
       items.forEach((item) => {
-        next[item.id] = (next[item.id] ?? 0) + 1;
+        next[item.id] = Math.min(MAX_PRODUCT_QUANTITY, (next[item.id] ?? 0) + 1);
       });
-      return next;
+      return Object.values(next).filter((q) => q > 0).length <= MAX_CART_PRODUCTS ? next : current;
     });
 
   // Deep link from a product's scan-to-pay QR: /store/{slug}?p={id}. Pre-add
@@ -288,6 +306,7 @@ export function StoreCatalog({
     customerName.trim().length > 0 &&
     customerPhone.trim().length >= 6 &&
     count > 0 &&
+    total > 0 &&
     !submitting &&
     // Service/digital orders need no delivery details; physical orders do.
     (noDelivery ||
@@ -303,6 +322,22 @@ export function StoreCatalog({
             (!deliveryEnabled ||
               deliveryOptions.length === 0 ||
               selectedCourier != null)))));
+
+  const checkoutHint = !count
+    ? "Add a product to continue."
+    : !customerName.trim()
+      ? "Enter your name to continue."
+      : customerPhone.trim().length < 6
+        ? "Enter your phone number to continue."
+        : !noDelivery && !location
+          ? "Share your location to continue."
+          : !noDelivery && deliveryNote.trim().length < 4
+            ? "Add your delivery address and a landmark to continue."
+            : !noDelivery && deliveryLoading
+              ? "Wait for delivery options to finish loading."
+              : !canSubmit && !submitting
+                ? "Check your order and choose a delivery option to continue."
+                : null;
 
   const submitOrder = async () => {
     if (!canSubmit || submittingRef.current) return;
@@ -322,6 +357,7 @@ export function StoreCatalog({
           delivery_note: deliveryNote.trim(),
           delivery_courier_id: selectedCourier?.courier_id,
           delivery_service_code: selectedCourier?.service_code,
+          expected_total_kobo: Math.round(grandTotal * 100),
           items: cartEntries.map(([id, q]) => ({
             product_id: Number(id),
             quantity: q,
@@ -329,8 +365,17 @@ export function StoreCatalog({
         }),
       });
       if (!res.ok) {
-        const data = (await res.json().catch(() => ({}))) as { detail?: string };
-        throw new Error(data.detail || "Could not place your order. Please try again.");
+        const data = (await res.json().catch(() => ({}))) as { detail?: unknown };
+        const detail = typeof data.detail === "string"
+          ? data.detail
+          : Array.isArray(data.detail)
+            ? data.detail.flatMap((item: unknown) =>
+                item && typeof item === "object" && "msg" in item && typeof item.msg === "string"
+                  ? [item.msg]
+                  : [],
+              ).join(". ")
+            : null;
+        throw new Error(detail || "Could not place your order. Please try again.");
       }
       const data = (await res.json()) as {
         authorization_url?: string;
@@ -383,10 +428,11 @@ export function StoreCatalog({
         onAdd={add}
       />
       {/* Search + category filter */}
-      {products.length > 4 && (
+      {(products.length > 4 || categories.length > 1 || activeCategory !== "All" || search) && (
         <div className="mb-4 space-y-3">
           <input
             type="search"
+            aria-label={`Search ${storeName}'s products`}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={`Search ${storeName}'s products…`}
@@ -399,6 +445,7 @@ export function StoreCatalog({
                   key={c}
                   type="button"
                   onClick={() => setActiveCategory(c)}
+                  aria-pressed={activeCategory === c}
                   className={`whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition ${
                     activeCategory === c
                       ? "bg-brand-evergreen text-white"
@@ -431,7 +478,12 @@ export function StoreCatalog({
                 <button
                   type="button"
                   onClick={() => addBundle(items)}
-                  className="shrink-0 rounded-lg bg-brand-jade px-3 py-2 text-xs font-semibold text-white"
+                  disabled={
+                    !items.every((item) => canAdd(item.id)) ||
+                    new Set([...cartEntries.map(([id]) => Number(id)), ...items.map((item) => item.id)]).size >
+                      MAX_CART_PRODUCTS
+                  }
+                  className="shrink-0 rounded-lg bg-brand-jade px-3 py-2 text-xs font-semibold text-white disabled:opacity-50"
                 >
                   Add all
                 </button>
@@ -441,13 +493,38 @@ export function StoreCatalog({
         </div>
       )}
 
+      {visibleProducts.length === 0 && (
+        <div role="status" className="rounded-2xl border border-dashed border-slate-200 bg-white px-6 py-10 text-center">
+          <p className="font-semibold text-slate-900">
+            {products.length ? "No products match your search" : "No products available yet"}
+          </p>
+          <p className="mt-1 text-sm text-slate-500">
+            {products.length ? "Try another name or browse all categories." : "Please check back soon."}
+          </p>
+          {products.length > 0 && (
+            <button
+              type="button"
+              onClick={() => { setSearch(""); setActiveCategory("All"); }}
+              className="mt-4 rounded-lg bg-brand-jade px-4 py-2 text-sm font-semibold text-white"
+            >
+              Clear filters
+            </button>
+          )}
+        </div>
+      )}
+
+      {count > 0 && (
+        <p className="mb-3 text-xs text-slate-500">
+          Up to {MAX_CART_PRODUCTS} different products and {MAX_PRODUCT_QUANTITY} of each per order. Review quantities at checkout.
+        </p>
+      )}
       <div className="grid grid-cols-2 gap-4 pb-24 sm:grid-cols-3">
         {visibleProducts.map((p) => {
           const qty = cart[p.id] ?? 0;
           return (
             <div
               key={p.id}
-              className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-100"
+              className="flex min-w-0 flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-100"
             >
               <div className="aspect-square w-full bg-slate-100">
                 {p.image_url ? (
@@ -503,8 +580,9 @@ export function StoreCatalog({
                       <button
                         type="button"
                         onClick={() => dec(p.id)}
-                        aria-label="Remove one"
-                        className="h-6 w-6 rounded-md bg-white text-sm font-bold text-brand-jade shadow-sm"
+                        aria-label={`Remove one ${p.name}`}
+                        disabled={submitting}
+                        className="h-10 w-10 rounded-md bg-white text-sm font-bold text-brand-jade shadow-sm disabled:opacity-50"
                       >
                         −
                       </button>
@@ -512,8 +590,9 @@ export function StoreCatalog({
                       <button
                         type="button"
                         onClick={() => add(p.id)}
-                        aria-label="Add one"
-                        className="h-6 w-6 rounded-md bg-white text-sm font-bold text-brand-jade shadow-sm"
+                        aria-label={`Add one ${p.name}`}
+                        disabled={!canAdd(p.id)}
+                        className="h-10 w-10 rounded-md bg-white text-sm font-bold text-brand-jade shadow-sm disabled:opacity-50"
                       >
                         +
                       </button>
@@ -522,7 +601,8 @@ export function StoreCatalog({
                     <button
                       type="button"
                       onClick={() => add(p.id)}
-                      className="mt-2 rounded-lg bg-brand-jade py-2 text-xs font-semibold text-white transition hover:bg-brand-jadeHover"
+                      disabled={!canAdd(p.id)}
+                      className="mt-2 rounded-lg bg-brand-jade py-2 text-xs font-semibold text-white transition hover:bg-brand-jadeHover disabled:opacity-50"
                     >
                       Add
                     </button>
@@ -543,8 +623,8 @@ export function StoreCatalog({
       </div>
 
       {/* Floating checkout bar */}
-      {onlinePaymentsEnabled && count > 0 && !checkoutOpen && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white p-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+      {onlinePaymentsEnabled && count > 0 && (
+        <div hidden={checkoutOpen} className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white p-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
           <button
             type="button"
             onClick={() => setCheckoutOpen(true)}
@@ -559,36 +639,39 @@ export function StoreCatalog({
       )}
 
       {/* Checkout modal */}
-      {checkoutOpen && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-0 sm:items-center sm:p-4">
-          <div className="max-h-[92vh] w-full max-w-md overflow-y-auto rounded-t-2xl bg-white p-5 sm:rounded-2xl">
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-bold text-slate-900">Your order</h3>
-              <button
-                type="button"
-                onClick={() => setCheckoutOpen(false)}
-                className="text-slate-400 hover:text-slate-600"
-                aria-label="Close"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="mb-4 max-h-40 space-y-2 overflow-auto">
+      <Drawer open={checkoutOpen} onClose={closeCheckout} title="Your order" size="max-w-md">
+          <fieldset disabled={submitting}>
+            {count === 0 && (
+              <div className="mb-4 rounded-xl bg-slate-50 p-5 text-center">
+                <p className="font-semibold text-slate-900">Your cart is empty</p>
+                <button type="button" onClick={closeCheckout} className="mt-2 text-sm font-semibold text-brand-jade underline">
+                  Continue shopping
+                </button>
+              </div>
+            )}
+            <div className="mb-4 space-y-2">
+              <div className="max-h-60 space-y-3 overflow-auto">
               {cartEntries.map(([id, q]) => {
                 const p = productById.get(Number(id));
                 if (!p) return null;
                 return (
-                  <div key={id} className="flex items-center justify-between text-sm">
-                    <span className="text-slate-700">
-                      {q}× {p.name}
-                    </span>
-                    <span className="font-medium text-slate-900">
-                      {formatCurrency((p.price ?? 0) * q)}
-                    </span>
+                  <div key={id} className="rounded-xl border border-slate-200 p-3 text-sm">
+                    <div className="flex items-start justify-between gap-3">
+                      <span className="min-w-0 break-words font-medium text-slate-700">{p.name}</span>
+                      <span className="shrink-0 font-semibold text-slate-900">{formatCurrency((p.price ?? 0) * q)}</span>
+                    </div>
+                    <div className="mt-2 flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <button type="button" onClick={() => dec(p.id)} aria-label={`Remove one ${p.name}`} className="h-10 w-10 rounded-lg bg-slate-100 font-bold">−</button>
+                        <span aria-label={`${p.name} quantity`}>{q}</span>
+                        <button type="button" onClick={() => add(p.id)} disabled={!canAdd(p.id)} aria-label={`Add one ${p.name}`} className="h-10 w-10 rounded-lg bg-slate-100 font-bold disabled:opacity-40">+</button>
+                      </div>
+                      <button type="button" onClick={() => remove(p.id)} aria-label={`Remove ${p.name} from order`} className="p-2 text-xs font-medium text-rose-700 underline">Remove</button>
+                    </div>
                   </div>
                 );
               })}
+              </div>
               <div className="flex items-center justify-between border-t border-dashed border-slate-200 pt-2 text-sm">
                 <span className="text-slate-600">Subtotal</span>
                 <span className="text-slate-900">{formatCurrency(total)}</span>
@@ -622,33 +705,47 @@ export function StoreCatalog({
             </div>
 
             <div className="space-y-3">
+              <div>
+              <label htmlFor={`${checkoutId}-name`} className="mb-1 block text-xs font-medium text-slate-700">Your name</label>
               <input
+                id={`${checkoutId}-name`}
                 type="text"
+                autoComplete="name"
+                maxLength={100}
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="Your name"
                 className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm focus:border-brand-jade focus:outline-none focus:ring-2 focus:ring-brand-jade/20"
               />
+              </div>
+              <div>
+              <label htmlFor={`${checkoutId}-phone`} className="mb-1 block text-xs font-medium text-slate-700">Phone number</label>
               <input
+                id={`${checkoutId}-phone`}
                 type="tel"
+                autoComplete="tel"
+                maxLength={20}
                 inputMode="tel"
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 placeholder="Your phone (e.g. 08012345678)"
                 className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm focus:border-brand-jade focus:outline-none focus:ring-2 focus:ring-brand-jade/20"
               />
+              <p className="mt-1 text-[11px] text-slate-500">Use a number you can receive order updates on.</p>
+              </div>
               {noDelivery ? (
                 <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-[11px] text-emerald-700">
                   ✓ No delivery needed — this is a service/digital order. Your
-                 payment remains protected until you confirm it’s done.
+                  Report any problem promptly. Only
+                  confirm when the work or digital item has been received as agreed.
                 </div>
               ) : (
               <>
               <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
                 <p className="text-xs font-medium text-slate-700">Your delivery location</p>
                 <p className="mb-2 text-[11px] text-slate-500">
-                  Required for buyer protection — we use your current location to
-                  keep your payment safe until your order arrives.
+                  Couriers use this GPS pin for your delivery quote and destination.
+                  Capture it where you want to receive your order.
                 </p>
                 <CurrentLocationCapture
                   onCapture={setLocation}
@@ -701,6 +798,7 @@ export function StoreCatalog({
                             <button
                               key={`${o.courier_id}:${o.service_code}`}
                               type="button"
+                              aria-pressed={sel}
                               onClick={() => {
                                 setSelectedCourier(o);
                                 setDeclinedDelivery(false);
@@ -748,6 +846,7 @@ export function StoreCatalog({
                         {/* Opt-out: service orders or buyers who self-pickup. */}
                         <button
                           type="button"
+                          aria-pressed={declinedDelivery}
                           onClick={() => {
                             setDeclinedDelivery(true);
                             setSelectedCourier(null);
@@ -766,11 +865,11 @@ export function StoreCatalog({
                               I don’t need delivery
                             </p>
                             <p className="text-[11px] text-slate-500">
-                              Service order, or I’ll pick it up myself
+                              No courier will be booked. Arrange collection with the seller.
                             </p>
                           </div>
                           <span className="shrink-0 text-sm font-bold text-slate-500">
-                            Free
+                            ₦0 courier fee
                           </span>
                         </button>
                       </div>
@@ -778,10 +877,11 @@ export function StoreCatalog({
                   </div>
                 )}
               <div>
-                <p className="mb-1 text-xs font-medium text-slate-700">
+                <label htmlFor={`${checkoutId}-address`} className="mb-1 block text-xs font-medium text-slate-700">
                   Delivery address &amp; landmark
-                </p>
+                </label>
                 <textarea
+                  id={`${checkoutId}-address`}
                   value={deliveryNote}
                   onChange={(e) => setDeliveryNote(e.target.value.slice(0, 200))}
                   rows={2}
@@ -789,8 +889,8 @@ export function StoreCatalog({
                   className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm focus:border-brand-jade focus:outline-none focus:ring-2 focus:ring-brand-jade/20"
                 />
                 <p className="mt-1 text-[11px] text-slate-500">
-                  Required — your GPS pin may not be where you want delivery, so
-                  tell the seller exactly where to send it.
+                  Use the address at your captured location. Add the building,
+                  gate or landmark so the courier can find you.
                 </p>
               </div>
               </>
@@ -798,13 +898,17 @@ export function StoreCatalog({
             </div>
 
             {error && (
-              <p className="mt-3 rounded-lg bg-rose-50 px-3 py-2 text-xs text-rose-700">{error}</p>
+              <p role="alert" className="mt-3 rounded-lg bg-rose-50 px-3 py-2 text-xs text-rose-700">{error}</p>
             )}
 
+            {checkoutHint && (
+              <p id={`${checkoutId}-hint`} role="status" className="mt-3 text-xs text-slate-600">{checkoutHint}</p>
+            )}
             <button
               type="button"
               onClick={submitOrder}
               disabled={!canSubmit}
+              aria-describedby={checkoutHint ? `${checkoutId}-hint` : undefined}
               className="mt-4 w-full rounded-xl bg-brand-jade py-3 text-sm font-semibold text-white transition hover:bg-brand-jadeHover disabled:cursor-not-allowed disabled:opacity-60"
             >
               {submitting ? "Starting secure checkout…" : `Pay ${formatCurrency(grandTotal)}`}
@@ -812,9 +916,8 @@ export function StoreCatalog({
             <p className="mt-2 text-center text-[11px] text-slate-400">
               Secure payment · you&apos;ll get a receipt on confirmation
             </p>
-          </div>
-        </div>
-      )}
+          </fieldset>
+      </Drawer>
       {/* Notify-me when back in stock */}
       {notifyFor && (
         <NotifyModal
