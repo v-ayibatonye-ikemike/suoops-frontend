@@ -62,4 +62,17 @@ describe("retention consent", () => {
     await user.click(screen.getByRole("button", { name: "Retry nudges" }));
     expect(await screen.findByRole("checkbox")).toBeEnabled();
   });
+
+  it("saves email opt-out independently of WhatsApp consent", async () => {
+    vi.mocked(apiClient.get).mockResolvedValue({ data: { whatsapp_opted_in: false, phone_verified: false, email_available: true, email_enabled: true } });
+    vi.mocked(apiClient.patch).mockResolvedValue({ data: { whatsapp_opted_in: false, phone_verified: false, email_available: true, email_enabled: false } });
+    const user = userEvent.setup();
+    setup();
+    const email = await screen.findByRole("checkbox", { name: "Send me useful business emails" });
+    expect(email).toBeChecked();
+    expect(email).toBeEnabled();
+    await user.click(email);
+    await waitFor(() => expect(apiClient.patch).toHaveBeenCalledWith("/ai/retention/consent", { enabled: false, channel: "email" }));
+    await waitFor(() => expect(email).not.toBeChecked());
+  });
 });
