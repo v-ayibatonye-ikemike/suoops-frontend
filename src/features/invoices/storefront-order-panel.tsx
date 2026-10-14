@@ -9,7 +9,7 @@ import { apiClient } from "@/api/client";
 
 import { OrderMessageThread } from "./order-message-thread";
 
-interface OrderEscrow {
+export interface OrderEscrow {
   status: string;
   held: boolean;
   release_due_at: string | null;
@@ -31,6 +31,7 @@ interface OrderEscrow {
   dispatch_tracking_url: string | null;
   delivery_status: string | null;
   delivery_status_label: string | null;
+  delivery_status_at: string | null;
   delivery_courier: string | null;
   delivery_service_type: string | null;
   delivery_dropoff_station: string | null;
@@ -86,6 +87,12 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
     },
     enabled: Boolean(invoiceId),
     retry: false,
+    refetchInterval: (query) => {
+      const order = query.state.data;
+      const pending = ["booking_pending", "booking_in_progress"].includes(order?.delivery_status ?? "");
+      const requestedAt = order?.delivery_status_at ? new Date(order.delivery_status_at).getTime() : 0;
+      return pending && Date.now() - requestedAt < 120_000 ? 3000 : false;
+    },
   });
 
   const markDelivered = useMutation({
@@ -140,14 +147,24 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
       if (sentEta.trim()) fd.append("eta", sentEta.trim());
       if (sentNote.trim()) fd.append("note", sentNote.trim());
       if (sentFile) fd.append("file", sentFile);
-      const res = await apiClient.post(
+      const res = await apiClient.post<{ escrow: OrderEscrow }>(
         `/inventory/storefront/orders/${invoiceId}/mark-sent`,
         fd,
       );
       return res.data;
     },
-    onSuccess: () => {
-      toast.success("Marked as sent out — the buyer has been notified.");
+    onSuccess: (data) => {
+      if (data.escrow.delivery_status === "booking_unknown") {
+        toast.error("Booking is unconfirmed. Contact support before retrying.");
+      } else if (data.escrow.delivery_status === "booking_failed") {
+        toast.error("Courier booking failed. Review the order before retrying.");
+      } else if (data.escrow.delivery_status?.startsWith("booking_")) {
+        toast("Courier booking requested — wait for confirmation.");
+      } else if (data.escrow.delivery_courier) {
+        toast.success("Courier booking is confirmed. Check the order for delivery progress.");
+      } else {
+        toast.success("Marked as sent out — the buyer has been notified.");
+      }
       setSentOpen(false);
       setTracking("");
       setCarrier("");
@@ -159,7 +176,8 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
     onError: (err) => {
       const detail = (err as { response?: { data?: { detail?: string } } })
         ?.response?.data?.detail;
-      toast.error(detail || "Could not mark sent out. Please try again.");
+      toast.error(detail || "Could not update the order. Refresh its status before trying again.");
+      qc.invalidateQueries({ queryKey: ["orderEscrow", invoiceId] });
     },
   });
 
@@ -170,6 +188,8 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
     if (escrow.status === "refunded") return "Refunded to the buyer.";
     if (escrow.status === "disputed" || escrow.held_for_review)
       return "⚠ Under review — our team is checking this order.";
+    if (escrow.held && escrow.delivery_courier && !escrow.confirmed_at)
+      return "Payment held — courier delivery and the buyer-inspection window must complete before automatic payout.";
     if (escrow.held && escrow.release_due_at)
       return `Payment held — auto-releases to you in ${timeUntil(escrow.release_due_at)}.`;
     return "Payment is being held safely.";
@@ -179,6 +199,12 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
   // proof (photo/tracking) is exactly what helps our team resolve it. (These
   // actions never release funds; only the window/buyer code/admin do.)
   const showActions = escrow.held;
+  const courierBooking = Boolean(escrow.delivery_courier);
+  const bookingUnconfirmed = escrow.delivery_status?.startsWith("booking_");
+  const canRequestBooking = !courierBooking || (
+    !escrow.held_for_review && !escrow.confirmed_at &&
+    (!escrow.delivery_status || escrow.delivery_status === "booking_failed")
+  );
 
   // Service/digital orders don't ship — no dispatch/delivery workflow. Buyer
   // protection is still on: paid automatically after the window, or when the
@@ -243,7 +269,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
       {escrow.delivery_status &&
         escrow.delivery_status_label &&
         escrow.delivery_status !== "delivered" && (
-          <div className="mt-2 flex items-center justify-between gap-2 rounded-md bg-emerald-50 px-3 py-1.5 text-xs text-emerald-800">
+          <div className={`mt-2 flex items-center justify-between gap-2 rounded-md px-3 py-1.5 text-xs ${bookingUnconfirmed ? "bg-amber-50 text-amber-900" : "bg-emerald-50 text-emerald-800"}`}>
             <span className="flex items-center gap-1 font-semibold"><Truck className="h-3.5 w-3.5 shrink-0" />{escrow.delivery_status_label}</span>
             {escrow.dispatch_tracking_url && (
               <a
@@ -255,13 +281,23 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
                 Track live →
               </a>
             )}
+      {bookingUnconfirmed && (
+            <p className="mt-2 text-xs text-amber-900" role="status">
+              {escrow.delivery_status === "booking_failed"
+                ? "The courier did not accept this booking. You can retry below, or contact support if it fails again."
+                : escrow.delivery_status === "booking_unknown"
+                  ? "A booking may already exist. Contact support to check it before requesting another courier."
+                  : "Wait for booking confirmation before expecting pickup or dropping off the parcel. If this does not update, contact support; do not book a second courier."}
+            </p>
+      )}
           </div>
         )}
 
       {escrow.held && !escrow.held_for_review && (
         <p className="mt-1 text-xs text-brand-textMuted">
-          You&apos;ll be paid automatically when the window ends — even if the buyer never
-          confirms. Marking delivery adds proof in case of a dispute.
+          {courierBooking
+            ? "Booking alone does not release payment. Courier delivery must be confirmed and the inspection window must end, or the buyer must confirm receipt."
+            : "You'll be paid automatically when the window ends — even if the buyer never confirms. Marking delivery adds proof in case of a dispute."}
         </p>
       )}
       {escrow.held && escrow.held_for_review && (
@@ -274,10 +310,10 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
       {/* Step 1 — Sent out (seller protection: dispatch proof before delivery).
           A courier/waybill code + a photo of the packaged item = timestamped
           proof you shipped a quality item, and the buyer is told it's on the way. */}
-      {escrow.dispatched_at ? (
+      {escrow.dispatched_at && !bookingUnconfirmed && !["booked", "pickup_enroute"].includes(escrow.delivery_status ?? "") ? (
         <div className="mt-3 rounded-md bg-sky-50 px-3 py-2 text-xs text-sky-800">
           <Package className="mr-1 inline-block h-3.5 w-3.5 align-text-bottom" />
-          You marked this sent out
+          {courierBooking ? "Courier reported the order on its way" : "You marked this sent out"}
           {escrow.dispatch_carrier ? ` via ${escrow.dispatch_carrier}` : ""}
           {escrow.dispatch_tracking ? ` — tracking ${escrow.dispatch_tracking}` : ""}
           {escrow.dispatch_eta ? ` · arriving ${formatEta(escrow.dispatch_eta)}` : ""}
@@ -296,31 +332,32 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
             </>
           )}
         </div>
-      ) : showActions ? (
+      ) : showActions && canRequestBooking ? (
         <div className="mt-3">
           {sentOpen ? (
             <div className="space-y-2 rounded-md border border-sky-200 bg-sky-50/50 p-3">
               <p className="text-xs font-semibold text-sky-800">
-                Sending it out? Add proof to protect yourself.
+                {courierBooking ? "Pack the order and request its courier booking." : "Sending it out? Add proof to protect yourself."}
               </p>
               {escrow.delivery_courier && (
                 <div className="rounded-md bg-amber-50 px-3 py-2 text-[11px] text-amber-800">
                   {escrow.delivery_service_type === "dropoff" ? (
                     <>
                       <Package className="mr-1 inline-block h-3.5 w-3.5 align-text-bottom" />
-                      Drop this package off for{" "}
+                      After booking is confirmed, drop this package off for{" "}
                       <span className="font-semibold">{escrow.delivery_courier}</span>
                       {escrow.delivery_dropoff_station
                         ? ` at: ${escrow.delivery_dropoff_station}`
                         : ""}
-                      . Then save below to book it.
+                      . Add the package photo and save below to request the booking first.
                     </>
                   ) : (
                     <>
                       <Bike className="mr-1 inline-block h-3.5 w-3.5 align-text-bottom" />
                       <span className="font-semibold">{escrow.delivery_courier}</span>{" "}
-                      will pick up from your store address — the buyer paid for this
-                      delivery. Pack it, then save below to book the pickup.
+                      is the buyer&apos;s selected courier. The buyer paid for delivery.
+                      Pack the order, add a photo and save to request pickup from your
+                      store address. Wait for booking confirmation before expecting collection.
                     </>
                   )}
                 </div>
@@ -362,27 +399,29 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
                 placeholder="Dispatch note (optional) — e.g. packed 2 items, sealed blue box"
                 className="block w-full rounded-lg border border-brand-border bg-white px-3 py-2 text-sm text-brand-text focus:border-brand-jade focus:outline-none focus:ring-1 focus:ring-brand-jade"
               />
-              <label className="block text-[11px] font-semibold text-sky-800">
+              <label htmlFor={`dispatch-photo-${invoiceId}`} className="block text-[11px] font-semibold text-sky-800">
                 Photo of the packaged item <span className="text-rose-600">*</span>
               </label>
               <input
+                id={`dispatch-photo-${invoiceId}`}
                 type="file"
                 accept="image/png,image/jpeg,image/webp"
                 onChange={(e) => setSentFile(e.target.files?.[0] ?? null)}
                 className="block w-full text-xs text-brand-textMuted"
               />
               <p className="text-[11px] text-brand-textMuted">
-                A photo is required — snap the packaged item before it leaves; it proves
-                quality and shipment.
+                {escrow.dispatch_proof_url
+                  ? "Your saved package photo will be reused unless you choose a replacement."
+                  : "A photo is required to record how the item was packaged. It does not confirm courier collection."}
               </p>
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={() => markSent.mutate()}
-                  disabled={markSent.isPending || !sentFile}
+                  disabled={markSent.isPending || (!sentFile && !escrow.dispatch_proof_url)}
                   className="rounded-md bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-sky-700 disabled:opacity-60"
                 >
-                  {markSent.isPending ? "Saving…" : "Save & notify buyer"}
+                  {markSent.isPending ? "Saving…" : courierBooking ? "Request courier booking" : "Save & notify buyer"}
                 </button>
                 <button
                   type="button"
@@ -401,7 +440,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
             >
               {escrow.delivery_courier
                 ? escrow.delivery_service_type === "dropoff"
-                  ? "Drop off & mark sent"
+                  ? "Book drop-off delivery"
                   : "Book courier pickup"
                 : "Mark as sent out"}
             </button>

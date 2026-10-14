@@ -42,6 +42,15 @@ function DeliveryStatusBanner({ order }: { order: OrderView }) {
   const status = order.delivery_status;
   if (!status && !order.dispatched_at) return null;
 
+  if (status?.startsWith("booking_")) {
+    return (
+      <div role="status" className="mb-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-sm text-amber-900">
+        <p className="font-semibold">{order.delivery_status_label || "Courier booking not yet confirmed"}</p>
+        <p className="mt-1 text-xs">This is not a dispatch confirmation. Courier progress will appear once the booking is confirmed.</p>
+      </div>
+    );
+  }
+
   if (status === "cancelled" || status === "returned") {
     return (
       <div className="mb-3 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2.5 text-sm text-rose-800">
