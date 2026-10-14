@@ -5,9 +5,7 @@ import { useState } from "react";
 import { getConfig } from "@/lib/config";
 
 /**
- * Lets a buyer confirm they received their order, which releases the held
- * payment to the seller straight away (instead of waiting out the protection
- * window). Gated by the phone number the order was placed with.
+ * Buyer-only release-code confirmation clears protection, not settlement time.
  */
 export function ConfirmReceipt({ slug }: { slug: string }) {
   const { apiBaseUrl } = getConfig();
@@ -90,8 +88,9 @@ function ConfirmModal({
         ) : (
           <>
             <p className="mb-3 text-xs text-slate-500">
-              Only confirm once you actually have your order — this releases your payment to the
-              seller. Enter the <span className="font-semibold">release code</span> we sent you
+              Only confirm once you have received and checked your order — this ends your
+              protection window and approves seller payout on the settlement schedule.
+              Enter the <span className="font-semibold">release code</span> we sent you
               (also shown on your payment page). It&apos;s not the rider&apos;s code.
             </p>
             <input

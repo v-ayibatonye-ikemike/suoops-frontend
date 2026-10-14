@@ -14,6 +14,9 @@ export interface OrderEscrow {
   held: boolean;
   release_due_at: string | null;
   confirmed_at: string | null;
+  settle_at?: string | null;
+  release_approved_at?: string | null;
+  payout_pending?: boolean;
   delivered_at: string | null;
   delivery_proof_note: string | null;
   delivery_proof_url: string | null;
@@ -77,7 +80,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
   const [sentNote, setSentNote] = useState("");
   const [sentFile, setSentFile] = useState<File | null>(null);
 
-  const { data: escrow } = useQuery({
+  const { data: escrow, isError, refetch } = useQuery({
     queryKey: ["orderEscrow", invoiceId],
     queryFn: async () => {
       const res = await apiClient.get<{ escrow: OrderEscrow | null }>(
@@ -181,17 +184,33 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
     },
   });
 
+  if (isError) return (
+    <div role="alert" className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+      Could not load this order&apos;s payment-protection status.
+      <button type="button" onClick={() => refetch()} className="ml-2 font-semibold underline">Retry</button>
+    </div>
+  );
   if (!escrow) return null;
 
   const statusLine = (() => {
     if (escrow.status === "released") return "✓ Released — paid out to you.";
-    if (escrow.status === "refunded") return "Refunded to the buyer.";
+    if (escrow.status === "refunded") return "Buyer refund initiated — bank processing times apply.";
+    if (escrow.status === "refund_pending") return "Refund submission under review — no seller payout or second refund will be attempted.";
+    if (escrow.status === "pending") return "Awaiting the buyer's payment.";
+    if (escrow.status === "canceled") return "Unpaid checkout expired — no payout is due.";
     if (escrow.status === "disputed" || escrow.held_for_review)
       return "⚠ Under review — our team is checking this order.";
-    if (escrow.held && escrow.delivery_courier && !escrow.confirmed_at)
+    if (escrow.payout_pending) return "Payout submitted — awaiting payment-provider confirmation.";
+    const cleared = Boolean(escrow.confirmed_at || escrow.release_approved_at);
+    if (escrow.held && escrow.delivery_courier && !cleared)
       return "Payment held — courier delivery and the buyer-inspection window must complete before automatic payout.";
-    if (escrow.held && escrow.release_due_at)
-      return `Payment held — auto-releases to you in ${timeUntil(escrow.release_due_at)}.`;
+    const dates = [cleared ? null : escrow.release_due_at, escrow.settle_at]
+      .filter((value): value is string => Boolean(value))
+      .map((value) => new Date(value).getTime()).filter(Number.isFinite);
+    const earliest = dates.length ? Math.max(...dates) : null;
+    if (escrow.held && earliest && earliest > Date.now())
+      return `Payment held — eligible for payout in ${timeUntil(new Date(earliest).toISOString())}, subject to review and provider confirmation.`;
+    if (escrow.held) return "Payment held — awaiting the next eligible payout run and provider confirmation.";
     return "Payment is being held safely.";
   })();
 
@@ -199,6 +218,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
   // proof (photo/tracking) is exactly what helps our team resolve it. (These
   // actions never release funds; only the window/buyer code/admin do.)
   const showActions = escrow.held;
+  const canAddEvidence = escrow.held || escrow.status === "disputed";
   const courierBooking = Boolean(escrow.delivery_courier);
   const bookingUnconfirmed = escrow.delivery_status?.startsWith("booking_");
   const canRequestBooking = !courierBooking || (
@@ -223,8 +243,8 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
         <p className="mt-2 text-sm text-brand-text">{statusLine}</p>
         <div className="mt-2 rounded-md bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
           🛠️ This is a service order — nothing to deliver. You&apos;ll be paid your
-          full amount automatically when the buyer-protection window ends, or sooner
-          when the buyer confirms it&apos;s done.
+          full amount after protection clears and the settlement date is reached.
+          Buyer confirmation clears protection; it does not make settlement instant.
         </div>
         {escrow.confirmed_at ? (
           <p className="mt-2 flex items-center gap-1 text-xs font-semibold text-brand-jade">
@@ -236,7 +256,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
             <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
             You marked this as done — it shows as rendered on the receipt QR.
           </p>
-        ) : escrow.held ? (
+        ) : canAddEvidence ? (
           <button
             type="button"
             onClick={() => markRendered.mutate()}
@@ -297,7 +317,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
         <p className="mt-1 text-xs text-brand-textMuted">
           {courierBooking
             ? "Booking alone does not release payment. Courier delivery must be confirmed and the inspection window must end, or the buyer must confirm receipt."
-            : "You'll be paid automatically when the window ends — even if the buyer never confirms. Marking delivery adds proof in case of a dispute."}
+            : "Payout requires the protection window and settlement date to pass, with no open review. Marking delivery adds proof; it does not release money."}
         </p>
       )}
       {escrow.held && escrow.held_for_review && (
@@ -466,7 +486,7 @@ export function StorefrontOrderPanel({ invoiceId }: { invoiceId: string | null }
             </>
           )}
         </div>
-      ) : showActions ? (
+      ) : canAddEvidence ? (
         <div className="mt-3">
           {open ? (
             <div className="space-y-2">

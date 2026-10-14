@@ -132,4 +132,39 @@ describe("Storefront courier booking", () => {
     expect(await screen.findByRole("button", { name: "Mark as sent out" })).toBeVisible();
     expect(screen.queryByRole("button", { name: "Book courier pickup" })).not.toBeInTheDocument();
   });
+
+  it("allows delivery evidence during a dispute without offering a courier booking", async () => {
+    setup({ status: "disputed", held: false });
+    expect(await screen.findByRole("button", { name: "Mark as delivered" })).toBeVisible();
+    expect(screen.queryByRole("button", { name: "Book courier pickup" })).not.toBeInTheDocument();
+  });
+
+  it("shows settlement rather than an expired protection-window countdown", async () => {
+    setup({
+      delivery_courier: null, release_due_at: "2020-01-01T00:00:00Z",
+      settle_at: "2099-01-01T00:00:00Z", confirmed_at: "2026-10-14T09:00:00Z",
+    });
+    expect(await screen.findByText(/eligible for payout in/)).toBeVisible();
+    expect(screen.queryByText(/any moment now/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/auto-releases to you/)).not.toBeInTheDocument();
+  });
+
+  it("does not show an in-flight payout as paid", async () => {
+    setup({ payout_pending: true });
+    expect(await screen.findByText("Payout submitted — awaiting payment-provider confirmation.")).toBeVisible();
+    expect(screen.queryByText(/Released — paid out to you/)).not.toBeInTheDocument();
+  });
+
+  it("shows unresolved refunds without offering fulfillment actions", async () => {
+    setup({ status: "refund_pending", held: false, held_for_review: true });
+    expect(await screen.findByText(/Refund submission under review/)).toBeVisible();
+    expect(screen.queryByRole("button", { name: "Mark as delivered" })).not.toBeInTheDocument();
+  });
+
+  it("surfaces status-loading errors with a retry action", async () => {
+    vi.mocked(apiClient.get).mockRejectedValueOnce(new Error("Unavailable"));
+    setup();
+    expect(await screen.findByRole("alert")).toHaveTextContent(/Could not load/);
+    expect(screen.getByRole("button", { name: "Retry" })).toBeVisible();
+  });
 });

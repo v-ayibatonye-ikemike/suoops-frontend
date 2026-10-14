@@ -87,14 +87,15 @@ interface BusinessGroup {
   oldest_created_at: string | null;
 }
 
-type Filter = "disputed" | "review" | "held" | "refunded" | "released" | "all";
+type Filter = "disputed" | "review" | "held" | "refund_pending" | "refunded" | "released" | "all";
 type View = "orders" | "business";
 
-const FILTERS: Filter[] = ["disputed", "review", "held", "refunded", "released", "all"];
+const FILTERS: Filter[] = ["disputed", "review", "held", "refund_pending", "refunded", "released", "all"];
 
 function statusBadge(status: string): string {
   switch (status) {
     case "disputed":
+    case "refund_pending":
       return "bg-amber-100 text-amber-700";
     case "refunded":
       return "bg-rose-100 text-rose-700";
@@ -121,7 +122,9 @@ function payoutLabel(state: string): { text: string; cls: string } {
     case "failed":
       return { text: "Payout failed", cls: "bg-rose-100 text-rose-700" };
     case "refunded":
-      return { text: "Refunded", cls: "bg-rose-100 text-rose-700" };
+      return { text: "Refund initiated", cls: "bg-rose-100 text-rose-700" };
+    case "refund_pending":
+      return { text: "Refund needs reconciliation", cls: "bg-amber-100 text-amber-700" };
     case "scheduled":
       return { text: "Payout scheduled", cls: "bg-blue-50 text-blue-700" };
     case "unknown":

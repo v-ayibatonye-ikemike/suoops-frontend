@@ -123,8 +123,13 @@ export default async function StorePage({ params }: RouteProps) {
         <h1 className="mt-5 text-xl font-bold text-slate-800">{offName}</h1>
         <p className="mt-2 max-w-sm text-sm text-slate-500">{offMsg}</p>
         <p className="mt-1 max-w-sm text-xs text-slate-400">
-          Please check back soon, or contact the seller directly.
+          New orders are unavailable. Existing buyers can still access their order using their release code.
         </p>
+        <ConfirmReceipt slug={slug} />
+        <div className="mt-3"><BuyerMessages slug={slug} /></div>
+        <a href="mailto:support@suoops.com" className="mt-3 text-sm font-semibold text-brand-jade underline">
+          Contact SuoOps about an existing order
+        </a>
         <a
           href="https://suoops.com"
           className="mt-6 rounded-full bg-brand-evergreen px-5 py-2 text-sm font-medium text-white transition hover:opacity-90"

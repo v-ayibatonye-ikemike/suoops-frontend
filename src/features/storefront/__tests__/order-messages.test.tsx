@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { BuyerMessages } from "../order-messages";
+import StorePage from "../../../../app/store/[slug]/page";
 
 function mockFetchOnce(body: unknown, ok = true) {
   return vi.fn().mockResolvedValue({
@@ -15,6 +16,17 @@ describe("BuyerMessages", () => {
   afterEach(() => {
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
+  });
+
+  it("keeps existing-order support visible when the storefront is offline", async () => {
+    vi.stubGlobal("fetch", mockFetchOnce({
+      slug: "jade-store", business_name: "Jade Store", offline: true, offline_reason: "suspended",
+    }));
+    render(await StorePage({ params: Promise.resolve({ slug: "jade-store" }) }));
+    expect(screen.getByRole("button", { name: "Problem with your order? Report it" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Message the seller" })).toBeVisible();
+    expect(screen.getByRole("link", { name: "Contact SuoOps about an existing order" })).toBeVisible();
+    expect(screen.getByText(/New orders are unavailable/)).toBeVisible();
   });
 
   it.each(["booking_pending", "booking_in_progress", "booking_failed", "booking_unknown"])(
