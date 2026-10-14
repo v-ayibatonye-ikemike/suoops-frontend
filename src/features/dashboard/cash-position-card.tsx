@@ -8,7 +8,7 @@ import { useCurrency } from "@/hooks/use-currency";
 export function CashPositionCard() {
   const { formatCompact } = useCurrency();
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["cash-position"],
     queryFn: getCashPosition,
     refetchInterval: 60_000,
@@ -27,20 +27,27 @@ export function CashPositionCard() {
     );
   }
 
-  if (error || !data) return null;
+  if (error || !data) return (
+    <div role="alert" className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+      Could not load your money snapshot. No totals are shown until it is available.
+      <button type="button" onClick={() => void refetch()} className="ml-2 font-semibold underline">
+        Retry snapshot
+      </button>
+    </div>
+  );
 
   const cards = [
     {
-      label: "Cash In Today",
+      label: "Cash In Today (WAT)",
       value: formatCompact(data.cash_collected_today),
-      sub: `This week: ${formatCompact(data.cash_collected_this_week)}`,
+      sub: `Last 7 days: ${formatCompact(data.cash_collected_this_week)}`,
       Icon: Coins,
       color: "text-emerald-400",
     },
     {
       label: "Outstanding",
       value: formatCompact(data.total_outstanding),
-      sub: `${data.overdue_count} overdue`,
+      sub: `${data.outstanding_count === undefined ? "" : `${data.outstanding_count} invoices · `}${data.overdue_count} overdue`,
       Icon: Hourglass,
       color: data.total_outstanding > 0 ? "text-amber-400" : "text-emerald-400",
     },
@@ -81,6 +88,9 @@ export function CashPositionCard() {
           </p>
         </div>
       ))}
+      <p className="col-span-2 text-[11px] text-brand-muted sm:col-span-4">
+        Outstanding covers all dates and includes payments awaiting confirmation. Unpaid storefront checkouts are excluded.
+      </p>
     </div>
   );
 }

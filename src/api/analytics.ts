@@ -78,6 +78,7 @@ export interface ConversionFunnel {
 // ── Cash-First Dashboard ──────────────────────────────────────────
 
 export interface CashPosition {
+  outstanding_count?: number;
   cash_collected_today: number;
   cash_collected_this_week: number;
   total_outstanding: number;
@@ -314,4 +315,3 @@ export async function getStorefrontInsights(
   );
   return response.data;
 }
-
