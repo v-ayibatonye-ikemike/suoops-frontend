@@ -12,6 +12,7 @@ import {
 } from "@/api/ai-governance";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { getApiErrorMessage } from "@/api/errors";
+import { RetentionPreferences } from "./retention-preferences";
 
 export function AIPreferencesSection() {
   const queryClient = useQueryClient();
@@ -86,6 +87,7 @@ export function AIPreferencesSection() {
         </div>
       </CardHeader>
       <CardContent className="space-y-5 px-4 pt-5 sm:px-6">
+        <RetentionPreferences />
         <label className="flex items-start justify-between gap-4 rounded-xl border border-brand-border p-4">
           <span>
             <span className="block text-sm font-semibold text-brand-text">Enable optional AI assistance</span>

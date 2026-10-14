@@ -18,6 +18,7 @@ import {
   Heart,
 } from "lucide-react";
 import { useAdminAuth } from "../layout";
+import { RetentionPanel } from "./retention-panel";
 
 // ─── Types ───────────────────────────────────────────────────────
 
@@ -334,6 +335,8 @@ export default function BusinessesPage() {
           capped out and flagged ⚠.
         </p>
       </div>
+
+      <RetentionPanel />
 
       {/* Quick Stats */}
       <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">

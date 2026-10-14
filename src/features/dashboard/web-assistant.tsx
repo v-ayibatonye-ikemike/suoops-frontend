@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Loader2, Sparkles } from "lucide-react";
 
@@ -16,6 +16,7 @@ import { useNewInvoiceDrawer } from "./new-invoice-provider";
 export function WebAssistant() {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const invoiceDrawer = useNewInvoiceDrawer();
   const page = assistantPage(pathname);
   const [open, setOpen] = useState(false);
@@ -55,6 +56,15 @@ export function WebAssistant() {
     setError(null);
     setShowAll(false);
   }, [pathname, close]);
+
+  useEffect(() => {
+    if (searchParams.get("assistant") !== "invoice" || invoiceDrawer.isOpen) return;
+    setQuestion("Help me create an invoice");
+    setOpen(true);
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("assistant");
+    router.replace(`${pathname}${params.size ? `?${params}` : ""}`, { scroll: false });
+  }, [searchParams, pathname, router, invoiceDrawer.isOpen]);
 
   useEffect(() => {
     if (invoiceDrawer.isOpen) close();

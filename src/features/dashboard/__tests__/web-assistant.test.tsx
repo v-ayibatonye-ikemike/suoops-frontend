@@ -8,11 +8,13 @@ import type { WebAssistantResponse } from "@/api/web-assistant";
 import { WebAssistant } from "../web-assistant";
 
 const state = vi.hoisted(() => ({
-  pathname: "/dashboard/invoices", push: vi.fn(), openDraft: vi.fn(), invoiceOpen: false,
+  pathname: "/dashboard/invoices", push: vi.fn(), replace: vi.fn(), search: "",
+  openDraft: vi.fn(), invoiceOpen: false,
 }));
 vi.mock("next/navigation", () => ({
   usePathname: () => state.pathname,
-  useRouter: () => ({ push: state.push }),
+  useRouter: () => ({ push: state.push, replace: state.replace }),
+  useSearchParams: () => new URLSearchParams(state.search),
 }));
 vi.mock("../new-invoice-provider", () => ({
   useNewInvoiceDrawer: () => ({ isOpen: state.invoiceOpen, openDraft: state.openDraft }),
@@ -51,6 +53,7 @@ describe("WebAssistant", () => {
     vi.resetAllMocks();
     state.pathname = "/dashboard/invoices";
     state.invoiceOpen = false;
+    state.search = "";
     state.openDraft.mockReturnValue(true);
     vi.mocked(apiClient.get).mockResolvedValue({ data: context });
     vi.mocked(apiClient.post).mockResolvedValue({ data: invoiceAnswer });
@@ -64,6 +67,16 @@ describe("WebAssistant", () => {
     expect(screen.getByRole("textbox", { name: "What would you like to do?" })).toHaveFocus();
     expect(await screen.findByText(context.message)).toBeVisible();
     expect(apiClient.get).toHaveBeenCalledWith("/ai/web-assistant/context", expect.objectContaining({ params: { page: "invoices" } }));
+  });
+
+  it("opens reviewed invoice help from a retention link without creating or sending anything", async () => {
+    state.search = "assistant=invoice&status=unpaid";
+    setup();
+    expect(await screen.findByRole("dialog", { name: "Ask SuoOps" })).toBeVisible();
+    expect(screen.getByRole("textbox", { name: "What would you like to do?" })).toHaveValue("Help me create an invoice");
+    expect(state.replace).toHaveBeenCalledWith("/dashboard/invoices?status=unpaid", { scroll: false });
+    expect(apiClient.post).not.toHaveBeenCalled();
+    expect(state.openDraft).not.toHaveBeenCalled();
   });
 
   it("traps focus, closes with Escape and restores the launcher", async () => {
